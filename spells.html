@@ -3,37 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nara's Spellbook - D&D 3.5 Cleric Spells</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <title>ספר הלחשים של נארה</title>
     <link rel="stylesheet" href="css/spells.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <div class="spellbook-container">
-      <header>
-        <h1>ספר הלחשים של נארה</h1>
-        <p>לחשי כהונה (D&D 3.5)</p>
-        <a href="index.html" class="back-link">&larr; חזרה לדף הדמות</a>
-      </header>
+    <div class="container">
+      <h1>ספר הלחשים של נארה</h1>
 
-      <main>
-        <section class="spell-filters">
-          <h2>סינון לפי דרג לחש</h2>
-          <div id="spell-level-filters">
-            <!-- Filter buttons will be generated here by JavaScript -->
-          </div>
-        </section>
+      <div class="filter-container">
+        <div id="spell-level-filters">
+          <button class="filter-button active" data-level="all">
+            כל הלחשים
+          </button>
+          <button class="filter-button" data-level="0">דרגה 0</button>
+          <button class="filter-button" data-level="1">דרגה 1</button>
+          <button class="filter-button" data-level="2">דרגה 2</button>
+          <button class="filter-button" data-level="3">דרגה 3</button>
+          <button class="filter-button" data-level="4">דרגה 4</button>
+          <button class="filter-button" data-level="5">דרגה 5</button>
+          <button class="filter-button" data-level="6">דרגה 6</button>
+          <button class="filter-button" data-level="7">דרגה 7</button>
+          <button class="filter-button" data-level="8">דרגה 8</button>
+          <button class="filter-button" data-level="9">דרגה 9</button>
+        </div>
+      </div>
 
-        <section id="spell-list" class="spell-list">
-          <!-- Spells will be loaded here by JavaScript -->
-        </section>
-      </main>
+      <div id="spells-container" class="spells-container">
+        <!-- Spells will be populated here by JavaScript -->
+      </div>
+
+      <div style="text-align: center; margin-top: 30px">
+        <a href="index.html" class="back-link">חזרה לדף הראשי</a>
+      </div>
     </div>
+
     <script src="js/spells.js"></script>
   </body>
 </html>

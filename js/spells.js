@@ -4,7 +4,12 @@ const clericSpells = [
     name: "Create Water",
     name_he: "יצירת מים",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    effect: "Up to 2 gallons of water/level",
     duration: "Instantaneous",
+    saving_throw: "None",
+    spell_resistance: "No",
     description: "Creates 2 gallons/level of pure water.",
     description_he: "יוצר 2 גלונים/דרגה של מים טהורים.",
     full_description:
@@ -16,7 +21,12 @@ const clericSpells = [
     name: "Cure Minor Wounds",
     name_he: "ריפוי פצעים קלים",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "Cures 1 point of damage",
     duration: "Instantaneous",
+    saving_throw: "Will half (harmless)",
+    spell_resistance: "Yes (harmless)",
     description: "Cures 1 point of damage.",
     description_he: "מרפא נקודת נזק אחת.",
     full_description:
@@ -28,7 +38,12 @@ const clericSpells = [
     name: "Detect Magic",
     name_he: "זיהוי קסם",
     level: 0,
-    duration: "1 min./level",
+    casting_time: "1 standard action",
+    range: "60 ft.",
+    effect: "Cone-shaped emanation",
+    duration: "1 min./level (D)",
+    saving_throw: "None",
+    spell_resistance: "No",
     description: "Detects spells and magic items within 60 ft.",
     description_he: "מגלה לחשים וחפצים קסומים בטווח של 60 רגל.",
     full_description:
@@ -40,7 +55,12 @@ const clericSpells = [
     name: "Detect Poison",
     name_he: "זיהוי רעל",
     level: 0,
+    casting_time: "1 standard action",
+    range: "5 ft.",
+    effect: "Detects poison in one creature or object",
     duration: "Instantaneous",
+    saving_throw: "None",
+    spell_resistance: "No",
     description: "Detects poison in one creature or object.",
     description_he: "מגלה רעל ביצור או חפץ אחד.",
     full_description:
@@ -52,7 +72,12 @@ const clericSpells = [
     name: "Guidance",
     name_he: "הכוונה",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "One creature",
     duration: "1 minute or until discharged",
+    saving_throw: "Will negates (harmless)",
+    spell_resistance: "Yes (harmless)",
     description: "+1 on one attack roll, saving throw, or skill check.",
     description_he: "+1 לגלגול התקפה, הצלת הצלה או בדיקת מיומנות אחת.",
     full_description:
@@ -64,7 +89,12 @@ const clericSpells = [
     name: "Inflict Minor Wounds",
     name_he: "גרימת פצעים קלים",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "Touch attack",
     duration: "Instantaneous",
+    saving_throw: "Will half",
+    spell_resistance: "Yes",
     description: "Touch attack, 1 point of damage.",
     description_he: "התקפת מגע, גורם נקודת נזק אחת.",
     full_description:
@@ -76,7 +106,12 @@ const clericSpells = [
     name: "Light",
     name_he: "אור",
     level: 0,
-    duration: "10 min./level",
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "Object touched",
+    duration: "10 min./level (D)",
+    saving_throw: "None",
+    spell_resistance: "No",
     description: "Object shines like a torch.",
     description_he: "חפץ זוהר כמו לפיד.",
     full_description:
@@ -88,7 +123,12 @@ const clericSpells = [
     name: "Mending",
     name_he: "תיקון",
     level: 0,
+    casting_time: "1 standard action",
+    range: "10 ft.",
+    effect: "One object of up to 1 lb.",
     duration: "Instantaneous",
+    saving_throw: "Will negates (object)",
+    spell_resistance: "Yes (object)",
     description: "Makes minor repairs on an object.",
     description_he: "מתקן נזק קל בחפץ.",
     full_description:
@@ -100,7 +140,12 @@ const clericSpells = [
     name: "Purify Food and Drink",
     name_he: "טיהור אוכל ושתייה",
     level: 0,
+    casting_time: "1 standard action",
+    range: "10 ft.",
+    effect: "1 cu. ft./level of contaminated food and water",
     duration: "Instantaneous",
+    saving_throw: "Will negates (object)",
+    spell_resistance: "Yes (object)",
     description: "Purifies 1 cu. ft./level of food or water.",
     description_he: "מטהר 1 רגל מעוקב/דרגה של אוכל או מים.",
     full_description:
@@ -112,7 +157,12 @@ const clericSpells = [
     name: "Read Magic",
     name_he: "קריאת קסם",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Personal",
+    effect: "You",
     duration: "10 min./level",
+    saving_throw: "None",
+    spell_resistance: "No",
     description: "Read scrolls and spellbooks.",
     description_he: "קורא מגילות וספרי לחשים.",
     full_description:
@@ -124,7 +174,12 @@ const clericSpells = [
     name: "Resistance",
     name_he: "התנגדות",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "Creature touched",
     duration: "1 minute",
+    saving_throw: "Will negates (harmless)",
+    spell_resistance: "Yes (harmless)",
     description: "Subject gains +1 on saving throws.",
     description_he: "הנושא מקבל +1 להצלת הצלה.",
     full_description:
@@ -136,7 +191,12 @@ const clericSpells = [
     name: "Virtue",
     name_he: "סגולה",
     level: 0,
+    casting_time: "1 standard action",
+    range: "Touch",
+    effect: "Creature touched",
     duration: "1 minute",
+    saving_throw: "Fortitude negates (harmless)",
+    spell_resistance: "Yes (harmless)",
     description: "Subject gains 1 temporary hp.",
     description_he: "הנושא מקבל נקודת חיים זמנית אחת.",
     full_description:
@@ -384,10 +444,8 @@ const clericSpells = [
     description_he: "ערפל מקיף אותך.",
     full_description:
       "A misty vapor arises around you. It is stationary once created. The vapor obscures all sight, including darkvision, beyond 5 feet. A creature 5 feet away has concealment (attacks have a 20% miss chance). Creatures farther away have total concealment (50% miss chance, and the attacker cannot use sight to locate the target).",
-    full_description:
-      "You transmute as many as three pebbles, which can be no larger than sling bullets, so that they strike with great force when thrown or slung. If hurled, they have a range increment of 20 feet. If slung, treat them as sling bullets (range increment 50 feet). The spell gives them a +1 enhancement bonus on attack and damage rolls.",
     full_description_he:
-      "הלחש הופך עד שלוש אבנים רגילות לאבנים קסומות. האבנים הקסומות מקבלות +1 לגלגולי התקפה וגורמות 1ק6+1 נזק. האבנים נשארות קסומות עד שהם נורות או שהלחש מסתיים (דקה אחת לכל דרגת לחש).",
+      "הלחש יוצר ערפל צפוף שמקיף אותך בטווח של 20 רגל. הערפל מספק הסתרה מלאה לכל יצור בתוכו, ומפחית את הטווח של התקפות מטווח ל-5 רגל. הערפל נמשך דקה אחת לכל דרגת לחש שלך.",
   },
   {
     name: "Magic Weapon",
@@ -1726,34 +1784,94 @@ document.addEventListener("DOMContentLoaded", () => {
   const spellListContainer = document.getElementById("spell-list");
   const filterContainer = document.getElementById("spell-level-filters");
 
+  const toggleDescription = (index) => {
+    const spellCards = document.querySelectorAll(".spell-card");
+    const spellCard = spellCards[index];
+    const fullDescription = spellCard.querySelector(".full-description");
+    const toggleButton = spellCard.querySelector(".toggle-description");
+
+    if (fullDescription.style.display === "none") {
+      fullDescription.style.display = "block";
+      toggleButton.textContent = "הסתר תיאור מלא";
+    } else {
+      fullDescription.style.display = "none";
+      toggleButton.textContent = "הצג תיאור מלא";
+    }
+  };
+
   const populateSpells = (spells) => {
-    spellListContainer.innerHTML = "";
-    spells.forEach((spell) => {
-      const spellElement = document.createElement("div");
-      spellElement.classList.add("spell-card");
+    const spellsContainer = document.getElementById("spells-container");
+    spellsContainer.innerHTML = "";
 
-      const hasFullDescription =
-        spell.full_description_he || spell.full_description;
-      const shortDesc = spell.description_he || spell.description;
-      const fullDesc =
-        spell.full_description_he || spell.full_description || shortDesc;
+    spells.forEach((spell, index) => {
+      const spellCard = document.createElement("div");
+      spellCard.className = "spell-card";
+      spellCard.style.direction = "rtl";
 
-      spellElement.innerHTML = `
-        <h3>${spell.name_he || spell.name} <i>(${
-        spell.source || "N/A"
-      })</i></h3>
-        <p><strong>דרגה:</strong> ${spell.level}</p>
-        <p class="short-description">${shortDesc}</p>
-        ${
-          hasFullDescription
-            ? `
-          <button class="expand-btn" onclick="toggleDescription(this)">הצג תיאור מלא</button>
-          <p class="full-description" style="display: none;">${fullDesc}</p>
-        `
-            : ""
-        }
+      const displayName = spell.name_he
+        ? `${spell.name_he} (${spell.name})`
+        : spell.name;
+
+      spellCard.innerHTML = `
+        <div class="spell-header">
+          <h3 class="spell-name">${displayName}</h3>
+          <span class="spell-level">דרגה ${spell.level}</span>
+        </div>
+        <div class="spell-details">
+          <div class="casting-info">
+            <div class="info-row">
+              <span class="info-label">זמן לחש:</span>
+              <span class="info-value">${spell.casting_time || "לא צוין"}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">טווח:</span>
+              <span class="info-value">${spell.range || "לא צוין"}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">אפקט:</span>
+              <span class="info-value">${spell.effect || "לא צוין"}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">משך:</span>
+              <span class="info-value">${spell.duration || "לא צוין"}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">הצלת הצלה:</span>
+              <span class="info-value">${spell.saving_throw || "לא צוין"}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">התנגדות לחש:</span>
+              <span class="info-value">${
+                spell.spell_resistance || "לא צוין"
+              }</span>
+            </div>
+          </div>
+          <div class="spell-description">
+            <p class="short-description">${
+              spell.description_he || spell.description
+            }</p>
+            ${
+              spell.full_description_he
+                ? `
+              <div class="full-description" style="display: none;">
+                <p>${spell.full_description_he}</p>
+                ${
+                  spell.full_description
+                    ? `<p class="english-description">${spell.full_description}</p>`
+                    : ""
+                }
+              </div>
+              <button class="toggle-description" onclick="toggleDescription(${index})">
+                הצג תיאור מלא
+              </button>
+            `
+                : ""
+            }
+          </div>
+        </div>
       `;
-      spellListContainer.appendChild(spellElement);
+
+      spellsContainer.appendChild(spellCard);
     });
   };
 
@@ -1794,20 +1912,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupFilters();
   populateSpells(clericSpells);
-
-  // Add toggle function to global scope
-  window.toggleDescription = function (button) {
-    const fullDesc = button.nextElementSibling;
-    const shortDesc = button.previousElementSibling;
-
-    if (fullDesc.style.display === "none") {
-      fullDesc.style.display = "block";
-      shortDesc.style.display = "none";
-      button.textContent = "הצג תיאור קצר";
-    } else {
-      fullDesc.style.display = "none";
-      shortDesc.style.display = "block";
-      button.textContent = "הצג תיאור מלא";
-    }
-  };
 });

@@ -1,132 +1,220 @@
 /* Inherit body styles from the main sheet for consistency */
 
-.spellbook-container {
-    max-width: 900px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    direction: rtl;
+}
+
+.container {
+    max-width: 1200px;
     margin: 0 auto;
-    background-color: #fff;
-    border: 2px solid #000;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
-.spellbook-container header {
+h1 {
     text-align: center;
-    border-bottom: 2px solid #000;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.spellbook-container h1 {
+    color: #333;
+    margin-bottom: 30px;
     font-size: 2.5em;
-    margin: 0;
 }
 
-.spellbook-container p {
-    margin: 5px 0 0;
-    font-size: 1.2em;
-    color: #444;
+.filter-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.filter-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: #45a049;
+}
+
+.filter-button.active {
+    background-color: #357a38;
+}
+
+.spells-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.spell-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    direction: rtl;
+}
+
+.spell-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.spell-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+.spell-name {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.spell-level {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.spell-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.casting-info {
+    background-color: #e8f5e8;
+    border-radius: 5px;
+    padding: 15px;
+    border-left: 4px solid #4CAF50;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #2c3e50;
+    min-width: 120px;
+}
+
+.info-value {
+    color: #555;
+    text-align: left;
+    direction: ltr;
+}
+
+.spell-description {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+    border-left: 4px solid #6c757d;
+}
+
+.short-description {
+    margin: 0 0 15px 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.full-description {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.full-description p {
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.english-description {
+    margin-top: 15px !important;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    font-style: italic;
+    color: #666 !important;
+    direction: ltr;
+    text-align: left;
+}
+
+.toggle-description {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.toggle-description:hover {
+    background-color: #0056b3;
 }
 
 .back-link {
     display: inline-block;
     margin-top: 15px;
     text-decoration: none;
-    color: #000;
+    color: #333;
     background-color: #e0e0e0;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #999;
+    transition: background-color 0.3s;
 }
 
 .back-link:hover {
     background-color: #ccc;
 }
 
-.spell-filters {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.spell-filters h2 {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    background: none;
-    border: none;
-}
-
-#spell-level-filters button {
-    font-family: "Frank Ruhl Libre", serif;
-    font-size: 1em;
-    padding: 8px 12px;
-    margin: 0 5px 5px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#spell-level-filters button:hover {
-    background-color: #ddd;
-}
-
-#spell-level-filters button.active {
-    background-color: #333;
-    color: #fff;
-    border-color: #000;
-}
-
-.spell-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.spell-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: #fafafa;
-}
-
-.spell-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2em;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-}
-
-.spell-card p {
-    margin: 0;
-    font-size: 0.95em;
-    line-height: 1.4;
-}
-
-.spell-card p strong {
-    color: #000;
-}
-
-/* Hebrew text direction and styling */
-body {
-    direction: rtl;
-    text-align: right;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.spell-card {
-    direction: rtl;
-    text-align: right;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 2px solid #8B4513;
-    border-radius: 8px;
-    background-color: #F5F5DC;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.spell-card h3 {
-    color: #8B4513;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    border-bottom: 1px solid #D2B48C;
-    padding-bottom: 5px;
+@media (max-width: 768px) {
+    .spells-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .spell-card {
+        margin-bottom: 15px;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .info-value {
+        text-align: right;
+    }
 }
