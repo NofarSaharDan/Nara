@@ -1,0 +1,422 @@
+body {
+  direction: rtl;
+  font-family: "Frank Ruhl Libre", serif;
+  background-color: #fdf6e3;
+  margin: 0;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.character-sheet {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 2px solid #000;
+  padding: 10px;
+}
+
+header, section, .box {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  text-align: center;
+  background-color: #e0e0e0;
+  margin: -10px -10px 10px -10px;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid #999;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+
+label {
+  display: block;
+  font-size: 0.8em;
+  color: #333;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  text-align: center;
+  font-family: "Frank Ruhl Libre", serif;
+  font-size: 1.2em;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1px solid #333;
+}
+
+input[readonly] {
+  font-weight: bold;
+  color: #000;
+}
+
+/* Header Styles */
+header .char-name {
+  text-align: center;
+  margin-bottom: 10px;
+  border: none;
+  padding: 0;
+}
+header .char-name label {
+  font-size: 1em;
+  font-weight: bold;
+}
+header .char-name input {
+  font-size: 2em;
+  font-weight: bold;
+  border: none;
+}
+header .char-details {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  border: none;
+  padding: 0;
+}
+header .char-details div {
+  border: 1px dotted #ccc;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+/* Abilities Table */
+.abilities table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.abilities th,
+.abilities td {
+  text-align: center;
+  padding: 4px;
+}
+
+.abilities th {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #555;
+}
+
+.abilities td:first-child {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+.abilities td label {
+  text-align: right;
+  font-size: 1em;
+}
+
+.abilities input {
+    font-size: 1.4em;
+}
+.abilities input[readonly] {
+    font-size: 1.5em;
+}
+
+/* Combat Stats */
+.combat-stats {
+  border: none;
+  padding: 0;
+}
+.combat-stats .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "hp ac ac"
+    "initiative ac ac"
+    "saves saves saves"
+    "bab grapple grapple";
+  gap: 15px;
+}
+.combat-stats .box { margin-bottom: 0; }
+.combat-stats .hp { grid-area: hp; }
+.combat-stats .ac { grid-area: ac; }
+.combat-stats .initiative { grid-area: initiative; }
+.combat-stats .saves { grid-area: saves; }
+.combat-stats .bab { grid-area: bab; }
+.combat-stats .grapple { grid-area: grapple; }
+
+.combat-stats table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.combat-stats th, .combat-stats td {
+  text-align: center;
+  padding: 2px;
+}
+.combat-stats th {
+  font-size: 0.7em;
+  font-weight: normal;
+  color: #555;
+  white-space: nowrap;
+}
+.combat-stats input {
+  font-size: 1.1em;
+}
+.combat-stats .saves label {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.hp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.hp > div {
+  width: 100%;
+  text-align: center;
+}
+.hp input {
+  font-size: 1.6em;
+  font-weight: bold;
+}
+.hp .nonlethal-damage {
+  margin-top: 5px;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+}
+.hp .nonlethal-damage input {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.ac-details {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+}
+.ac-details input {
+  width: 50px;
+  font-weight: bold;
+  border-bottom: none;
+}
+.ac-details label {
+  white-space: nowrap;
+  margin: 0 5px;
+  align-self: center;
+}
+
+.bab input {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Attacks Table */
+.attacks table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.attacks th, .attacks td {
+  text-align: center;
+  padding: 4px 2px;
+}
+.attacks th {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #555;
+  border-bottom: 2px solid #666;
+  padding-bottom: 6px;
+}
+.attacks td {
+  border-bottom: 1px solid #ddd;
+}
+.attacks input {
+  font-size: 1em;
+}
+.attacks tbody tr:last-child td {
+  border-bottom: none;
+}
+.attacks td:first-child input {
+  text-align: right;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+/* Skills Table */
+.skills table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.skills th, .skills td {
+  text-align: center;
+  padding: 1px 2px;
+  border-bottom: 1px solid #eee;
+}
+.skills thead th {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #555;
+  border-bottom: 2px solid #666;
+  padding-bottom: 6px;
+}
+.skills .skill-name-header {
+  text-align: right;
+}
+.skills .skill-name {
+  text-align: right;
+  font-size: 0.9em;
+}
+.skills .skill-name small {
+  color: #666;
+  font-size: 0.9em;
+}
+.skills .key-ability {
+  font-size: 0.8em;
+  color: #888;
+}
+.skills input[type="text"], .skills input[type="number"] {
+  font-size: 1em;
+}
+.skills input[type="number"] {
+  -moz-appearance: textfield;
+}
+.skills input::-webkit-outer-spin-button,
+.skills input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.skills input[type="checkbox"] {
+  accent-color: #333;
+}
+.skills tbody tr:last-child td {
+    border-bottom: none;
+}
+.skill-points-info {
+  display: flex;
+  justify-content: space-around;
+  background: #f0f0f0;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.skill-points-info label {
+  display: inline;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* Two-column Layout */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  border: none;
+  padding: 0;
+}
+
+/* Feats/Spells/Equipment Lists */
+.feats ul, .equipment ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.feats li, .equipment li {
+  border-bottom: 1px solid #eee;
+}
+.feats li:last-child, .equipment li:last-child {
+  border-bottom: none;
+}
+.feats input, .equipment input {
+  font-size: 1em;
+  text-align: right;
+  padding-right: 5px;
+}
+.spells table {
+  width: 100%;
+}
+.spells th, .spells td {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 2px;
+}
+.spells td:last-child {
+  text-align: right;
+}
+.spells td:last-child input {
+  text-align: right;
+}
+.spell-domains {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid #ccc;
+}
+.spell-domains label {
+  display: inline;
+  font-weight: bold;
+}
+.spell-domains input {
+  width: auto;
+}
+
+.full-spellbook-link {
+  text-align: center;
+  margin-top: 10px;
+}
+.full-spellbook-link a {
+  text-decoration: none;
+  color: #000;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #aaa;
+  font-size: 0.9em;
+}
+.full-spellbook-link a:hover {
+  background-color: #e0e0e0;
+}
+
+.equipment .money {
+  display: flex;
+}
+.equipment .money label {
+  font-weight: bold;
+  white-space: nowrap;
+  align-self: center;
+}
+.equipment .money input {
+  font-weight: bold;
+}
+
+.encumbrance {
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  text-align: center;
+}
+.encumbrance label {
+  font-weight: normal;
+}
+.encumbrance span, .encumbrance input {
+  font-weight: bold;
+  font-size: 1.1em;
+  display: block;
+  margin: 0 auto;
+  max-width: 60px;
+}
+.encumbrance input {
+  border-bottom: none;
+}
