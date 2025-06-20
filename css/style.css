@@ -27,10 +27,16 @@ body, html {
 
 /* Header */
 .character-header {
-    text-align: center;
     margin-bottom: 30px;
     border-bottom: 3px double var(--border-color);
     padding-bottom: 20px;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .character-portrait {
@@ -48,6 +54,8 @@ body, html {
     color: var(--header-color);
     margin: 0;
     letter-spacing: 2px;
+    flex-grow: 1;
+    text-align: center;
 }
 
 .character-subtitle {
@@ -60,41 +68,83 @@ body, html {
     margin-top: 10px;
     font-size: 1.2em;
     color: var(--text-color);
-}
-
-.xp-section {
-    margin-top: 15px;
     text-align: center;
 }
 
-.xp-section label {
-    font-size: 1.1em;
+.xp-section {
+    border: 1px solid var(--border-color);
+    background-color: var(--section-bg);
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+}
+
+.total-xp-display {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.total-xp-label {
     font-weight: bold;
     color: var(--header-color);
-    margin-right: 10px;
+    font-size: 1em;
+    display: block;
+}
+
+#total-xp-value {
+    font-size: 1.5em;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.add-xp-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .xp-input-field {
-    width: 100px;
+    width: 70px;
     padding: 5px;
     text-align: center;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background-color: var(--section-bg);
     color: var(--text-color);
-    font-size: 1.1em;
+    font-size: 1em;
+}
+
+#add-xp-button {
+    padding: 5px 10px;
+    background-color: var(--header-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: bold;
+}
+
+#add-xp-button:hover {
+    background-color: #a0522d;
+}
+
+.xp-placeholder {
+    min-width: 150px;
 }
 
 /* Main Layout */
 .main-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
-        "abilities abilities abilities abilities"
-        "combat combat combat saves"
-        "attacks attacks skills skills"
-        "equipment equipment skills skills"
-        "spells spells spells spells";
+        "abilities abilities ac ac saves saves"
+        "attacks attacks attacks skills xp-history xp-history"
+        "spells spells spells spells spells spells";
     gap: 20px;
 }
 
@@ -117,12 +167,12 @@ body, html {
 
 /* Specific Grid Areas */
 #abilities-section { grid-area: abilities; }
-#combat-section { grid-area: combat; }
+#ac-section { grid-area: ac; }
 #saves-section { grid-area: saves; }
 #attacks-section { grid-area: attacks; }
-#equipment-section { grid-area: equipment; }
+#xp-history-section { grid-area: xp-history; }
 #skills-section { grid-area: skills; }
-#spells-link-section { grid-area: spells; }
+#spells-section { grid-area: spells; }
 
 /* Table Styles */
 table {
@@ -229,13 +279,32 @@ input[type="checkbox"] {
     background-color: transparent;
 }
 
-#equipment-section ul {
-    list-style: none;
-    padding: 0;
+#xp-history-section {
+    max-height: 250px;
+    overflow-y: auto;
 }
 
-#equipment-section li {
-    margin-bottom: 8px;
+#xp-history-log {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#xp-history-log li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9em;
+}
+
+#xp-history-log li:last-child {
+    border-bottom: none;
+}
+
+#xp-history-log .xp-date {
+    color: #888;
+    font-size: 0.8em;
 }
 
 .spells-link-section {
@@ -262,4 +331,162 @@ a.button-link {
 a.button-link:hover {
     background-color: #a0522d;
     transform: translateY(-2px);
+}
+
+#ac-section, #saves-section {
+    padding: 15px;
+}
+
+#ac-section .stat-row-ac,
+.stat-row-save {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.stat-row-save {
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.stat-item label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--header-color);
+    margin-bottom: 5px;
+}
+
+.stat-item input {
+    font-size: 1.4em;
+    font-weight: bold;
+    max-width: 80px;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    border-bottom: 1px dotted var(--text-color);
+    border-radius: 0;
+    padding: 2px;
+}
+
+.stat-item-label {
+    font-weight: bold;
+    font-size: 1.2em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    color: var(--header-color);
+    margin-left: 10px;
+}
+
+#spells-section .spells-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+#spells-table input[name="spells-known"] {
+    width: 98%;
+    text-align: right;
+    border-bottom: 1px dotted var(--text-color);
+}
+
+#spells-table input[readonly] {
+    border-bottom-color: transparent;
+}
+
+#defense-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* AC Details */
+.ac-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.ac-detail-group {
+    flex: 1;
+}
+
+.ac-detail-group h4 {
+    font-family: 'Cinzel', serif;
+    color: var(--header-color);
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.ac-detail-group input {
+    text-align: center !important;
+    margin-bottom: 10px;
+}
+
+.ac-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.ac-detail-row label {
+    font-weight: bold;
+}
+
+.ac-detail-row input {
+    width: 60px;
+    margin-bottom: 0;
+    border-bottom: 1px dotted var(--text-color) !important;
+}
+
+.ac-detail-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+}
+
+.ac-detail-total label {
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.ac-detail-total input {
+    width: 60px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0;
+    border-bottom: 1px dotted var(--text-color) !important;
+}
+
+.bab-display {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.bab-display label {
+    font-weight: bold;
+    color: var(--header-color);
+    margin-right: 10px;
+}
+
+#bab-value {
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
 }

@@ -15,14 +15,28 @@
   <body>
     <div class="container">
       <header class="character-header">
-        <h1 class="character-name">NARA</h1>
+        <div class="header-main">
+          <div class="xp-section">
+            <div class="total-xp-display">
+              <span class="total-xp-label">סה"כ נק"נ</span>
+              <span id="total-xp-value">0</span>
+            </div>
+            <div class="add-xp-controls">
+              <input
+                type="number"
+                id="xp-add-input"
+                placeholder="הוסף נק״נ"
+                class="xp-input-field"
+              />
+              <button id="add-xp-button">הוסף</button>
+            </div>
+          </div>
+          <h1 class="character-name">NARA</h1>
+          <div class="xp-placeholder"></div>
+        </div>
         <div class="character-details-line">
           גזע: בת-דרקון | מקצוע: כוהנת <span id="character-level">1</span> |
           נטייה: ניטרלית רעה | אלוהות: אסגראת
-        </div>
-        <div class="xp-section">
-          <label for="xp-input">נק"נ (נקודות נסיון):</label>
-          <input type="number" id="xp-input" value="0" class="xp-input-field" />
         </div>
       </header>
 
@@ -112,36 +126,171 @@
           </table>
         </section>
 
-        <section id="combat-section" class="grid-section">
-          <h2>נתוני קרב</h2>
-          <div class="combat-stats-summary">
-            <strong>דרג"ש:</strong> 22, <strong>מגע:</strong> 14,
-            <strong>הפתעה:</strong> 18<br />
-            <strong>נק"פ:</strong> 13 / 13 | <strong>מהירות:</strong> 6 מ' |
-            <strong>יוזמה:</strong> +4
+        <section id="ac-section" class="grid-section">
+          <h2>דרג"ש</h2>
+          <div class="stat-row-ac">
+            <div class="stat-item">
+              <label>סה"כ</label>
+              <input type="text" name="ac-total" readonly />
+            </div>
+            <div class="stat-item">
+              <label>מתאם זריזות</label>
+              <input type="text" name="ac-dex" readonly />
+            </div>
+            <div class="stat-item">
+              <label>שריון טבעי</label>
+              <input type="number" name="ac-natural" value="4" />
+            </div>
+            <div class="stat-item">
+              <label>קסם</label>
+              <input type="number" name="ac-magic" value="0" />
+            </div>
+            <div class="stat-item">
+              <label>שונות</label>
+              <input type="number" name="ac-misc" value="0" />
+            </div>
+          </div>
+          <div class="ac-details">
+            <div class="ac-detail-group">
+              <h4>שריון</h4>
+              <input
+                type="text"
+                name="armor-name-detail"
+                placeholder="שם שריון"
+                value="שריון עור"
+              />
+              <div class="ac-detail-row">
+                <label>עונש לבדיקה:</label>
+                <input
+                  type="number"
+                  name="armor-check-penalty-detail"
+                  value="-3"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>כשל לחש:</label>
+                <input
+                  type="text"
+                  name="armor-spell-failure-detail"
+                  value="20%"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>זריזות מירבית:</label>
+                <input type="number" name="armor-max-dex-detail" value="4" />
+              </div>
+              <div class="ac-detail-total">
+                <label>תוסף שריון:</label>
+                <input type="number" name="ac-armor" value="3" />
+              </div>
+            </div>
+            <div class="ac-detail-group">
+              <h4>מגן</h4>
+              <input
+                type="text"
+                name="shield-name-detail"
+                placeholder="שם מגן"
+                value="מגן באקלר"
+              />
+              <div class="ac-detail-row">
+                <label>עונש לבדיקה:</label>
+                <input
+                  type="number"
+                  name="shield-check-penalty-detail"
+                  value="-1"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>כשל לחש:</label>
+                <input
+                  type="text"
+                  name="shield-spell-failure-detail"
+                  value="5%"
+                />
+              </div>
+              <div class="ac-detail-total">
+                <label>תוסף מגן:</label>
+                <input type="number" name="ac-shield" value="1" />
+              </div>
+            </div>
+            <div class="ac-detail-group">
+              <h4>שריון טבעי</h4>
+              <input
+                type="text"
+                name="natural-armor-source-detail"
+                placeholder="מקור"
+                value="העור שלי"
+              />
+            </div>
           </div>
         </section>
 
         <section id="saves-section" class="grid-section">
-          <h2>הצלות</h2>
-          <div class="saves-container">
-            <div class="save-item">
-              <h3>FORT</h3>
-              <input type="text" value="+7" />
+          <h2>גלגולי הצלה</h2>
+          <div id="saves-tbody">
+            <div class="stat-row-save" data-save="fort">
+              <div class="stat-item-label">קשיחות</div>
+              <div class="stat-item">
+                <label>סה"כ</label><input type="text" name="total" readonly />
+              </div>
+              <div class="stat-item">
+                <label>הצלה בסיס</label
+                ><input type="number" name="base" value="2" />
+              </div>
+              <div class="stat-item">
+                <label>מתאם תכונה</label
+                ><input type="text" name="mod" readonly />
+              </div>
+              <div class="stat-item">
+                <label>שונות</label
+                ><input type="number" name="misc" value="0" />
+              </div>
             </div>
-            <div class="save-item">
-              <h3>REF</h3>
-              <input type="text" value="+4" />
+            <div class="stat-row-save" data-save="ref">
+              <div class="stat-item-label">תגובה</div>
+              <div class="stat-item">
+                <label>סה"כ</label><input type="text" name="total" readonly />
+              </div>
+              <div class="stat-item">
+                <label>הצלה בסיס</label
+                ><input type="number" name="base" value="0" />
+              </div>
+              <div class="stat-item">
+                <label>מתאם תכונה</label
+                ><input type="text" name="mod" readonly />
+              </div>
+              <div class="stat-item">
+                <label>שונות</label
+                ><input type="number" name="misc" value="0" />
+              </div>
             </div>
-            <div class="save-item">
-              <h3>WILL</h3>
-              <input type="text" value="+7" />
+            <div class="stat-row-save" data-save="will">
+              <div class="stat-item-label">רצון</div>
+              <div class="stat-item">
+                <label>סה"כ</label><input type="text" name="total" readonly />
+              </div>
+              <div class="stat-item">
+                <label>הצלה בסיס</label
+                ><input type="number" name="base" value="2" />
+              </div>
+              <div class="stat-item">
+                <label>מתאם תכונה</label
+                ><input type="text" name="mod" readonly />
+              </div>
+              <div class="stat-item">
+                <label>שונות</label
+                ><input type="number" name="misc" value="0" />
+              </div>
             </div>
           </div>
         </section>
 
         <section id="attacks-section" class="grid-section">
           <h2>נשקים</h2>
+          <div class="bab-display">
+            <label>תוסף התקפה בסיסי:</label>
+            <span id="bab-value"></span>
+          </div>
           <table>
             <thead>
               <tr>
@@ -185,9 +334,11 @@
           </table>
         </section>
 
-        <section id="equipment-section" class="grid-section">
-          <h2>ציוד וכשרונות</h2>
-          <p>יוזן בהמשך...</p>
+        <section id="xp-history-section" class="grid-section">
+          <h2>היסטוריית נק"נ</h2>
+          <ul id="xp-history-log">
+            <!-- History items will be populated by JS -->
+          </ul>
         </section>
 
         <section id="skills-section" class="grid-section">
@@ -195,12 +346,25 @@
           <p>יוזן בהמשך...</p>
         </section>
 
-        <section
-          id="spells-link-section"
-          class="grid-section spells-link-section"
-        >
-          <h2>ספר הלחשים</h2>
-          <a href="spells.html" class="button-link">פתח את ספר הלחשים</a>
+        <section id="spells-section" class="grid-section">
+          <h2>לחשים</h2>
+          <div class="spells-header">
+            <a href="spells.html" class="button-link">ספר הלחשים המלא</a>
+          </div>
+          <table id="spells-table">
+            <thead>
+              <tr>
+                <th>דרגה</th>
+                <th>לחשים ליום</th>
+                <th>לחשי בונוס</th>
+                <th>קושי הצלה</th>
+                <th>לחשים מוכנים</th>
+              </tr>
+            </thead>
+            <tbody id="spells-tbody">
+              <!-- Spell levels 0-9 will be generated by JS -->
+            </tbody>
+          </table>
         </section>
       </main>
     </div>
