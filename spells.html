@@ -5,27 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ספר הלחשים של נארה</title>
     <link rel="stylesheet" href="css/spells.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <h1>ספר הלחשים של נארה</h1>
 
       <div class="filter-container">
-        <div id="spell-level-filters">
-          <button class="filter-button active" data-level="all">
-            כל הלחשים
-          </button>
-          <button class="filter-button" data-level="0">דרגה 0</button>
-          <button class="filter-button" data-level="1">דרגה 1</button>
-          <button class="filter-button" data-level="2">דרגה 2</button>
-          <button class="filter-button" data-level="3">דרגה 3</button>
-          <button class="filter-button" data-level="4">דרגה 4</button>
-          <button class="filter-button" data-level="5">דרגה 5</button>
-          <button class="filter-button" data-level="6">דרגה 6</button>
-          <button class="filter-button" data-level="7">דרגה 7</button>
-          <button class="filter-button" data-level="8">דרגה 8</button>
-          <button class="filter-button" data-level="9">דרגה 9</button>
-        </div>
+        <label for="level-filter">סינון לפי דרג לחש:</label>
+        <select id="level-filter">
+          <option value="all">כל הלחשים</option>
+          <option value="0">דרגה 0</option>
+          <option value="1">דרגה 1</option>
+          <option value="2">דרגה 2</option>
+          <option value="3">דרגה 3</option>
+          <option value="4">דרגה 4</option>
+          <option value="5">דרגה 5</option>
+          <option value="6">דרגה 6</option>
+          <option value="7">דרגה 7</option>
+          <option value="8">דרגה 8</option>
+          <option value="9">דרגה 9</option>
+        </select>
       </div>
 
       <div id="spells-container" class="spells-container">

@@ -1,640 +1,209 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nara - D&D 3.5 Character Sheet</title>
+    <title>דף דמות - נארה</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Cinzel:wght@400;700&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div class="character-sheet">
-      <header>
-        <div class="char-name">
-          <label for="charname">שם הדמות</label>
-          <input type="text" id="charname" value="נארה הכהנת בת הדרקון" />
+    <div class="container">
+      <header class="character-header">
+        <h1 class="character-name">NARA</h1>
+        <div class="character-details-line">
+          גזע: בת-דרקון | מקצוע: כוהנת <span id="character-level">1</span> |
+          נטייה: ניטרלית רעה | אלוהות: אסגראת
         </div>
-        <div class="char-details">
-          <div>
-            <label for="classlevel">מקצוע/דרגה</label>
-            <input type="text" id="classlevel" value="כוהנת 1" />
-          </div>
-          <div>
-            <label for="player">שחקן</label>
-            <input type="text" id="player" value="נופר" />
-          </div>
-          <div>
-            <label for="race">גזע</label>
-            <input type="text" id="race" value="בת-דרקון" />
-          </div>
-          <div>
-            <label for="alignment">נטייה</label>
-            <input type="text" id="alignment" value="ניטרלית רעה" />
-          </div>
-          <div>
-            <label for="deity">אל</label>
-            <input type="text" id="deity" value="איקנדרוס" />
-          </div>
+        <div class="xp-section">
+          <label for="xp-input">נק"נ (נקודות נסיון):</label>
+          <input type="number" id="xp-input" value="0" class="xp-input-field" />
         </div>
       </header>
-      <main>
-        <section class="abilities">
+
+      <main class="main-grid">
+        <section id="abilities-section" class="grid-section">
           <h2>תכונות</h2>
           <table>
             <thead>
               <tr>
                 <th>תכונה</th>
-                <th>ציון</th>
+                <th>סה"כ</th>
+                <th>בסיס</th>
+                <th>גזעי</th>
+                <th>חפצים</th>
+                <th>שונות</th>
                 <th>מתאם</th>
-                <th>ציון זמני</th>
-                <th>מתאם זמני</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><label>כוח (STR)</label></td>
-                <td><input type="number" value="27" /></td>
-                <td><input type="text" value="+8" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+            <tbody id="abilities-tbody">
+              <tr data-ability="str">
+                <td>כוח (STR)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="19" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="8" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
-              <tr>
-                <td><label>זריזות (DEX)</label></td>
-                <td><input type="number" value="18" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+              <tr data-ability="dex">
+                <td>זריזות (DEX)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="18" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="0" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
-              <tr>
-                <td><label>חוסן (CON)</label></td>
-                <td><input type="number" value="20" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+              <tr data-ability="con">
+                <td>חוסן (CON)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="18" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="2" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
-              <tr>
-                <td><label>תבונה (INT)</label></td>
-                <td><input type="number" value="15" /></td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+              <tr data-ability="int">
+                <td>תבונה (INT)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="13" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="2" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
-              <tr>
-                <td><label>חוכמה (WIS)</label></td>
-                <td><input type="number" value="20" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+              <tr data-ability="wis">
+                <td>חוכמה (WIS)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="20" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="0" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
-              <tr>
-                <td><label>כריזמה (CHA)</label></td>
-                <td><input type="number" value="19" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-                <td><input type="text" readonly /></td>
+              <tr data-ability="cha">
+                <td>כריזמה (CHA)</td>
+                <td><input type="text" name="total" readonly /></td>
+                <td><input type="number" name="base" value="17" readonly /></td>
+                <td>
+                  <input type="number" name="racial" value="2" readonly />
+                </td>
+                <td><input type="number" name="item" /></td>
+                <td><input type="number" name="other" /></td>
+                <td><input type="text" name="mod" readonly /></td>
               </tr>
             </tbody>
           </table>
         </section>
 
-        <section class="combat-stats">
-          <div class="grid-container">
-            <div class="box hp">
-              <h2>נקודות פגיעה</h2>
-              <div>
-                <label>סה"כ</label>
-                <input type="text" value="13" readonly />
-              </div>
-              <div>
-                <label>פצעים / נזק נוכחי</label>
-                <input type="text" />
-              </div>
-              <div class="nonlethal-damage">
-                <label>נזק לא קטלני</label>
-                <input type="text" />
-              </div>
-            </div>
+        <section id="combat-section" class="grid-section">
+          <h2>נתוני קרב</h2>
+          <div class="combat-stats-summary">
+            <strong>דרג"ש:</strong> 22, <strong>מגע:</strong> 14,
+            <strong>הפתעה:</strong> 18<br />
+            <strong>נק"פ:</strong> 13 / 13 | <strong>מהירות:</strong> 6 מ' |
+            <strong>יוזמה:</strong> +4
+          </div>
+        </section>
 
-            <div class="box ac">
-              <h2>דרג"ש</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>סה"כ</th>
-                    <th>= 10 +</th>
-                    <th>שריון</th>
-                    <th>מגן</th>
-                    <th>זריזות</th>
-                    <th>גודל</th>
-                    <th>טבעי</th>
-                    <th>הסטה</th>
-                    <th>שונות</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="text" value="22" readonly /></td>
-                    <td></td>
-                    <td><input type="number" value="3" /></td>
-                    <td><input type="number" value="1" /></td>
-                    <td><input type="number" value="4" readonly /></td>
-                    <td><input type="number" value="0" readonly /></td>
-                    <td><input type="number" value="4" /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="ac-details">
-                <label>דרג"ש מגע</label>
-                <input type="text" value="14" readonly />
-                <label>דרג"ש על-הפתעה</label>
-                <input type="text" value="18" readonly />
-              </div>
+        <section id="saves-section" class="grid-section">
+          <h2>הצלות</h2>
+          <div class="saves-container">
+            <div class="save-item">
+              <h3>FORT</h3>
+              <input type="text" value="+7" />
             </div>
-
-            <div class="box initiative">
-              <h2>יוזמה</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>סה"כ</th>
-                    <th>=</th>
-                    <th>מתאם זריזות</th>
-                    <th>שונות</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="text" value="+4" readonly /></td>
-                    <td></td>
-                    <td><input type="text" value="+4" readonly /></td>
-                    <td><input type="text" /></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="save-item">
+              <h3>REF</h3>
+              <input type="text" value="+4" />
             </div>
-
-            <div class="box saves">
-              <h2>הצלות</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>סה"כ</th>
-                    <th>=</th>
-                    <th>בסיס</th>
-                    <th>מתאם תכונה</th>
-                    <th>קסם</th>
-                    <th>שונות</th>
-                    <th>זמני</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><label>קשיחות (חוסן)</label></td>
-                    <td><input type="text" value="+7" readonly /></td>
-                    <td></td>
-                    <td><input type="number" value="2" /></td>
-                    <td><input type="text" value="+5" readonly /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                  </tr>
-                  <tr>
-                    <td><label>תגובה (זריזות)</label></td>
-                    <td><input type="text" value="+4" readonly /></td>
-                    <td></td>
-                    <td><input type="number" value="0" /></td>
-                    <td><input type="text" value="+4" readonly /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                  </tr>
-                  <tr>
-                    <td><label>רצון (חוכמה)</label></td>
-                    <td><input type="text" value="+7" readonly /></td>
-                    <td></td>
-                    <td><input type="number" value="2" /></td>
-                    <td><input type="text" value="+5" readonly /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                    <td><input type="number" /></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="box bab">
-              <h2>התקפה בסיסית</h2>
-              <input type="text" value="0" />
-            </div>
-
-            <div class="box grapple">
-              <h2>היאבקות</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>סה"כ</th>
-                    <th>=</th>
-                    <th>התקפה בסיסית</th>
-                    <th>מתאם כוח</th>
-                    <th>מתאם גודל</th>
-                    <th>שונות</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="text" value="+8" readonly /></td>
-                    <td></td>
-                    <td><input type="text" value="0" readonly /></td>
-                    <td><input type="text" value="+8" readonly /></td>
-                    <td><input type="text" value="0" readonly /></td>
-                    <td><input type="text" /></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="save-item">
+              <h3>WILL</h3>
+              <input type="text" value="+7" />
             </div>
           </div>
         </section>
 
-        <section class="attacks">
-          <h2>התקפה</h2>
+        <section id="attacks-section" class="grid-section">
+          <h2>נשקים</h2>
           <table>
             <thead>
               <tr>
-                <th>נשק</th>
-                <th>בונוס התקפה</th>
+                <th>שם</th>
+                <th>פגיעה</th>
                 <th>נזק</th>
-                <th>איום קריטי</th>
-                <th>טווח</th>
-                <th>סוג</th>
+                <th>ב"ק</th>
                 <th>הערות</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input type="text" value="חרב ארוכה" /></td>
+                <td>חרב ארוכה</td>
                 <td><input type="text" value="+4" /></td>
-                <td><input type="text" value="1k8+8" /></td>
+                <td><input type="text" value="1d8+8" /></td>
                 <td><input type="text" value="19-20/x2" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" value="חיתוך" /></td>
                 <td><input type="text" value="לא מיומנת" /></td>
               </tr>
               <tr>
-                <td><input type="text" value="רובה קשת קל" /></td>
+                <td>רובה קשת קל</td>
                 <td><input type="text" value="+4" /></td>
-                <td><input type="text" value="1k8" /></td>
+                <td><input type="text" value="1d8" /></td>
                 <td><input type="text" value="19-20/x2" /></td>
-                <td><input type="text" value="80 רגל" /></td>
-                <td><input type="text" value="דקירה" /></td>
-                <td><input type="text" value="20 חצים" /></td>
+                <td><input type="text" value="20 חיצים" /></td>
               </tr>
               <tr>
-                <td><input type="text" value="נשיכה" /></td>
+                <td>נשיכה</td>
                 <td><input type="text" value="+8" /></td>
-                <td><input type="text" value="1k6+8" /></td>
+                <td><input type="text" value="1d6+8" /></td>
                 <td><input type="text" value="x2" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" value="דקירה/חיתוך/הכאה" /></td>
                 <td><input type="text" value="נשק טבעי" /></td>
               </tr>
               <tr>
-                <td><input type="text" value="2 טפרים" /></td>
+                <td>2 טפרים</td>
                 <td><input type="text" value="+8" /></td>
-                <td><input type="text" value="1k4+4" /></td>
+                <td><input type="text" value="1d4+4" /></td>
                 <td><input type="text" value="x2" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" value="חיתוך" /></td>
                 <td><input type="text" value="נשק טבעי" /></td>
-              </tr>
-              <tr>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
-                <td><input type="text" /></td>
               </tr>
             </tbody>
           </table>
         </section>
 
-        <section class="skills">
+        <section id="equipment-section" class="grid-section">
+          <h2>ציוד וכשרונות</h2>
+          <p>יוזן בהמשך...</p>
+        </section>
+
+        <section id="skills-section" class="grid-section">
           <h2>מיומנויות</h2>
-          <div class="skill-points-info">
-            <div><label>נקודות מיומנות לדרגה</label> (2 + 2) x 4 = 16</div>
-            <div><label>דרגות מקסימליות</label> מקצוע: 4, בין-מקצועי: 2</div>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th class="skill-name-header">שם המיומנות</th>
-                <th>מקצוע</th>
-                <th>מתאם תכונה</th>
-                <th>סה"כ</th>
-                <th>=</th>
-                <th>דרגות</th>
-                <th>מתאם</th>
-                <th>שונות</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="skill-name">הערכה <small>(תבונה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">INT</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="2" /></td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">שיווי משקל <small>(זריזות)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">DEX</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">בלוף <small>(כריזמה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">CHA</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">טיפוס <small>(כוח)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">STR</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">ריכוז <small>(חוסן)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">CON</td>
-                <td><input type="text" value="+6" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="1" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">יצירה <small>(תבונה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">INT</td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">דיפלומטיה <small>(כריזמה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">CHA</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">ריפוי <small>(חוכמה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">WIS</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">איום <small>(כריזמה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">CHA</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">ידע (דת) <small>(תבונה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">INT</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="3" /></td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">האזנה <small>(חוכמה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">WIS</td>
-                <td><input type="text" value="+7" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="2" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">מקצוע (כוהנת) <small>(חוכמה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">WIS</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">חיפוש <small>(תבונה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">INT</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="2" /></td>
-                <td><input type="text" value="+2" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">שכנוע <small>(כריזמה)</small></td>
-                <td><input type="checkbox" checked /></td>
-                <td class="key-ability">CHA</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="1" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">תצפית <small>(חוכמה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">WIS</td>
-                <td><input type="text" value="+7" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="2" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">הישרדות <small>(חוכמה)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">WIS</td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">שחייה <small>(כוח)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">STR</td>
-                <td><input type="text" value="+6" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="1" /></td>
-                <td><input type="text" value="+5" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">
-                  שימוש בחפצי קסם <small>(כריזמה)</small>
-                </td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">CHA</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-              <tr>
-                <td class="skill-name">שימוש בחבל <small>(זריזות)</small></td>
-                <td><input type="checkbox" /></td>
-                <td class="key-ability">DEX</td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td>=</td>
-                <td><input type="number" value="0" /></td>
-                <td><input type="text" value="+4" readonly /></td>
-                <td><input type="number" /></td>
-              </tr>
-            </tbody>
-          </table>
+          <p>יוזן בהמשך...</p>
         </section>
 
-        <div class="two-column-layout">
-          <div class="main-column">
-            <section class="feats">
-              <h2>כשרונות ויכולות מיוחדות</h2>
-              <ul>
-                <li><input type="text" value="Extend Spell" /></li>
-                <li>
-                  <input
-                    type="text"
-                    value="נשיפת דרקון: קו חומצה, 6ק8 נזק, הצלה רפלקס חצי"
-                  />
-                </li>
-                <li><input type="text" value="ראיית חושך 60 רגל" /></li>
-                <li><input type="text" value="חסינות לשיתוק ושינה" /></li>
-                <li>
-                  <input type="text" value="הברחת אל מתים (7 פעמים ביום)" />
-                </li>
-                <li><input type="text" /></li>
-              </ul>
-            </section>
-          </div>
-          <div class="side-column">
-            <section class="spells">
-              <h2>לחשים</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>דרג</th>
-                    <th>לחשים ליום</th>
-                    <th>הצלת קושי</th>
-                    <th>לחשים ידועים</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>0</td>
-                    <td><input type="text" value="3" /></td>
-                    <td><input type="text" value="15" /></td>
-                    <td><input type="text" value="אור, קריאת קסם, הדרכה" /></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td><input type="text" value="3+1" /></td>
-                    <td><input type="text" value="16" /></td>
-                    <td>
-                      <input type="text" value="ביין, ציווי, מגן אמונה" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="spell-domains">
-                <label>תחומים:</label>
-                <input type="text" value="קסם, רשע" />
-              </div>
-              <div class="full-spellbook-link">
-                <a href="spells.html">פתח ספר לחשים מלא</a>
-              </div>
-            </section>
-
-            <section class="equipment">
-              <h2>ציוד</h2>
-              <div class="money">
-                <label>כסף:</label>
-                <input type="text" value="0 מ"ז">
-              </div>
-              <ul>
-                <li><input type="text" value="שריון עור גס (25 ליב')" /></li>
-                <li><input type="text" value="מגן אבזם (5 ליב')" /></li>
-                <li><input type="text" value="חרב ארוכה (4 ליב')" /></li>
-                <li>
-                  <input type="text" value="רובה קשת קל + 20 חצים (6 ליב')" />
-                </li>
-                <li>
-                  <input
-                    type="text"
-                    value="תרמיל גב, שק שינה, סמל קדוש (8 ליב')"
-                  />
-                </li>
-              </ul>
-              <div class="encumbrance">
-                <div>
-                  <label>משקל נשיאה</label
-                  ><input type="text" value="48 ליב'" readonly />
-                </div>
-                <div><label>קל</label><span>עד 266</span></div>
-                <div><label>בינוני</label><span>267-533</span></div>
-                <div><label>כבד</label><span>534-800</span></div>
-              </div>
-            </section>
-          </div>
-        </div>
+        <section
+          id="spells-link-section"
+          class="grid-section spells-link-section"
+        >
+          <h2>ספר הלחשים</h2>
+          <a href="spells.html" class="button-link">פתח את ספר הלחשים</a>
+        </section>
       </main>
     </div>
+    <script src="js/main.js" defer></script>
   </body>
 </html>

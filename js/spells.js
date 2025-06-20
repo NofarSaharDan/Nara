@@ -448,30 +448,6 @@ const clericSpells = [
       "הלחש יוצר ערפל צפוף שמקיף אותך בטווח של 20 רגל. הערפל מספק הסתרה מלאה לכל יצור בתוכו, ומפחית את הטווח של התקפות מטווח ל-5 רגל. הערפל נמשך דקה אחת לכל דרגת לחש שלך.",
   },
   {
-    name: "Magic Weapon",
-    name_he: "נשק קסום",
-    level: 1,
-    source: "Core",
-    description: "Weapon gains +1 bonus.",
-    description_he: "הנשק מקבל תוספת +1.",
-    full_description:
-      "This spell causes a weapon to glow with a pale blue radiance. The weapon is treated as a magic weapon with a +1 enhancement bonus on attack and damage rolls. (The enhancement bonus doesn't stack with an existing enhancement bonus on the weapon.)",
-    full_description_he:
-      "הלחש מעניק תוספת של +1 לנשק אחד שאתה נוגע בו. התוספת חלה על גלגולי התקפה וגלגולי נזק. הלחש נמשך דקה אחת לכל דרגת לחש שלך. הלחש אינו מצטבר עם עצמו או עם לחשים דומים אחרים.",
-  },
-  {
-    name: "Obscuring Mist",
-    name_he: "ערפל מסתיר",
-    level: 1,
-    source: "Core",
-    description: "Fog surrounds you.",
-    description_he: "ערפל מקיף אותך.",
-    full_description:
-      "A misty vapor arises around you. It is stationary once created. The vapor obscures all sight, including darkvision, beyond 5 feet. A creature 5 feet away has concealment (attacks have a 20% miss chance). Creatures farther away have total concealment (50% miss chance, and the attacker cannot use sight to locate the target).",
-    full_description_he:
-      "הלחש יוצר ערפל צפוף שמקיף אותך בטווח של 20 רגל. הערפל מספק הסתרה מלאה לכל יצור בתוכו, ומפחית את הטווח של התקפות מטווח ל-5 רגל. הערפל נמשך דקה אחת לכל דרגת לחש שלך.",
-  },
-  {
     name: "Protection from Chaos/Evil/Good/Law",
     name_he: "הגנה מתוהו/רשע/טוב/חוק",
     level: 1,
@@ -1784,21 +1760,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const spellListContainer = document.getElementById("spell-list");
   const filterContainer = document.getElementById("spell-level-filters");
 
-  const toggleDescription = (index) => {
-    const spellCards = document.querySelectorAll(".spell-card");
-    const spellCard = spellCards[index];
-    const fullDescription = spellCard.querySelector(".full-description");
-    const toggleButton = spellCard.querySelector(".toggle-description");
-
-    if (fullDescription.style.display === "none") {
-      fullDescription.style.display = "block";
-      toggleButton.textContent = "הסתר תיאור מלא";
-    } else {
-      fullDescription.style.display = "none";
-      toggleButton.textContent = "הצג תיאור מלא";
-    }
-  };
-
   const populateSpells = (spells) => {
     const spellsContainer = document.getElementById("spells-container");
     spellsContainer.innerHTML = "";
@@ -1861,7 +1822,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     : ""
                 }
               </div>
-              <button class="toggle-description" onclick="toggleDescription(${index})">
+              <button class="toggle-description">
                 הצג תיאור מלא
               </button>
             `
@@ -1871,42 +1832,36 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
+      const toggleButton = spellCard.querySelector(".toggle-description");
+      if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+          const fullDescription = spellCard.querySelector(".full-description");
+          if (fullDescription.style.display === "none") {
+            fullDescription.style.display = "block";
+            toggleButton.textContent = "הסתר תיאור מלא";
+          } else {
+            fullDescription.style.display = "none";
+            toggleButton.textContent = "הצג תיאור מלא";
+          }
+        });
+      }
+
       spellsContainer.appendChild(spellCard);
     });
   };
 
   const setupFilters = () => {
-    const levels = [...new Set(clericSpells.map((s) => s.level))].sort(
-      (a, b) => a - b
-    );
-
-    const allButton = document.createElement("button");
-    allButton.textContent = "All";
-    allButton.classList.add("active");
-    allButton.addEventListener("click", (e) => {
-      document
-        .querySelectorAll(".filter-btn")
-        .forEach((btn) => btn.classList.remove("active"));
-      e.target.classList.add("active");
-      populateSpells(clericSpells);
-    });
-    filterContainer.appendChild(allButton);
-
-    levels.forEach((level) => {
-      const button = document.createElement("button");
-      button.textContent = `Level ${level}`;
-      button.classList.add("filter-btn");
-      button.addEventListener("click", (e) => {
-        document
-          .querySelectorAll("#spell-level-filters button")
-          .forEach((btn) => btn.classList.remove("active"));
-        e.target.classList.add("active");
+    const levelFilter = document.getElementById("level-filter");
+    levelFilter.addEventListener("change", (event) => {
+      const selectedLevel = event.target.value;
+      if (selectedLevel === "all") {
+        populateSpells(clericSpells);
+      } else {
         const filteredSpells = clericSpells.filter(
-          (spell) => spell.level === level
+          (spell) => spell.level == selectedLevel
         );
         populateSpells(filteredSpells);
-      });
-      filterContainer.appendChild(button);
+      }
     });
   };
 

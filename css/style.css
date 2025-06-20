@@ -1,422 +1,265 @@
-body {
-  direction: rtl;
-  font-family: "Frank Ruhl Libre", serif;
-  background-color: #fdf6e3;
-  margin: 0;
-  padding: 20px;
-  font-size: 14px;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap');
+
+:root {
+    --bg-color: #fdf5e6; /* Light parchment */
+    --text-color: #5a3e2b; /* Dark brown for text */
+    --header-color: #8B4513; /* A richer, darker brown */
+    --border-color: #d2b48c; /* Tan border color */
+    --section-bg: #fffef9; /* Slightly off-white for sections */
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-.character-sheet {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  border: 2px solid #000;
-  padding: 10px;
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Frank Ruhl Libre', serif;
+    direction: rtl;
+    font-size: 16px;
 }
 
-header, section, .box {
-  border: 1px solid #999;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 15px;
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-h2 {
-  text-align: center;
-  background-color: #e0e0e0;
-  margin: -10px -10px 10px -10px;
-  padding: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom: 1px solid #999;
-  font-size: 1.1em;
-  text-transform: uppercase;
+/* Header */
+.character-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px double var(--border-color);
+    padding-bottom: 20px;
 }
 
-label {
-  display: block;
-  font-size: 0.8em;
-  color: #333;
-  text-align: center;
+.character-portrait {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--header-color);
+    box-shadow: 0 0 15px var(--shadow-color);
+    object-fit: cover;
 }
 
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  background-color: transparent;
-  text-align: center;
-  font-family: "Frank Ruhl Libre", serif;
-  font-size: 1.2em;
-  padding: 2px;
-  box-sizing: border-box;
+.character-name {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5em;
+    color: var(--header-color);
+    margin: 0;
+    letter-spacing: 2px;
 }
 
-input:focus {
-  outline: none;
-  border-bottom: 1px solid #333;
+.character-subtitle {
+    font-size: 1.2em;
+    margin-top: 5px;
+    color: var(--text-color);
 }
 
-input[readonly] {
-  font-weight: bold;
-  color: #000;
+.character-details-line {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: var(--text-color);
 }
 
-/* Header Styles */
-header .char-name {
-  text-align: center;
-  margin-bottom: 10px;
-  border: none;
-  padding: 0;
-}
-header .char-name label {
-  font-size: 1em;
-  font-weight: bold;
-}
-header .char-name input {
-  font-size: 2em;
-  font-weight: bold;
-  border: none;
-}
-header .char-details {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  border: none;
-  padding: 0;
-}
-header .char-details div {
-  border: 1px dotted #ccc;
-  padding: 5px;
-  border-radius: 4px;
+.xp-section {
+    margin-top: 15px;
+    text-align: center;
 }
 
-/* Abilities Table */
-.abilities table {
-  width: 100%;
-  border-collapse: collapse;
+.xp-section label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--header-color);
+    margin-right: 10px;
 }
 
-.abilities th,
-.abilities td {
-  text-align: center;
-  padding: 4px;
+.xp-input-field {
+    width: 100px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--section-bg);
+    color: var(--text-color);
+    font-size: 1.1em;
 }
 
-.abilities th {
-  font-size: 0.8em;
-  font-weight: normal;
-  color: #555;
+/* Main Layout */
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+        "abilities abilities abilities abilities"
+        "combat combat combat saves"
+        "attacks attacks skills skills"
+        "equipment equipment skills skills"
+        "spells spells spells spells";
+    gap: 20px;
 }
 
-.abilities td:first-child {
-  text-align: right;
-  font-weight: bold;
-  padding-right: 15px;
+.grid-section {
+    background-color: var(--section-bg);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
-.abilities td label {
-  text-align: right;
-  font-size: 1em;
-}
-
-.abilities input {
-    font-size: 1.4em;
-}
-.abilities input[readonly] {
+.grid-section h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--header-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
     font-size: 1.5em;
 }
 
-/* Combat Stats */
-.combat-stats {
-  border: none;
-  padding: 0;
-}
-.combat-stats .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 
-    "hp ac ac"
-    "initiative ac ac"
-    "saves saves saves"
-    "bab grapple grapple";
-  gap: 15px;
-}
-.combat-stats .box { margin-bottom: 0; }
-.combat-stats .hp { grid-area: hp; }
-.combat-stats .ac { grid-area: ac; }
-.combat-stats .initiative { grid-area: initiative; }
-.combat-stats .saves { grid-area: saves; }
-.combat-stats .bab { grid-area: bab; }
-.combat-stats .grapple { grid-area: grapple; }
+/* Specific Grid Areas */
+#abilities-section { grid-area: abilities; }
+#combat-section { grid-area: combat; }
+#saves-section { grid-area: saves; }
+#attacks-section { grid-area: attacks; }
+#equipment-section { grid-area: equipment; }
+#skills-section { grid-area: skills; }
+#spells-link-section { grid-area: spells; }
 
-.combat-stats table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.combat-stats th, .combat-stats td {
-  text-align: center;
-  padding: 2px;
-}
-.combat-stats th {
-  font-size: 0.7em;
-  font-weight: normal;
-  color: #555;
-  white-space: nowrap;
-}
-.combat-stats input {
-  font-size: 1.1em;
-}
-.combat-stats .saves label {
-    font-weight: bold;
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.9em;
 }
 
-.hp {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-.hp > div {
-  width: 100%;
-  text-align: center;
-}
-.hp input {
-  font-size: 1.6em;
-  font-weight: bold;
-}
-.hp .nonlethal-damage {
-  margin-top: 5px;
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-}
-.hp .nonlethal-damage input {
-  font-size: 1em;
-  font-weight: normal;
+th, td {
+    padding: 6px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
 }
 
-.ac-details {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-  border-top: 1px solid #ccc;
-  padding-top: 5px;
-}
-.ac-details input {
-  width: 50px;
-  font-weight: bold;
-  border-bottom: none;
-}
-.ac-details label {
-  white-space: nowrap;
-  margin: 0 5px;
-  align-self: center;
+thead th {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: var(--header-color);
+    text-align: center;
 }
 
-.bab input {
-    font-size: 2em;
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td:first-child {
+    text-align: right;
     font-weight: bold;
 }
 
-/* Attacks Table */
-.attacks table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.attacks th, .attacks td {
-  text-align: center;
-  padding: 4px 2px;
-}
-.attacks th {
-  font-size: 0.8em;
-  font-weight: normal;
-  color: #555;
-  border-bottom: 2px solid #666;
-  padding-bottom: 6px;
-}
-.attacks td {
-  border-bottom: 1px solid #ddd;
-}
-.attacks input {
-  font-size: 1em;
-}
-.attacks tbody tr:last-child td {
-  border-bottom: none;
-}
-.attacks td:first-child input {
-  text-align: right;
-  padding-right: 5px;
-  font-weight: bold;
+#info-section td:first-child {
+    font-weight: normal;
 }
 
-/* Skills Table */
-.skills table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.skills th, .skills td {
-  text-align: center;
-  padding: 1px 2px;
-  border-bottom: 1px solid #eee;
-}
-.skills thead th {
-  font-size: 0.8em;
-  font-weight: normal;
-  color: #555;
-  border-bottom: 2px solid #666;
-  padding-bottom: 6px;
-}
-.skills .skill-name-header {
-  text-align: right;
-}
-.skills .skill-name {
-  text-align: right;
-  font-size: 0.9em;
-}
-.skills .skill-name small {
-  color: #666;
-  font-size: 0.9em;
-}
-.skills .key-ability {
-  font-size: 0.8em;
-  color: #888;
-}
-.skills input[type="text"], .skills input[type="number"] {
-  font-size: 1em;
-}
-.skills input[type="number"] {
-  -moz-appearance: textfield;
-}
-.skills input::-webkit-outer-spin-button,
-.skills input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.skills input[type="checkbox"] {
-  accent-color: #333;
-}
-.skills tbody tr:last-child td {
-    border-bottom: none;
-}
-.skill-points-info {
-  display: flex;
-  justify-content: space-around;
-  background: #f0f0f0;
-  padding: 5px;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  font-size: 0.9em;
-}
-.skill-points-info label {
-  display: inline;
-  font-weight: bold;
-  margin-left: 5px;
+/* Input Styles */
+input[type="text"], input[type="number"] {
+    width: 95%;
+    padding: 4px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px dotted var(--text-color);
+    color: var(--text-color);
+    font-family: 'Frank Ruhl Libre', serif;
+    text-align: center;
 }
 
-/* Two-column Layout */
-.two-column-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 15px;
-  border: none;
-  padding: 0;
+input:focus {
+    outline: none;
+    border-bottom: 1px solid var(--header-color);
 }
 
-/* Feats/Spells/Equipment Lists */
-.feats ul, .equipment ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.feats li, .equipment li {
-  border-bottom: 1px solid #eee;
-}
-.feats li:last-child, .equipment li:last-child {
-  border-bottom: none;
-}
-.feats input, .equipment input {
-  font-size: 1em;
-  text-align: right;
-  padding-right: 5px;
-}
-.spells table {
-  width: 100%;
-}
-.spells th, .spells td {
-  text-align: center;
-  font-size: 0.9em;
-  padding: 2px;
-}
-.spells td:last-child {
-  text-align: right;
-}
-.spells td:last-child input {
-  text-align: right;
-}
-.spell-domains {
-  margin-top: 5px;
-  padding-top: 5px;
-  border-top: 1px solid #ccc;
-}
-.spell-domains label {
-  display: inline;
-  font-weight: bold;
-}
-.spell-domains input {
-  width: auto;
+input[readonly] {
+    font-weight: bold;
+    border-bottom-color: transparent;
 }
 
-.full-spellbook-link {
-  text-align: center;
-  margin-top: 10px;
-}
-.full-spellbook-link a {
-  text-decoration: none;
-  color: #000;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  border-radius: 3px;
-  border: 1px solid #aaa;
-  font-size: 0.9em;
-}
-.full-spellbook-link a:hover {
-  background-color: #e0e0e0;
+input[name="mod"] {
+    direction: ltr;
+    text-align: center;
 }
 
-.equipment .money {
-  display: flex;
-}
-.equipment .money label {
-  font-weight: bold;
-  white-space: nowrap;
-  align-self: center;
-}
-.equipment .money input {
-  font-weight: bold;
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
 }
 
-.encumbrance {
-  border-top: 1px solid #ccc;
-  margin-top: 5px;
-  padding-top: 5px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8em;
-  text-align: center;
+/* Specific Sections */
+#info-section table td {
+    font-size: 1.1em;
 }
-.encumbrance label {
-  font-weight: normal;
+
+#combat-section .combat-stats-summary {
+    padding: 10px;
+    font-size: 1.2em;
+    line-height: 1.8;
+    text-align: center;
 }
-.encumbrance span, .encumbrance input {
-  font-weight: bold;
-  font-size: 1.1em;
-  display: block;
-  margin: 0 auto;
-  max-width: 60px;
+
+#saves-section .saves-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
 }
-.encumbrance input {
-  border-bottom: none;
+
+#saves-section .save-item {
+    text-align: center;
+}
+
+#saves-section .save-item h3 {
+    margin: 0 0 5px 0;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2em;
+    color: var(--header-color);
+}
+
+#saves-section .save-item input {
+    font-size: 1.8em;
+    font-weight: bold;
+    max-width: 80px;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+}
+
+#equipment-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+#equipment-section li {
+    margin-bottom: 8px;
+}
+
+.spells-link-section {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--section-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+a.button-link {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--header-color);
+    color: var(--bg-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+a.button-link:hover {
+    background-color: #a0522d;
+    transform: translateY(-2px);
 }
