@@ -126,8 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const acInputs = {
     total: document.querySelector('input[name="ac-total"]'),
     dex: document.querySelector('input[name="ac-dex"]'),
-    armor: document.querySelector('input[name="ac-armor"]'),
-    shield: document.querySelector('input[name="ac-shield"]'),
     natural: document.querySelector('input[name="ac-natural"]'),
     magic: document.querySelector('input[name="ac-magic"]'),
     misc: document.querySelector('input[name="ac-misc"]'),
@@ -136,10 +134,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function updateAC() {
+    let acDetails = JSON.parse(localStorage.getItem("acDetails"));
+
+    if (!acDetails) {
+      acDetails = {
+        "ac-armor": "3",
+        "ac-shield": "1",
+        "natural-armor-bonus-detail": "4",
+      };
+    }
+
     const dexMod = abilities.dex ? abilities.dex.mod : 0;
-    const armorBonus = parseInt(acInputs.armor.value, 10) || 0;
-    const shieldBonus = parseInt(acInputs.shield.value, 10) || 0;
-    const naturalBonus = parseInt(acInputs.natural.value, 10) || 0;
+    const armorBonus = parseInt(acDetails["ac-armor"], 10) || 0;
+    const shieldBonus = parseInt(acDetails["ac-shield"], 10) || 0;
+    const naturalBonus =
+      parseInt(acDetails["natural-armor-bonus-detail"], 10) || 0;
     const magicBonus = parseInt(acInputs.magic.value, 10) || 0;
     const miscBonus = parseInt(acInputs.misc.value, 10) || 0;
 
@@ -156,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (acInputs.dex) acInputs.dex.value = dexMod;
     if (acInputs.armorDisplay) acInputs.armorDisplay.value = armorBonus;
     if (acInputs.shieldDisplay) acInputs.shieldDisplay.value = shieldBonus;
+    if (acInputs.natural) acInputs.natural.value = naturalBonus;
   }
 
   // Saves Calculation
@@ -297,40 +307,23 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeAbilities();
 
     Object.values(acInputs).forEach((input) => {
-      if (
-        input &&
-        input.name !== "ac-total" &&
-        input.name !== "ac-dex" &&
-        input.name !== "ac-armor-display" &&
-        input.name !== "ac-shield-display"
-      ) {
+      if (input && (input.name === "ac-magic" || input.name === "ac-misc")) {
         input.addEventListener("input", updateAC);
       }
     });
 
-    // Add listeners for detail fields that should update the display
-    const armorBonusDetail = document.querySelector('input[name="ac-armor"]');
-    const shieldBonusDetail = document.querySelector('input[name="ac-shield"]');
-    const naturalArmorBonusDetail = document.querySelector(
-      'input[name="natural-armor-bonus-detail"]'
-    );
-    const naturalArmorInput = document.querySelector(
-      'input[name="ac-natural"]'
-    );
-
-    if (armorBonusDetail) {
-      armorBonusDetail.addEventListener("input", updateAC);
-    }
-    if (shieldBonusDetail) {
-      shieldBonusDetail.addEventListener("input", updateAC);
-    }
-    if (naturalArmorBonusDetail && naturalArmorInput) {
-      naturalArmorInput.value = naturalArmorBonusDetail.value;
-      naturalArmorBonusDetail.addEventListener("input", () => {
-        naturalArmorInput.value = naturalArmorBonusDetail.value;
-        updateAC();
+    document.querySelectorAll(".clickable").forEach((item) => {
+      item.addEventListener("click", () => {
+        window.location.href = item.dataset.link;
       });
-    }
+    });
+
+    // Listen for changes from the details page
+    window.addEventListener("storage", (e) => {
+      if (e.key === "acDetails") {
+        updateAC();
+      }
+    });
 
     const saveRows = document.querySelectorAll(".stat-row-save");
     saveRows.forEach((row) => {
@@ -347,6 +340,122 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSpells(calculateLevel(totalXp));
       }
     }
+
+    // Initial AC update
+    updateAC();
+  }
+
+  function updateSkillsSummary() {
+    const skills = [
+      { id: "appraise", name: "הערכה", keyAbility: "INT" },
+      { id: "balance", name: "שיווי משקל", keyAbility: "DEX" },
+      { id: "bluff", name: "בלוף", keyAbility: "CHA" },
+      { id: "climb", name: "טיפוס", keyAbility: "STR" },
+      { id: "concentration", name: "ריכוז", keyAbility: "CON" },
+      { id: "craft", name: "אומנות", keyAbility: "INT" },
+      { id: "decipher_script", name: "פענוח כתב", keyAbility: "INT" },
+      { id: "diplomacy", name: "דיפלומטיה", keyAbility: "CHA" },
+      { id: "disable_device", name: "נטרול התקן", keyAbility: "INT" },
+      { id: "disguise", name: "תחפושת", keyAbility: "CHA" },
+      { id: "escape_artist", name: "אמנות הבריחה", keyAbility: "DEX" },
+      { id: "forgery", name: "זיוף", keyAbility: "INT" },
+      { id: "gather_information", name: "איסוף מידע", keyAbility: "CHA" },
+      { id: "handle_animal", name: "טיפול בחיות", keyAbility: "CHA" },
+      { id: "heal", name: "רפואה", keyAbility: "WIS" },
+      { id: "hide", name: "התחבאות", keyAbility: "DEX" },
+      { id: "intimidate", name: "הפחדה", keyAbility: "CHA" },
+      { id: "jump", name: "קפיצה", keyAbility: "STR" },
+      { id: "knowledge_arcana", name: "ידע (ארקנה)", keyAbility: "INT" },
+      {
+        id: "knowledge_architecture",
+        name: "ידע (ארכיטקטורה)",
+        keyAbility: "INT",
+      },
+      {
+        id: "knowledge_dungeoneering",
+        name: "ידע (מבוכים)",
+        keyAbility: "INT",
+      },
+      { id: "knowledge_geography", name: "ידע (גאוגרפיה)", keyAbility: "INT" },
+      { id: "knowledge_history", name: "ידע (היסטוריה)", keyAbility: "INT" },
+      { id: "knowledge_local", name: "ידע (מקומי)", keyAbility: "INT" },
+      { id: "knowledge_nature", name: "ידע (טבע)", keyAbility: "INT" },
+      { id: "knowledge_nobility", name: "ידע (אצולה)", keyAbility: "INT" },
+      { id: "knowledge_religion", name: "ידע (דת)", keyAbility: "INT" },
+      { id: "knowledge_the_planes", name: "ידע (מישורים)", keyAbility: "INT" },
+      { id: "listen", name: "האזנה", keyAbility: "WIS" },
+      { id: "move_silently", name: "התגנבות", keyAbility: "DEX" },
+      { id: "open_lock", name: "פריצת מנעולים", keyAbility: "DEX" },
+      { id: "perform", name: "הופעה", keyAbility: "CHA" },
+      { id: "profession", name: "מקצוע", keyAbility: "WIS" },
+      { id: "ride", name: "רכיבה", keyAbility: "DEX" },
+      { id: "search", name: "חיפוש", keyAbility: "INT" },
+      { id: "sense_motive", name: "חישת מניע", keyAbility: "WIS" },
+      { id: "sleight_of_hand", name: "זריזות ידיים", keyAbility: "DEX" },
+      { id: "spellcraft", name: "אומנות הלחש", keyAbility: "INT" },
+      { id: "spot", name: "הבחנה", keyAbility: "WIS" },
+      { id: "survival", name: "הישרדות", keyAbility: "WIS" },
+      { id: "swim", name: "שחיה", keyAbility: "STR" },
+      { id: "tumble", name: "גלגול", keyAbility: "DEX" },
+      { id: "use_magic_device", name: "שימוש בחפץ קסום", keyAbility: "CHA" },
+      { id: "use_rope", name: "שימוש בחבל", keyAbility: "DEX" },
+    ];
+    const skillData = JSON.parse(localStorage.getItem("skills")) || {};
+    const container = document.getElementById("skills-summary-container");
+    container.innerHTML = "";
+
+    const trainedSkills = skills.filter((skillInfo) => {
+      const data = skillData[skillInfo.id];
+      return data && (data.ranks > 0 || data.isClassSkill);
+    });
+
+    if (trainedSkills.length === 0) {
+      container.innerHTML = "<p>אין מיומנויות מאומנות.</p>";
+      return;
+    }
+
+    let html = "<table>";
+    trainedSkills.forEach((skillInfo) => {
+      const data = skillData[skillInfo.id];
+      const abilityScore =
+        abilities[skillInfo.keyAbility.toLowerCase()]?.total || 10;
+      const abilityMod = getAbilityModifier(abilityScore);
+      const effectiveRanks = data.isClassSkill ? data.ranks : data.ranks / 2;
+      const totalMod =
+        Math.floor(effectiveRanks) + abilityMod + (data.miscMod || 0);
+
+      html += `
+            <tr>
+                <td><strong>${skillInfo.name}</strong> (${
+        skillInfo.keyAbility
+      })</td>
+                <td>${totalMod >= 0 ? "+" : ""}${totalMod}</td>
+            </tr>
+        `;
+    });
+    html += "</table>";
+    container.innerHTML = html;
+  }
+
+  function setupEventListeners() {
+    const abilityInputs = document.querySelectorAll('input[type="number"]');
+    abilityInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const row = input.closest("tr");
+        if (row) {
+          calculateAbilityScore(row);
+        }
+      });
+    });
+  }
+
+  function updateAll() {
+    updateAbilities();
+    updateAC();
+    updateSaves();
+    updateSpells();
+    updateBAB();
+    updateSkillsSummary();
   }
 
   initializeCharacterSheet();

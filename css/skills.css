@@ -1,0 +1,62 @@
+.header-controls {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+#skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+#skills-table th, 
+#skills-table td {
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#skills-table thead th {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: var(--header-color);
+    text-align: center;
+    vertical-align: bottom;
+}
+
+#skills-table tbody tr:hover {
+    background-color: #f9f4e9;
+}
+
+#skills-table .col-skill-name {
+    text-align: right;
+    font-weight: bold;
+}
+
+#skills-table input[type="number"],
+#skills-table input[type="text"] {
+    width: 80%;
+    padding: 4px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px dotted var(--text-color);
+    color: var(--text-color);
+    font-family: 'Frank Ruhl Libre', serif;
+    text-align: center;
+}
+
+#skills-table input:focus {
+    outline: none;
+    border-bottom: 1px solid var(--header-color);
+}
+
+#skills-table input[readonly] {
+    border-bottom-color: transparent;
+    font-weight: bold;
+}
+
+#skills-table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+} 

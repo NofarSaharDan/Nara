@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>פרטי דרג"ש - נארה</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="character-header">
+        <div class="header-main">
+          <h1 class="character-name">פרטי דרג"ש</h1>
+        </div>
+        <a href="index.html" class="button-link" style="margin-top: 15px"
+          >חזרה לדף הדמות</a
+        >
+      </header>
+
+      <main class="main-grid" style="display: block">
+        <section id="ac-details-section" class="grid-section">
+          <div class="ac-details">
+            <div id="armor" class="ac-detail-group">
+              <h4>שריון</h4>
+              <input
+                type="text"
+                name="armor-name-detail"
+                placeholder="שם שריון"
+                value="שריון עור"
+              />
+              <div class="ac-detail-row">
+                <label>עונש לבדיקה:</label>
+                <input
+                  type="number"
+                  name="armor-check-penalty-detail"
+                  value="-3"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>כשל לחש:</label>
+                <input
+                  type="text"
+                  name="armor-spell-failure-detail"
+                  value="20%"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>זריזות מירבית:</label>
+                <input type="number" name="armor-max-dex-detail" value="4" />
+              </div>
+              <div class="ac-detail-total">
+                <label>תוסף שריון:</label>
+                <input type="number" name="ac-armor" value="3" />
+              </div>
+            </div>
+            <div id="shield" class="ac-detail-group">
+              <h4>מגן</h4>
+              <input
+                type="text"
+                name="shield-name-detail"
+                placeholder="שם מגן"
+                value="מגן באקלר"
+              />
+              <div class="ac-detail-row">
+                <label>עונש לבדיקה:</label>
+                <input
+                  type="number"
+                  name="shield-check-penalty-detail"
+                  value="-1"
+                />
+              </div>
+              <div class="ac-detail-row">
+                <label>כשל לחש:</label>
+                <input
+                  type="text"
+                  name="shield-spell-failure-detail"
+                  value="5%"
+                />
+              </div>
+              <div class="ac-detail-total">
+                <label>תוסף מגן:</label>
+                <input type="number" name="ac-shield" value="1" />
+              </div>
+            </div>
+            <div id="natural" class="ac-detail-group">
+              <h4>שריון טבעי</h4>
+              <input
+                type="text"
+                name="natural-armor-source-detail"
+                placeholder="מקור"
+                value="העור שלי"
+              />
+              <div class="ac-detail-row">
+                <label>תוסף שריון טבעי:</label>
+                <input
+                  type="number"
+                  name="natural-armor-bonus-detail"
+                  value="4"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="js/ac_details.js" defer></script>
+  </body>
+</html>
