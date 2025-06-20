@@ -125,28 +125,37 @@ document.addEventListener("DOMContentLoaded", () => {
   // AC Calculation
   const acInputs = {
     total: document.querySelector('input[name="ac-total"]'),
+    dex: document.querySelector('input[name="ac-dex"]'),
     armor: document.querySelector('input[name="ac-armor"]'),
     shield: document.querySelector('input[name="ac-shield"]'),
-    dex: document.querySelector('input[name="ac-dex"]'),
     natural: document.querySelector('input[name="ac-natural"]'),
     magic: document.querySelector('input[name="ac-magic"]'),
     misc: document.querySelector('input[name="ac-misc"]'),
+    armorDisplay: document.querySelector('input[name="ac-armor-display"]'),
+    shieldDisplay: document.querySelector('input[name="ac-shield-display"]'),
   };
 
   function updateAC() {
-    if (!abilities.dex) return;
+    const dexMod = abilities.dex ? abilities.dex.mod : 0;
+    const armorBonus = parseInt(acInputs.armor.value, 10) || 0;
+    const shieldBonus = parseInt(acInputs.shield.value, 10) || 0;
+    const naturalBonus = parseInt(acInputs.natural.value, 10) || 0;
+    const magicBonus = parseInt(acInputs.magic.value, 10) || 0;
+    const miscBonus = parseInt(acInputs.misc.value, 10) || 0;
 
-    const armor = parseInt(acInputs.armor.value, 10) || 0;
-    const shield = parseInt(acInputs.shield.value, 10) || 0;
-    const natural = parseInt(acInputs.natural.value, 10) || 0;
-    const magic = parseInt(acInputs.magic.value, 10) || 0;
-    const misc = parseInt(acInputs.misc.value, 10) || 0;
-    const dexMod = abilities.dex.mod;
+    const totalAC =
+      10 +
+      dexMod +
+      armorBonus +
+      shieldBonus +
+      naturalBonus +
+      magicBonus +
+      miscBonus;
 
-    acInputs.dex.value = dexMod >= 0 ? `+${dexMod}` : dexMod;
-
-    const totalAc = 10 + armor + shield + dexMod + natural + magic + misc;
-    acInputs.total.value = totalAc;
+    if (acInputs.total) acInputs.total.value = totalAC;
+    if (acInputs.dex) acInputs.dex.value = dexMod;
+    if (acInputs.armorDisplay) acInputs.armorDisplay.value = armorBonus;
+    if (acInputs.shieldDisplay) acInputs.shieldDisplay.value = shieldBonus;
   }
 
   // Saves Calculation
@@ -288,10 +297,40 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeAbilities();
 
     Object.values(acInputs).forEach((input) => {
-      if (input && input.name !== "ac-total" && input.name !== "ac-dex") {
+      if (
+        input &&
+        input.name !== "ac-total" &&
+        input.name !== "ac-dex" &&
+        input.name !== "ac-armor-display" &&
+        input.name !== "ac-shield-display"
+      ) {
         input.addEventListener("input", updateAC);
       }
     });
+
+    // Add listeners for detail fields that should update the display
+    const armorBonusDetail = document.querySelector('input[name="ac-armor"]');
+    const shieldBonusDetail = document.querySelector('input[name="ac-shield"]');
+    const naturalArmorBonusDetail = document.querySelector(
+      'input[name="natural-armor-bonus-detail"]'
+    );
+    const naturalArmorInput = document.querySelector(
+      'input[name="ac-natural"]'
+    );
+
+    if (armorBonusDetail) {
+      armorBonusDetail.addEventListener("input", updateAC);
+    }
+    if (shieldBonusDetail) {
+      shieldBonusDetail.addEventListener("input", updateAC);
+    }
+    if (naturalArmorBonusDetail && naturalArmorInput) {
+      naturalArmorInput.value = naturalArmorBonusDetail.value;
+      naturalArmorBonusDetail.addEventListener("input", () => {
+        naturalArmorInput.value = naturalArmorBonusDetail.value;
+        updateAC();
+      });
+    }
 
     const saveRows = document.querySelectorAll(".stat-row-save");
     saveRows.forEach((row) => {

@@ -151,7 +151,7 @@ body, html {
 .grid-section {
     background-color: var(--section-bg);
     border-radius: 8px;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid var(--border-color);
     box-shadow: 0 2px 5px var(--shadow-color);
 }
@@ -248,35 +248,35 @@ input[type="checkbox"] {
 #combat-section .combat-stats-summary {
     padding: 10px;
     font-size: 1.2em;
-    line-height: 1.8;
     text-align: center;
+    background-color: var(--section-bg);
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
 #saves-section .saves-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 #saves-section .save-item {
-    text-align: center;
+    flex: 1;
 }
 
 #saves-section .save-item h3 {
-    margin: 0 0 5px 0;
     font-family: 'Cinzel', serif;
-    font-size: 1.2em;
     color: var(--header-color);
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.2em;
 }
 
 #saves-section .save-item input {
-    font-size: 1.8em;
-    font-weight: bold;
-    max-width: 80px;
-    border: none;
+    width: 100%;
     text-align: center;
-    background-color: transparent;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 #xp-history-section {
@@ -309,8 +309,8 @@ input[type="checkbox"] {
 
 .spells-link-section {
     text-align: center;
-    margin-top: 30px;
-    padding: 20px;
+    margin: 20px 0;
+    padding: 15px;
     background-color: var(--section-bg);
     border-radius: 8px;
     border: 1px solid var(--border-color);
@@ -318,14 +318,13 @@ input[type="checkbox"] {
 
 a.button-link {
     display: inline-block;
-    padding: 12px 25px;
+    padding: 10px 20px;
     background-color: var(--header-color);
     color: var(--bg-color);
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    font-family: 'Cinzel', serif;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
 }
 
 a.button-link:hover {
@@ -337,42 +336,92 @@ a.button-link:hover {
     padding: 15px;
 }
 
-#ac-section .stat-row-ac,
-.stat-row-save {
+/* AC Section Styling */
+#ac-section .stat-row-ac {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     text-align: center;
     padding-top: 10px;
 }
 
+#ac-section .stat-item input {
+    font-size: 1em;
+    font-weight: bold;
+    max-width: 100px;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    border-bottom: 1px dotted var(--text-color);
+}
+
+#ac-section .stat-item input[readonly] {
+    border-bottom-color: transparent;
+}
+
+#ac-section .stat-item input[name="ac-total"] {
+    font-size: 1.5em;
+    color: var(--header-color);
+    border-bottom: none;
+}
+
+/* Saves Section Styling (as per image) */
+.saves-header {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    color: var(--header-color);
+    margin-bottom: 10px;
+    padding: 0 50px 0 35px;
+}
+
+.saves-header > div {
+    flex: 1;
+    text-align: center;
+}
+
 .stat-row-save {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
-.stat-item {
+#saves-section .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
 }
 
-.stat-item label {
-    font-size: 0.9em;
+#saves-section .stat-item label {
+    font-size: 0.8em;
     font-weight: bold;
     color: var(--header-color);
     margin-bottom: 5px;
+    text-align: center;
 }
 
-.stat-item input {
-    font-size: 1.4em;
-    font-weight: bold;
-    max-width: 80px;
-    border: none;
+#saves-section .stat-item input {
+    width: 100%;
+    padding: 8px 5px;
     text-align: center;
-    background-color: transparent;
-    border-bottom: 1px dotted var(--text-color);
-    border-radius: 0;
-    padding: 2px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--section-bg);
+    color: var(--text-color);
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#saves-section .stat-item input[readonly] {
+    background-color: #f3e9d8;
+}
+
+#saves-section .stat-item input[name="total"] {
+    font-size: 1.5em;
+    color: var(--header-color);
 }
 
 .stat-item-label {
@@ -412,8 +461,8 @@ a.button-link:hover {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: 10px;
+    padding-top: 20px;
     border-top: 1px solid var(--border-color);
 }
 
@@ -476,17 +525,56 @@ a.button-link:hover {
 
 .bab-display {
     text-align: center;
-    margin-bottom: 15px;
-    font-size: 1.1em;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .bab-display label {
     font-weight: bold;
     color: var(--header-color);
-    margin-right: 10px;
+    margin: 0;
 }
 
 #bab-value {
     font-weight: bold;
     font-family: 'Cinzel', serif;
+    font-size: 1.5em;
+    color: var(--text-color);
 }
+
+#abilities-section td {
+    text-align: center;
+}
+
+#abilities-section td:first-child {
+    text-align: right;
+}
+
+#abilities-section input[readonly] {
+    border-color: transparent;
+    background-color: transparent;
+    font-weight: normal;
+    cursor: default;
+}
+
+#abilities-section input[name="total"],
+#abilities-section input[name="mod"] {
+    font-weight: bold;
+}
+
+#abilities-section input[name="mod"] {
+    font-size: 1.2em;
+    color: var(--header-color);
+}
+
+#info-section td:first-child {
+    font-weight: normal;
+} 

@@ -138,8 +138,16 @@
               <input type="text" name="ac-dex" readonly />
             </div>
             <div class="stat-item">
+              <label>תוסף שריון</label>
+              <input type="text" name="ac-armor-display" readonly />
+            </div>
+            <div class="stat-item">
+              <label>תוסף מגן</label>
+              <input type="text" name="ac-shield-display" readonly />
+            </div>
+            <div class="stat-item">
               <label>שריון טבעי</label>
-              <input type="number" name="ac-natural" value="4" />
+              <input type="number" name="ac-natural" value="4" readonly />
             </div>
             <div class="stat-item">
               <label>קסם</label>
@@ -221,65 +229,70 @@
                 placeholder="מקור"
                 value="העור שלי"
               />
+              <div class="ac-detail-row">
+                <label>תוסף שריון טבעי:</label>
+                <input
+                  type="number"
+                  name="natural-armor-bonus-detail"
+                  value="4"
+                />
+              </div>
             </div>
           </div>
         </section>
 
         <section id="saves-section" class="grid-section">
           <h2>גלגולי הצלה</h2>
+          <div class="saves-header">
+            <div>סה"כ</div>
+            <div>הצלה בסיס</div>
+            <div>מתאם תכונה</div>
+            <div>שונות</div>
+          </div>
           <div id="saves-tbody">
             <div class="stat-row-save" data-save="fort">
               <div class="stat-item-label">קשיחות</div>
               <div class="stat-item">
-                <label>סה"כ</label><input type="text" name="total" readonly />
+                <input type="text" name="total" readonly />
               </div>
               <div class="stat-item">
-                <label>הצלה בסיס</label
-                ><input type="number" name="base" value="2" />
+                <input type="number" name="base" value="2" />
               </div>
               <div class="stat-item">
-                <label>מתאם תכונה</label
-                ><input type="text" name="mod" readonly />
+                <input type="text" name="mod" readonly />
               </div>
               <div class="stat-item">
-                <label>שונות</label
-                ><input type="number" name="misc" value="0" />
+                <input type="number" name="misc" value="0" />
               </div>
             </div>
             <div class="stat-row-save" data-save="ref">
               <div class="stat-item-label">תגובה</div>
               <div class="stat-item">
-                <label>סה"כ</label><input type="text" name="total" readonly />
+                <input type="text" name="total" readonly />
               </div>
               <div class="stat-item">
-                <label>הצלה בסיס</label
-                ><input type="number" name="base" value="0" />
+                <input type="number" name="base" value="0" />
               </div>
               <div class="stat-item">
-                <label>מתאם תכונה</label
-                ><input type="text" name="mod" readonly />
+                <input type="text" name="mod" readonly />
               </div>
               <div class="stat-item">
-                <label>שונות</label
-                ><input type="number" name="misc" value="0" />
+                <input type="number" name="misc" value="0" />
               </div>
             </div>
             <div class="stat-row-save" data-save="will">
               <div class="stat-item-label">רצון</div>
               <div class="stat-item">
-                <label>סה"כ</label><input type="text" name="total" readonly />
+                <input type="text" name="total" readonly />
               </div>
               <div class="stat-item">
-                <label>הצלה בסיס</label
-                ><input type="number" name="base" value="2" />
+                <input type="number" name="base" value="2" />
               </div>
               <div class="stat-item">
-                <label>מתאם תכונה</label
-                ><input type="text" name="mod" readonly />
+                <input type="text" name="mod" readonly />
               </div>
               <div class="stat-item">
-                <label>שונות</label
-                ><input type="number" name="misc" value="0" />
+                <input type="number" name="misc" value="0" />
               </div>
             </div>
           </div>
@@ -315,20 +328,6 @@
                 <td><input type="text" value="1d8" /></td>
                 <td><input type="text" value="19-20/x2" /></td>
                 <td><input type="text" value="20 חיצים" /></td>
-              </tr>
-              <tr>
-                <td>נשיכה</td>
-                <td><input type="text" value="+8" /></td>
-                <td><input type="text" value="1d6+8" /></td>
-                <td><input type="text" value="x2" /></td>
-                <td><input type="text" value="נשק טבעי" /></td>
-              </tr>
-              <tr>
-                <td>2 טפרים</td>
-                <td><input type="text" value="+8" /></td>
-                <td><input type="text" value="1d4+4" /></td>
-                <td><input type="text" value="x2" /></td>
-                <td><input type="text" value="נשק טבעי" /></td>
               </tr>
             </tbody>
           </table>
