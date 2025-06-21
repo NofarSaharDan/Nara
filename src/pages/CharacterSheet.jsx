@@ -101,10 +101,10 @@ export default function CharacterSheet() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-ivory-200 flex items-center justify-center">
         <div className="flex items-center gap-4">
-          <Flame className="w-8 h-8 text-red-500 animate-pulse" />
-          <span className="text-xl font-semibold text-gray-200">טוען דף דמות...</span>
+          <Flame className="w-8 h-8 text-coral-400 animate-pulse" />
+          <span className="text-xl font-semibold text-bordeaux-400">טוען דף דמות...</span>
         </div>
       </div>
     );
@@ -112,11 +112,11 @@ export default function CharacterSheet() {
 
   if (!character) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <Card className="w-96 bg-gray-800 border-red-700">
+      <div className="min-h-screen bg-ivory-200 flex items-center justify-center">
+        <Card className="w-96 bg-ivory-100 border-coral-400">
           <CardContent className="p-6 text-center">
-            <User className="w-16 h-16 mx-auto mb-4 text-red-500" />
-            <p className="text-lg text-gray-300">לא נמצאה דמות</p>
+            <User className="w-16 h-16 mx-auto mb-4 text-coral-400" />
+            <p className="text-lg text-bordeaux-400">לא נמצאה דמות</p>
           </CardContent>
         </Card>
       </div>
@@ -124,7 +124,7 @@ export default function CharacterSheet() {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-ivory-300">
       <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-rose-900 via-stone-800 to-black text-stone-200">
         <div className="container flex h-32 items-center justify-between">
           <div>
@@ -150,34 +150,34 @@ export default function CharacterSheet() {
           </div>
         </div>
       </header>
-      <main className="flex-1 bg-white">
+      <main className="flex-1">
         <div className="container py-1">
           <Tabs defaultValue="stats" className="w-full" onValueChange={setActiveTab} value={activeTab}>
             <TabsList className="grid h-12 w-full grid-cols-4 items-center rounded-none border-b border-stone-200 bg-transparent p-0">
               <TabsTrigger
                 value="background"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <BookUser className="mr-2 h-4 w-4" />
                 רקע
               </TabsTrigger>
               <TabsTrigger
                 value="spells"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <ScrollText className="mr-2 h-4 w-4" />
                 לחשים
               </TabsTrigger>
               <TabsTrigger
                 value="equipment"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <Shield className="mr-2 h-4 w-4" />
                 ציוד
               </TabsTrigger>
               <TabsTrigger
                 value="stats"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <Swords className="mr-2 h-4 w-4" />
                 מאפיינים
