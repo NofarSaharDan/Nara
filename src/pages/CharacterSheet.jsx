@@ -125,7 +125,7 @@ export default function CharacterSheet() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-ivory-300">
-      <header className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-rose-900 via-stone-800 to-black text-stone-200">
+      <header className="sticky top-0 z-50 w-full border-b border-bordeaux-200/50 bg-gradient-to-r from-bordeaux-200 via-soft-pink-100 to-ivory-100 text-stone-800">
         <div className="container flex h-32 items-center justify-between">
           <div>
             <Button variant="ghost" size="icon" onClick={() => setEditing(!editing)}>
@@ -135,15 +135,15 @@ export default function CharacterSheet() {
           <div className="flex items-center gap-6 text-right">
             <div className="flex flex-col">
               <h1 className="text-4xl font-bold">{character.name}</h1>
-              <div className="text-lg text-stone-300">
+              <div className="text-lg text-stone-600">
                 {character.race} &bull; {character.class}
               </div>
             </div>
             <div className="relative">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-lg">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-coral-300 to-warm-gold-300 shadow-lg">
                 <Crown className="h-8 w-8 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-red-800">
+              <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-bordeaux-300 text-sm font-bold text-white">
                 {character.level}
               </div>
             </div>
