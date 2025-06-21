@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>דף דמות - נארה</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="character-header">
+        <div class="header-main">
+          <div class="xp-section">
+            <div class="total-xp-display">
+              <span class="total-xp-label">סה"כ נק"נ</span>
+              <span id="total-xp-value">0</span>
+            </div>
+            <div class="add-xp-controls">
+              <input
+                type="number"
+                id="xp-add-input"
+                placeholder="הוסף נק״נ"
+                class="xp-input-field"
+              />
+              <button id="add-xp-button">הוסף</button>
+            </div>
+          </div>
+          <h1 class="character-name">NARA</h1>
+          <div class="xp-placeholder"></div>
+        </div>
+        <div class="character-details-line">
+          גזע: בת-דרקון | מקצוע: כוהנת <span id="character-level">1</span> |
+          נטייה: ניטרלית רעה | אלוהות: אסגראת
+        </div>
+      </header>
+
+      <main class="main-grid">
+        <div id="column-one">
+          <section id="abilities-section" class="grid-section">
+            <h2>תכונות</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>תכונה</th>
+                  <th>סה"כ</th>
+                  <th>בסיס</th>
+                  <th>גזעי</th>
+                  <th>חפצים</th>
+                  <th>שונות</th>
+                  <th>מתאם</th>
+                </tr>
+              </thead>
+              <tbody id="abilities-tbody">
+                <tr data-ability="str">
+                  <td>כוח (STR)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="19" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="8" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+                <tr data-ability="dex">
+                  <td>זריזות (DEX)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="18" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="0" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+                <tr data-ability="con">
+                  <td>חוסן (CON)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="18" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="2" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+                <tr data-ability="int">
+                  <td>תבונה (INT)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="13" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="2" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+                <tr data-ability="wis">
+                  <td>חוכמה (WIS)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="20" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="0" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+                <tr data-ability="cha">
+                  <td>כריזמה (CHA)</td>
+                  <td><input type="text" name="total" readonly /></td>
+                  <td>
+                    <input type="number" name="base" value="17" readonly />
+                  </td>
+                  <td>
+                    <input type="number" name="racial" value="2" readonly />
+                  </td>
+                  <td><input type="number" name="item" /></td>
+                  <td><input type="number" name="other" /></td>
+                  <td><input type="text" name="mod" readonly /></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="skills-section" class="grid-section">
+            <h2>מיומנויות</h2>
+            <div class="skills-header">
+              <a href="skills.html" class="button-link">ניהול מיומנויות</a>
+            </div>
+            <div id="skills-summary-container">
+              <!-- Trained skills will be populated by JS -->
+            </div>
+          </section>
+        </div>
+
+        <div id="combat-block">
+          <div class="combat-top-row">
+            <section id="ac-section" class="grid-section">
+              <h2>דרג"ש</h2>
+              <div class="stat-row-ac">
+                <div class="stat-item">
+                  <label>סה"כ</label>
+                  <input type="text" name="ac-total" readonly />
+                </div>
+                <div class="stat-item">
+                  <label>מתאם זריזות</label>
+                  <input type="text" name="ac-dex" readonly />
+                </div>
+                <div
+                  class="stat-item clickable"
+                  data-link="ac_details.html#armor"
+                >
+                  <label>תוסף שריון</label>
+                  <input type="text" name="ac-armor-display" readonly />
+                </div>
+                <div
+                  class="stat-item clickable"
+                  data-link="ac_details.html#shield"
+                >
+                  <label>תוסף מגן</label>
+                  <input type="text" name="ac-shield-display" readonly />
+                </div>
+                <div
+                  class="stat-item clickable"
+                  data-link="ac_details.html#natural"
+                >
+                  <label>שריון טבעי</label>
+                  <input type="number" name="ac-natural" value="4" readonly />
+                </div>
+                <div class="stat-item">
+                  <label>קסם</label>
+                  <input type="number" name="ac-magic" value="0" />
+                </div>
+                <div class="stat-item">
+                  <label>שונות</label>
+                  <input type="number" name="ac-misc" value="0" />
+                </div>
+              </div>
+            </section>
+
+            <section id="saves-section" class="grid-section">
+              <h2>גלגולי הצלה</h2>
+              <div class="saves-header">
+                <div>סה"כ</div>
+                <div>הצלה בסיס</div>
+                <div>מתאם תכונה</div>
+                <div>שונות</div>
+              </div>
+              <div id="saves-tbody">
+                <div class="stat-row-save" data-save="fort">
+                  <div class="stat-item-label">קשיחות</div>
+                  <div class="stat-item">
+                    <input type="text" name="total" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="base" value="2" />
+                  </div>
+                  <div class="stat-item">
+                    <input type="text" name="mod" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="misc" value="0" />
+                  </div>
+                </div>
+                <div class="stat-row-save" data-save="ref">
+                  <div class="stat-item-label">תגובה</div>
+                  <div class="stat-item">
+                    <input type="text" name="total" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="base" value="0" />
+                  </div>
+                  <div class="stat-item">
+                    <input type="text" name="mod" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="misc" value="0" />
+                  </div>
+                </div>
+                <div class="stat-row-save" data-save="will">
+                  <div class="stat-item-label">רצון</div>
+                  <div class="stat-item">
+                    <input type="text" name="total" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="base" value="2" />
+                  </div>
+                  <div class="stat-item">
+                    <input type="text" name="mod" readonly />
+                  </div>
+                  <div class="stat-item">
+                    <input type="number" name="misc" value="0" />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <section id="attacks-section" class="grid-section">
+            <h2>נשקים</h2>
+            <div class="bab-display">
+              <label>תוסף התקפה בסיסי:</label>
+              <span id="bab-value"></span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>שם</th>
+                  <th>פגיעה</th>
+                  <th>נזק</th>
+                  <th>ב"ק</th>
+                  <th>הערות</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>חרב ארוכה</td>
+                  <td><input type="text" value="+4" /></td>
+                  <td><input type="text" value="1d8+8" /></td>
+                  <td><input type="text" value="19-20/x2" /></td>
+                  <td><input type="text" value="לא מיומנת" /></td>
+                </tr>
+                <tr>
+                  <td>רובה קשת קל</td>
+                  <td><input type="text" value="+4" /></td>
+                  <td><input type="text" value="1d8" /></td>
+                  <td><input type="text" value="19-20/x2" /></td>
+                  <td><input type="text" value="20 חיצים" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <section id="xp-history-section" class="grid-section">
+          <h2>היסטוריית נק"נ</h2>
+          <ul id="xp-history-log">
+            <!-- History items will be populated by JS -->
+          </ul>
+        </section>
+
+        <section id="spells-section" class="grid-section">
+          <h2>לחשים</h2>
+          <div class="spells-header">
+            <a href="spells.html" class="button-link">ספר הלחשים המלא</a>
+          </div>
+          <table id="spells-table">
+            <thead>
+              <tr>
+                <th>דרגה</th>
+                <th>לחשים ליום</th>
+                <th>לחשי בונוס</th>
+                <th>קושי הצלה</th>
+                <th>לחשים מוכנים</th>
+              </tr>
+            </thead>
+            <tbody id="spells-tbody">
+              <!-- Spell levels 0-9 will be generated by JS -->
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -50,6 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: "use_rope", name: "שימוש בחבל", keyAbility: "DEX" },
   ];
 
+  const naraDefaultSkills = {
+    concentration: { ranks: 5, miscMod: 0, isClassSkill: true },
+    craft: { ranks: 2, miscMod: 0, isClassSkill: true },
+    diplomacy: { ranks: 4, miscMod: 0, isClassSkill: true },
+    heal: { ranks: 5, miscMod: 0, isClassSkill: true },
+    knowledge_religion: { ranks: 2, miscMod: 0, isClassSkill: true },
+    knowledge_the_planes: { ranks: 2, miscMod: 0, isClassSkill: true },
+    profession: { ranks: 5, miscMod: 0, isClassSkill: true },
+    spellcraft: { ranks: 5, miscMod: 0, isClassSkill: true },
+    listen: { ranks: 2, miscMod: 0, isClassSkill: false },
+    sense_motive: { ranks: 2, miscMod: 0, isClassSkill: false },
+    spot: { ranks: 2, miscMod: 0, isClassSkill: false },
+    survival: { ranks: 1, miscMod: 0, isClassSkill: false },
+  };
+
   let characterAbilities = {};
   let skillData = {};
 
@@ -61,14 +76,26 @@ document.addEventListener("DOMContentLoaded", () => {
       characterAbilities[key] = savedAbilities[key];
     });
 
-    const savedSkills = JSON.parse(localStorage.getItem("skills")) || {};
-    skills.forEach((skill) => {
-      skillData[skill.id] = savedSkills[skill.id] || {
-        ranks: 0,
-        miscMod: 0,
-        isClassSkill: false,
-      };
-    });
+    const savedSkills = JSON.parse(localStorage.getItem("skills"));
+
+    if (!savedSkills) {
+      skills.forEach((skill) => {
+        skillData[skill.id] = naraDefaultSkills[skill.id] || {
+          ranks: 0,
+          miscMod: 0,
+          isClassSkill: false,
+        };
+      });
+      saveData(); // Save defaults for next time
+    } else {
+      skills.forEach((skill) => {
+        skillData[skill.id] = savedSkills[skill.id] || {
+          ranks: 0,
+          miscMod: 0,
+          isClassSkill: false,
+        };
+      });
+    }
   }
 
   function saveData() {
@@ -79,8 +106,33 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.floor((abilityScore - 10) / 2);
   }
 
+  function getLevelFromXP(xp) {
+    if (xp >= 190000) return 20;
+    if (xp >= 171000) return 19;
+    if (xp >= 153000) return 18;
+    if (xp >= 136000) return 17;
+    if (xp >= 120000) return 16;
+    if (xp >= 105000) return 15;
+    if (xp >= 91000) return 14;
+    if (xp >= 78000) return 13;
+    if (xp >= 66000) return 12;
+    if (xp >= 55000) return 11;
+    if (xp >= 45000) return 10;
+    if (xp >= 36000) return 9;
+    if (xp >= 28000) return 8;
+    if (xp >= 21000) return 7;
+    if (xp >= 15000) return 6;
+    if (xp >= 10000) return 5;
+    if (xp >= 6000) return 4;
+    if (xp >= 3000) return 3;
+    if (xp >= 1000) return 2;
+    return 1;
+  }
+
   function renderSkills() {
     skillsTbody.innerHTML = "";
+    const level = getLevelFromXP(characterAbilities.totalXP || 0);
+
     skills.forEach((skillInfo) => {
       const row = document.createElement("tr");
       const data = skillData[skillInfo.id];
@@ -88,13 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
         characterAbilities[skillInfo.keyAbility.toLowerCase()]?.total || 10;
       const abilityMod = getAbilityModifier(abilityScore);
 
-      // Cross-class skill ranks are halved
-      const maxRanks = data.isClassSkill
-        ? (characterAbilities.level || 0) + 3
-        : ((characterAbilities.level || 0) + 3) / 2;
-      const effectiveRanks = data.isClassSkill ? data.ranks : data.ranks / 2;
+      const totalMod = (data.ranks || 0) + abilityMod + (data.miscMod || 0);
 
-      const totalMod = Math.floor(effectiveRanks) + abilityMod + data.miscMod;
+      const maxRanks = data.isClassSkill
+        ? level + 3
+        : Math.floor((level + 3) / 2);
 
       row.innerHTML = `
                 <td class="col-class-skill"><input type="checkbox" data-skill-id="${
@@ -106,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td class="col-ability-mod"><input type="text" value="${abilityMod}" readonly></td>
                 <td class="col-ranks"><input type="number" data-skill-id="${
                   skillInfo.id
-                }" value="${data.ranks}" max="${Math.floor(maxRanks)}"></td>
+                }" value="${data.ranks}" min="0" max="${maxRanks}"></td>
                 <td class="col-misc-mod"><input type="number" data-skill-id="${
                   skillInfo.id
                 }" value="${data.miscMod}"></td>

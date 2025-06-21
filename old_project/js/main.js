@@ -400,7 +400,24 @@ document.addEventListener("DOMContentLoaded", () => {
       { id: "use_magic_device", name: "שימוש בחפץ קסום", keyAbility: "CHA" },
       { id: "use_rope", name: "שימוש בחבל", keyAbility: "DEX" },
     ];
-    const skillData = JSON.parse(localStorage.getItem("skills")) || {};
+
+    const naraDefaultSkills = {
+      concentration: { ranks: 5, miscMod: 0, isClassSkill: true },
+      craft: { ranks: 2, miscMod: 0, isClassSkill: true },
+      diplomacy: { ranks: 4, miscMod: 0, isClassSkill: true },
+      heal: { ranks: 5, miscMod: 0, isClassSkill: true },
+      knowledge_religion: { ranks: 2, miscMod: 0, isClassSkill: true },
+      knowledge_the_planes: { ranks: 2, miscMod: 0, isClassSkill: true },
+      profession: { ranks: 5, miscMod: 0, isClassSkill: true },
+      spellcraft: { ranks: 5, miscMod: 0, isClassSkill: true },
+      listen: { ranks: 2, miscMod: 0, isClassSkill: false },
+      sense_motive: { ranks: 2, miscMod: 0, isClassSkill: false },
+      spot: { ranks: 2, miscMod: 0, isClassSkill: false },
+      survival: { ranks: 1, miscMod: 0, isClassSkill: false },
+    };
+
+    const savedSkills = JSON.parse(localStorage.getItem("skills"));
+    const skillData = savedSkills || naraDefaultSkills;
     const container = document.getElementById("skills-summary-container");
     container.innerHTML = "";
 
@@ -420,9 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const abilityScore =
         abilities[skillInfo.keyAbility.toLowerCase()]?.total || 10;
       const abilityMod = getAbilityModifier(abilityScore);
-      const effectiveRanks = data.isClassSkill ? data.ranks : data.ranks / 2;
-      const totalMod =
-        Math.floor(effectiveRanks) + abilityMod + (data.miscMod || 0);
+      const totalMod = (data.ranks || 0) + abilityMod + (data.miscMod || 0);
 
       html += `
             <tr>
