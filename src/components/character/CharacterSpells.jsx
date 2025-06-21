@@ -20,6 +20,7 @@ import {
   Eye,
   Book
 } from "lucide-react";
+import { spellSchools, defaultSpells, getSchoolColor } from "@/data/spells";
 
 export default function CharacterSpells({ character, editing, updateCharacter }) {
   const [newSpell, setNewSpell] = useState({
@@ -34,55 +35,6 @@ export default function CharacterSpells({ character, editing, updateCharacter })
   });
   const [showAddSpell, setShowAddSpell] = useState(false);
   const [filterLevel, setFilterLevel] = useState("all");
-
-  const spellSchools = [
-    "חיזוי", "קללה", "קסם", "הטעיה", "הגנה", "העברה", "משיכה", "התמרה", "נקרומנסי"
-  ];
-
-  // רשימת לחשים מלאה לפי הטבלאות
-  const defaultSpells = {
-    0: [
-      { name: "יצירת מים", school: "שירות", components: "V, S", casting_time: "1 פעולה", range: "קרוב", duration: "מיידי", description: "יוצר 2 גלון מים לכל רמת כוהן" },
-      { name: "ריפוי מיקור", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "מיידי", description: "מרפא 1 נק' חיים" },
-      { name: "איתור קסם", school: "חיזוי", components: "V, S", casting_time: "1 פעולה", range: "60 רגל", duration: "מיידי", description: "מגלה קסמים בטווח 60 רגל" },
-      { name: "איתור רעל", school: "חיזוי", components: "V, S", casting_time: "1 פעולה", range: "קרוב", duration: "מיידי", description: "מזהה רעל ביצור או חפץ" },
-      { name: "הדרכה", school: "חיזוי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "1 דקה", description: "+1 לגלגול אחד" },
-      { name: "פגיעה זניחית", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "מיידי", description: "גורם 1 נק' נזק" },
-      { name: "אור", school: "הטעיה", components: "V, M", casting_time: "1 פעולה", range: "מגע", duration: "10 דק'/רמה", description: "מאיר כמו לפיד" },
-      { name: "תיקון", school: "התמרה", components: "V, S", casting_time: "1 פעולה", range: "10 רגל", duration: "מיידי", description: "מתקן נזק קל לחפצים" },
-      { name: "טיהור אוכל/שתייה", school: "התמרה", components: "V, S", casting_time: "1 פעולה", range: "10 רגל", duration: "מיידי", description: "מנקה נפח אוכל/משקה מזהום" },
-      { name: "קריאת קסומה", school: "חיזוי", components: "V, S, M", casting_time: "1 פעולה", range: "אישי", duration: "10 דק'/רמה", description: "מאפשר קריאת כתב קסום" },
-      { name: "התנגדות", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "1 דקה", description: "+1 לזריקות הצלה" },
-      { name: "מידה טובה", school: "הגנה", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "1 שעה", description: "נותן 1 נק' חיים זמנית" }
-    ],
-    1: [
-      { name: "קללה", school: "קסם", components: "V, S, M", casting_time: "1 פעולה", range: "50 רגל", duration: "1 דק'/רמה", description: "אויבים -1 התקפה ושמירה מפחד" },
-      { name: "ברכה", school: "קסם", components: "V, S, M", casting_time: "1 פעולה", range: "50 רגל", duration: "1 דק'/רמה", description: "+1 התקפה ושמירה מפחד לבעלי ברית" },
-      { name: "ברכת מים", school: "התמרה", components: "V, S, M", casting_time: "1 דקה", range: "מגע", duration: "מיידי", description: "יוצר מים קדושים" },
-      { name: "פחד", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "30 רגל", duration: "1ק4 סיבובים +1/רמה", description: "יצור 5 HD בורח" },
-      { name: "פקד", school: "קסם", components: "V, S", casting_time: "1 פעולה", range: "קרוב", duration: "1 סיבוב", description: "יצור מציית פקודה של מילה אחת" },
-      { name: "הבנת שפות", school: "חיזוי", components: "V, S, M", casting_time: "1 פעולה", range: "אישי", duration: "10 דק'/רמה", description: "מבין שפות מדוברות וכתובות" },
-      { name: "ריפוי קל", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "מיידי", description: "מרפא 1ק8+1/רמה (עד +5)" },
-      { name: "Curse Water", school: "נקרומנסי", components: "V, S", casting_time: "1 דקה", range: "מגע", duration: "מיידי", description: "יוצר מים לא קדושים" },
-      { name: "Deathwatch", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "30 רגל", duration: "10 דק'/רמה", description: "מגלה יצורים קרובים למוות" },
-      { name: "איתור כאוס/רוע/טוב/חוק", school: "חיזוי", components: "V, S", casting_time: "1 פעולה", range: "60 רגל", duration: "ריכוז, עד 10 דק'/רמה", description: "מגלה יישור מוסרי" },
-      { name: "איתור אל-מתים", school: "חיזוי", components: "V, S", casting_time: "1 פעולה", range: "60 רגל", duration: "ריכוז, עד 1 דק'/רמה", description: "מגלה אל-מתים במרחק 60 רגל" },
-      { name: "Divine Favor", school: "הטעיה", components: "V, S", casting_time: "1 פעולה", range: "אישי", duration: "1 דקה", description: "+1 התקפה ונזק לכל 3 רמות כוהן" },
-      { name: "Doom", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "1 דק'/רמה", description: "-2 התקפה, שמירה, בדיקות" },
-      { name: "Endure Elements", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "24 שעות", description: "עמידות לטמפרטורות קיצוניות" },
-      { name: "Entropic Shield", school: "הגנה", components: "V, S", casting_time: "1 פעולה", range: "אישי", duration: "1 דק'/רמה", description: "20% סיכוי להחמצת תקיפות מרחוק" },
-      { name: "Hide from Undead", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "10 דק'/רמה", description: "אל-מתים לא רואים יצורים מוגנים" },
-      { name: "Inflict Light Wounds", school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "מיידי", description: "גורם 1ק8+1/רמה נזק (עד +5)" },
-      { name: "Magic Stone", school: "התמרה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "30 דקות או עד פיזור", description: "3 אבנים +1 התקפה ונזק 1ק6+1" },
-      { name: "Magic Weapon", school: "התמרה", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "1 דק'/רמה", description: "נשק +1 התקפה ונזק" },
-      { name: "Obscuring Mist", school: "שירות", components: "V, S", casting_time: "1 פעולה", range: "20 רגל", duration: "1 דק'/רמה", description: "ערפל משפיע על ראייה" },
-      { name: "Protection from Alignment", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "1 דק'/רמה", description: "+2 דרג\"ש ושמירות נגד יישור מסוים" },
-      { name: "Remove Fear", school: "הגנה", components: "V, S", casting_time: "1 פעולה", range: "קרוב", duration: "10 דקות", description: "+4 מוראל נגד פחד, מסיר פחד קיים" },
-      { name: "Sanctuary", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "1 סיבוב/רמה", description: "אויבים לא יכולים לתקוף (עד שמטרה תוקפת)" },
-      { name: "Shield of Faith", school: "הגנה", components: "V, S, M", casting_time: "1 פעולה", range: "מגע", duration: "1 דק'/רמה", description: "+2 דרג\"ש אסטרל (או +3 ברמה 6+)" },
-      { name: "Summon Monster I", school: "שירות", components: "V, S, M", casting_time: "1 סיבוב", range: "קרוב", duration: "1 סיבוב/רמה", description: "מזמן יצור חיצוני לעזרה" }
-    ]
-  };
 
   const addSpell = () => {
     const updatedSpells = [...(character.spells || []), { ...newSpell, id: Date.now() }];
@@ -124,22 +76,6 @@ export default function CharacterSpells({ character, editing, updateCharacter })
     ];
     
     return allSpells;
-  };
-
-  const getSchoolColor = (school) => {
-    const colors = {
-      "חיזוי": "bg-yellow-100 text-yellow-800 border-yellow-300",
-      "קללה": "bg-green-100 text-green-800 border-green-300", 
-      "נקרומנסי": "bg-gray-100 text-gray-800 border-gray-300",
-      "קסם": "bg-pink-100 text-pink-800 border-pink-300",
-      "הטעיה": "bg-blue-100 text-blue-800 border-blue-300",
-      "הגנה": "bg-emerald-100 text-emerald-800 border-emerald-300",
-      "העברה": "bg-amber-100 text-amber-800 border-amber-300",
-      "משיכה": "bg-indigo-100 text-indigo-800 border-indigo-300",
-      "התמרה": "bg-orange-100 text-orange-800 border-orange-300",
-      "שירות": "bg-cyan-100 text-cyan-800 border-cyan-300"
-    };
-    return colors[school] || "bg-gray-100 text-gray-800 border-gray-300";
   };
 
   const levelsToDisplay = filterLevel === 'all'
@@ -392,7 +328,7 @@ export default function CharacterSpells({ character, editing, updateCharacter })
                         <div className="flex-1">
                           <h3 className="text-sm font-bold text-gray-800 mb-1">{spell.name}</h3>
                           <div className="flex items-center gap-1 flex-wrap mb-2">
-                            <Badge className={getSchoolColor(spell.school)} className="text-xs">
+                            <Badge className={`${getSchoolColor(spell.school)} text-xs`}>
                               {spell.school}
                             </Badge>
                             {spell.casting_time && (
