@@ -213,7 +213,7 @@ export default function CharacterStats({ character, editing, updateAbility, upda
   return (
     <div className="grid lg:grid-cols-3 gap-8 items-start">
       {/* Column 1: Core Stats */}
-      <div className="space-y-8">
+      <div className="space-y-4">
         <Card className="shadow-lg border-rose-200">
           <CardHeader className="bg-gradient-to-r from-rose-800 to-stone-700 text-white rounded-t-lg">
             <CardTitle className="flex items-center gap-2 text-lg">
@@ -306,7 +306,7 @@ export default function CharacterStats({ character, editing, updateAbility, upda
       </div>
 
       {/* Column 2: Combat & Wealth */}
-      <div className="space-y-8">
+      <div className="space-y-4">
         <Card className="shadow-lg border-stone-200">
           <CardHeader className="bg-gradient-to-r from-stone-700 to-stone-800 text-white rounded-t-lg py-3">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -413,34 +413,48 @@ export default function CharacterStats({ character, editing, updateAbility, upda
       </div>
 
       {/* Column 3: Skills & XP & Notes */}
-      <div className="space-y-8">
-        <Card className="shadow-lg border-cyan-200">
-          <CardHeader className="bg-gradient-to-r from-cyan-700 to-cyan-800 text-white rounded-t-lg py-3">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Star className="w-4 h-4" />
+      <div className="space-y-4">
+        <Card className="shadow-lg border border-teal-200 rounded-lg">
+          <CardHeader className="bg-gradient-to-r from-teal-600 to-cyan-700 text-white rounded-t-lg p-3">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Star className="w-5 h-5" />
               נקודות ניסיון
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-4 space-y-3 text-center">
-            <div className="text-3xl font-bold text-cyan-800">{character.experience_points || 0}</div>
+          <CardContent className="text-center pt-2 pb-6 px-4">
+            <div className="text-6xl font-bold text-teal-800">
+              {character.experience_points || 0}
+            </div>
+            
+            <Separator className="my-4" />
+
+            <h3 className="text-lg font-semibold text-stone-700 mb-2">היסטוריה</h3>
+            <ScrollArea className="h-24">
+              {xpHistory.length > 0 ? (
+                <div className="text-sm text-stone-600 space-y-1 text-right pr-2">
+                  {xpHistory.map(log => (
+                    <div key={log.id}>
+                      <span className="font-semibold text-teal-700">+{log.amount}</span> - {format(new Date(log.date), 'dd/MM/yy')}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-stone-500">אין היסטוריה</p>
+              )}
+            </ScrollArea>
+            
             {editing && (
-              <div className="flex gap-2">
-                <Input type="number" placeholder="הוסף נק״נ" value={xpToAdd || ""} onChange={(e) => setXpToAdd(parseInt(e.target.value) || 0)} />
-                <Button onClick={handleAddXp}>הוסף</Button>
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <Input 
+                  type="number" 
+                  value={xpToAdd} 
+                  onChange={(e) => setXpToAdd(parseInt(e.target.value) || 0)} 
+                  className="w-24 text-center"
+                  placeholder="הוסף/הסר"
+                />
+                <Button onClick={handleAddXp} size="sm" className="bg-teal-600 hover:bg-teal-700">הוסף</Button>
               </div>
             )}
-            <Separator/>
-            <Label className="text-sm text-stone-500">היסטוריה</Label>
-            <ScrollArea className="h-24">
-              <div className="space-y-1 text-xs text-right pr-2">
-                {xpHistory.length > 0 ? xpHistory.map(log => (
-                  <div key={log.id}>
-                    <span className="font-semibold text-cyan-700">+{log.amount}</span>
-                    <span className="text-gray-500"> - {format(new Date(log.date), 'dd/MM/yy')}</span>
-                  </div>
-                )) : <p className="text-gray-400 text-center">אין היסטוריה</p>}
-              </div>
-            </ScrollArea>
           </CardContent>
         </Card>
 

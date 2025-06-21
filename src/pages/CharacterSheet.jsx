@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Character } from "@/entities/Character";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -175,16 +175,16 @@ export default function CharacterSheet() {
           </div>
           <div className="flex items-center gap-6 text-right">
             <div className="flex flex-col">
-              <h1 className="text-5xl font-bold">{character.name}</h1>
+              <h1 className="text-4xl font-bold">{character.name}</h1>
               <div className="text-lg text-stone-300">
                 {character.race} &bull; {character.class}
               </div>
             </div>
             <div className="relative">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-lg">
-                <Crown className="h-10 w-10 text-white" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-lg">
+                <Crown className="h-8 w-8 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-400 font-bold text-red-800">
+              <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400 text-sm font-bold text-red-800">
                 {character.level}
               </div>
             </div>
@@ -192,39 +192,39 @@ export default function CharacterSheet() {
         </div>
       </header>
       <main className="flex-1 bg-white">
-        <div className="container py-4">
+        <div className="container py-1">
           <Tabs defaultValue="stats" className="w-full" onValueChange={setActiveTab} value={activeTab}>
-            <TabsList className="grid w-full grid-cols-4 rounded-none border-b border-stone-200 bg-transparent p-0">
+            <TabsList className="grid h-12 w-full grid-cols-4 items-center rounded-none border-b border-stone-200 bg-transparent p-0">
               <TabsTrigger
                 value="background"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-amber-500 data-[state=active]:bg-stone-100 data-[state=active]:text-amber-500 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <BookUser className="mr-2 h-4 w-4" />
                 רקע
               </TabsTrigger>
               <TabsTrigger
                 value="spells"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-amber-500 data-[state=active]:bg-stone-100 data-[state=active]:text-amber-500 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <ScrollText className="mr-2 h-4 w-4" />
                 לחשים
               </TabsTrigger>
               <TabsTrigger
                 value="equipment"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-amber-500 data-[state=active]:bg-stone-100 data-[state=active]:text-amber-500 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <Shield className="mr-2 h-4 w-4" />
                 ציוד
               </TabsTrigger>
               <TabsTrigger
                 value="stats"
-                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-amber-500 data-[state=active]:bg-stone-100 data-[state=active]:text-amber-500 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-rose-700 data-[state=active]:bg-stone-100 data-[state=active]:text-rose-700 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <Swords className="mr-2 h-4 w-4" />
                 מאפיינים
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="stats" className="mt-4">
+            <TabsContent value="stats" className="mt-2">
               <CharacterStats 
                 character={character}
                 editing={editing}
@@ -232,21 +232,21 @@ export default function CharacterSheet() {
                 updateAbility={updateAbility}
               />
             </TabsContent>
-            <TabsContent value="equipment" className="mt-4">
+            <TabsContent value="equipment" className="mt-2">
               <CharacterEquipment 
                 character={character}
                 editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>
-            <TabsContent value="spells" className="mt-4">
+            <TabsContent value="spells" className="mt-2">
               <CharacterSpells 
                 character={character}
                 editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>
-            <TabsContent value="background" className="mt-4">
+            <TabsContent value="background" className="mt-2">
               <CharacterBackground 
                 character={character}
                 editing={editing}
