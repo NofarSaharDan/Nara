@@ -41,17 +41,17 @@ export default function SavingThrowsCard({ character, getSavingThrow, getModifie
   return (
     <Card className="shadow-lg border-green-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#05b6d3] to-[#13b7a6] text-white rounded-t-lg">
-        <CardTitle className="flex items-center justify-between text-lg">
-          <div className="flex items-center gap-2">
-            <Dice6 className="w-5 h-5" />
-            גלגולי הצלה
-          </div>
+        <CardTitle className="flex items-center justify-between w-full text-lg">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <Dice6 className="w-5 h-5" />
+            גלגולי הצלה
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-4">

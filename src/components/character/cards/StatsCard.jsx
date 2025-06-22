@@ -34,17 +34,17 @@ export default function StatsCard({ abilities, character, updateAbility, calcula
   return (
     <Card className="shadow-lg border border-slate-300 bg-white">
       <CardHeader className="card-header-stats">
-        <CardTitle className="flex items-center justify-between text-lg">
-          <div className="flex items-center gap-2">
-            <GitCommitHorizontal className="w-5 h-5" />
-            תכונות
-          </div>
+        <CardTitle className="flex items-center justify-between w-full text-lg">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <GitCommitHorizontal className="w-5 h-5" />
+            תכונות
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">

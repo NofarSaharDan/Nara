@@ -28,17 +28,17 @@ export default function CombatCard({ character, getModifier, updateAcComponent, 
   return (
     <Card className="shadow-lg border border-cyan-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#23d2ee] to-[#5fa6fa] text-white rounded-t-lg py-3">
-        <CardTitle className="text-lg flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4" />
-            קרב
-          </div>
+        <CardTitle className="text-lg flex items-center justify-between w-full">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            קרב
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-4 text-center">

@@ -29,17 +29,17 @@ export default function SpellSummaryCard({ character, updateCharacter }) {
   return (
     <Card className="shadow-lg border-blue-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#3c82f7] to-[#818cf8] text-white rounded-t-lg">
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5" />
-            סיכום לחשים
-          </div>
+        <CardTitle className="flex items-center justify-between w-full">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-5 h-5" />
+            סיכום לחשים
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">

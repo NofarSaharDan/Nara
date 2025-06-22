@@ -28,17 +28,17 @@ export default function BasicInfoCard({ character, updateCharacter }) {
   return (
     <Card className="shadow-lg">
       <CardHeader className="card-header-background-basic-info">
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Star className="w-5 h-5" />
-            פרטי הדמות
-          </div>
+        <CardTitle className="flex items-center justify-between w-full">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <Star className="w-5 h-5" />
+            פרטי הדמות
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-4">

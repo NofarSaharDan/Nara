@@ -6,41 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
 import { Star } from "lucide-react";
-import { useCardEditing } from "@/lib/hooks/useCardEditing";
-import { EditButtons } from "../../ui/edit-buttons";
 
 export default function ExperienceCard({ character, xpHistory, xpToAdd, setXpToAdd, handleAddXp }) {
-  const initialData = {
-    experience: character.experience_points || 0
-  };
-
-  const {
-    editing,
-    tempData,
-    startEditing,
-    saveChanges,
-    cancelEditing,
-    updateTempData
-  } = useCardEditing(initialData, (updatedData) => {
-    // This would need to be handled by the parent component
-    // For now, we'll just update the character directly
-    character.experience_points = updatedData.experience;
-  });
-
   return (
     <Card className="shadow-lg border border-purple-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#a755f7] to-[#6465f1] text-white rounded-t-lg p-3">
-        <CardTitle className="flex items-center justify-between text-lg">
-          <div className="flex items-center gap-2">
-            <Star className="w-5 h-5" />
-            נקודות ניסיון
-          </div>
-          <EditButtons
-            editing={editing}
-            onEdit={startEditing}
-            onSave={saveChanges}
-            onCancel={cancelEditing}
-          />
+        <CardTitle className="flex items-center gap-2 text-lg">
+          <Star className="w-5 h-5" />
+          נקודות ניסיון
         </CardTitle>
       </CardHeader>
       <CardContent className="text-center pt-2 pb-6 px-4">
@@ -65,30 +38,16 @@ export default function ExperienceCard({ character, xpHistory, xpToAdd, setXpToA
           )}
         </ScrollArea>
         
-        {editing && (
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <Input 
-              type="number" 
-              value={tempData.experience || 0} 
-              onChange={(e) => updateTempData("experience", parseInt(e.target.value) || 0)} 
-              className="w-24 text-center"
-              placeholder="נק׳ ניסיון"
-            />
-          </div>
-        )}
-        
-        {!editing && (
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <Input 
-              type="number" 
-              value={xpToAdd} 
-              onChange={(e) => setXpToAdd(parseInt(e.target.value) || 0)} 
-              className="w-24 text-center"
-              placeholder="הוסף/הסר"
-            />
-            <Button onClick={handleAddXp} size="sm" className="bg-[#a755f7] hover:bg-[#6465f1]">הוסף</Button>
-          </div>
-        )}
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <Input 
+            type="number" 
+            value={xpToAdd} 
+            onChange={(e) => setXpToAdd(parseInt(e.target.value) || 0)} 
+            className="w-24 text-center"
+            placeholder="הוסף/הסר"
+          />
+          <Button onClick={handleAddXp} size="sm" className="bg-[#a755f7] hover:bg-[#6465f1]">הוסף</Button>
+        </div>
       </CardContent>
     </Card>
   );

@@ -27,17 +27,17 @@ export default function HitPointsCard({ character, updateCharacter }) {
   return (
     <Card className="shadow-lg border border-rose-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#f472b3] to-[#f87173] text-white rounded-t-lg py-3">
-        <CardTitle className="text-lg flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Heart className="w-4 h-4" />
-            נק׳ חיים
-          </div>
+        <CardTitle className="text-lg flex items-center justify-between w-full">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <Heart className="w-4 h-4" />
+            נק׳ חיים
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-3">

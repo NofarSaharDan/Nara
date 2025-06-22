@@ -18,17 +18,17 @@ export default function BondsCard({ character, updateCharacter }) {
   return (
     <Card className="shadow-lg">
       <CardHeader className="card-header-background-bonds">
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Heart className="w-5 h-5" />
-            קשרים
-          </div>
+        <CardTitle className="flex items-center justify-between w-full">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <Heart className="w-5 h-5" />
+            קשרים
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">

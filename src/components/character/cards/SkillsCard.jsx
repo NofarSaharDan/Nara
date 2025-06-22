@@ -36,17 +36,17 @@ export default function SkillsCard({ skills, character, getSkillTotal, updateSki
   return (
     <Card className="shadow-lg border border-teal-300 bg-white">
       <CardHeader className="bg-gradient-to-r from-[#16a085] to-[#22c55e] text-white rounded-t-lg">
-        <CardTitle className="flex items-center justify-between text-lg">
-          <div className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5" />
-            מיומנויות
-          </div>
+        <CardTitle className="flex items-center justify-between w-full text-lg">
           <EditButtons
             editing={editing}
             onEdit={startEditing}
             onSave={saveChanges}
             onCancel={cancelEditing}
           />
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5" />
+            מיומנויות
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
