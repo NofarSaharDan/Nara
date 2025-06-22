@@ -20,7 +20,8 @@ import {
   Coins,
   FileText,
   Plus,
-  Minus
+  Minus,
+  Swords
 } from "lucide-react";
 
 export default function CharacterStats({ character, editing, updateAbility, updateCharacter }) {
@@ -214,8 +215,8 @@ export default function CharacterStats({ character, editing, updateAbility, upda
     <div className="grid lg:grid-cols-3 gap-8 items-start">
       {/* Column 1: Core Stats */}
       <div className="space-y-4">
-        <Card className="shadow-lg border-rose-200">
-          <CardHeader className="bg-gradient-to-r from-rose-800 to-stone-700 text-white rounded-t-lg">
+        <Card className="shadow-lg border border-slate-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#485568] to-[#56534f] text-white rounded-t-lg">
             <CardTitle className="flex items-center gap-2 text-lg">
               <GitCommitHorizontal className="w-5 h-5" />
               תכונות
@@ -224,30 +225,30 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow className="bg-rose-50/50">
-                  <TableHead className="text-right text-xs p-1">תכונה</TableHead>
-                  <TableHead className="text-center text-xs p-1">מתאם</TableHead>
-                  <TableHead className="text-center text-xs p-1">סה"כ</TableHead>
-                  <TableHead className="text-center text-xs p-1">בסיס</TableHead>
-                  <TableHead className="text-center text-xs p-1">גזע</TableHead>
+                <TableRow className="bg-slate-100/50">
+                  <TableHead className="text-right text-xs p-1 text-gray-900">תכונה</TableHead>
+                  <TableHead className="text-center text-xs p-1 text-gray-900">מתאם</TableHead>
+                  <TableHead className="text-center text-xs p-1 text-gray-900">סה"כ</TableHead>
+                  <TableHead className="text-center text-xs p-1 text-gray-900">בסיס</TableHead>
+                  <TableHead className="text-center text-xs p-1 text-gray-900">גזע</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {abilities.map((abilityInfo) => {
                   const abilityData = character[abilityInfo.key] || {};
                   return (
-                    <TableRow key={abilityInfo.key} className="hover:bg-rose-50/50">
-                      <TableCell className="font-medium text-stone-800 p-2">
+                    <TableRow key={abilityInfo.key} className="hover:bg-slate-100/50">
+                      <TableCell className="font-medium text-gray-900 p-2">
                         {abilityInfo.name} <br />
-                        <span className="text-xs text-stone-500">({abilityInfo.short})</span>
+                        <span className="text-xs text-gray-600">({abilityInfo.short})</span>
                       </TableCell>
-                      <TableCell className="text-center font-bold text-lg text-rose-700 p-2">{formatModifier(getModifier(abilityData))}</TableCell>
-                      <TableCell className="text-center font-bold text-lg text-rose-800 p-2">{calculateTotal(abilityData)}</TableCell>
+                      <TableCell className="text-center font-bold text-lg text-[#2c3e50] p-2">{formatModifier(getModifier(abilityData))}</TableCell>
+                      <TableCell className="text-center font-bold text-lg text-gray-900 p-2">{calculateTotal(abilityData)}</TableCell>
                       <TableCell className="p-1">
-                        {editing ? <Input type="number" value={abilityData.base || 0} onChange={(e) => updateAbility(abilityInfo.key, "base", parseInt(e.target.value) || 0)} className="w-12 h-8 text-center mx-auto"/> : <div className="text-center">{abilityData.base || 0}</div>}
+                        {editing ? <Input type="number" value={abilityData.base || 0} onChange={(e) => updateAbility(abilityInfo.key, "base", parseInt(e.target.value) || 0)} className="w-12 h-8 text-center mx-auto"/> : <div className="text-center text-gray-900">{abilityData.base || 0}</div>}
                       </TableCell>
                        <TableCell className="p-1">
-                        {editing ? <Input type="number" value={abilityData.racial || 0} onChange={(e) => updateAbility(abilityInfo.key, "racial", parseInt(e.target.value) || 0)} className="w-12 h-8 text-center mx-auto"/> : <div className="text-center">{abilityData.racial || 0}</div>}
+                        {editing ? <Input type="number" value={abilityData.racial || 0} onChange={(e) => updateAbility(abilityInfo.key, "racial", parseInt(e.target.value) || 0)} className="w-12 h-8 text-center mx-auto"/> : <div className="text-center text-gray-900">{abilityData.racial || 0}</div>}
                       </TableCell>
                     </TableRow>
                   );
@@ -257,8 +258,8 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg border-blue-200">
-          <CardHeader className="bg-gradient-to-r from-blue-700 to-blue-800 text-white rounded-t-lg">
+        <Card className="shadow-lg border-green-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#05b6d3] to-[#13b7a6] text-white rounded-t-lg">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Dice6 className="w-5 h-5" />
               גלגולי הצלה
@@ -280,20 +281,20 @@ export default function CharacterStats({ character, editing, updateAbility, upda
                   <React.Fragment key={save.key}>
                     <div>
                       <div className="flex justify-between items-center mb-2">
-                         <span className="font-bold text-blue-800">{save.name}</span>
-                         <span className="text-2xl font-bold text-blue-700">{formatModifier(totalSave)}</span>
+                         <span className="font-bold text-gray-900">{save.name}</span>
+                         <span className="text-2xl font-bold text-[#13b7a6]">{formatModifier(totalSave)}</span>
                       </div>
-                      <div className="text-xs text-stone-600 grid grid-cols-4 gap-1 text-center">
-                          <div className="font-semibold">סה"כ</div>
-                          <div className="font-semibold">בסיס</div>
-                          <div className="font-semibold">תכונה</div>
-                          <div className="font-semibold">קסם/שונות</div>
-                          <div className="font-bold text-base">{formatModifier(totalSave)}</div>
-                          <div>{editing ? <Input type="number" value={baseSave} onChange={e => updateSavingThrow(save.key, 'base', e.target.value)} className="h-7 w-full p-1"/> : formatModifier(baseSave)}</div>
-                          <div>{formatModifier(abilityMod)}</div>
+                      <div className="text-xs text-gray-600 grid grid-cols-4 gap-1 text-center">
+                          <div className="font-semibold text-gray-900">סה"כ</div>
+                          <div className="font-semibold text-gray-900">בסיס</div>
+                          <div className="font-semibold text-gray-900">תכונה</div>
+                          <div className="font-semibold text-gray-900">קסם/שונות</div>
+                          <div className="font-bold text-base text-gray-900">{formatModifier(totalSave)}</div>
+                          <div className="text-gray-900">{editing ? <Input type="number" value={baseSave} onChange={e => updateSavingThrow(save.key, 'base', e.target.value)} className="h-7 w-full p-1"/> : formatModifier(baseSave)}</div>
+                          <div className="text-gray-900">{formatModifier(abilityMod)}</div>
                           <div className="flex gap-1">
-                            {editing ? <Input type="number" value={magicSave} onChange={e => updateSavingThrow(save.key, 'magic', e.target.value)} className="h-7 w-full p-1"/> : <span>{formatModifier(magicSave)}</span>}
-                            {editing ? <Input type="number" value={miscSave} onChange={e => updateSavingThrow(save.key, 'misc', e.target.value)} className="h-7 w-full p-1"/> : <span>{formatModifier(miscSave)}</span>}
+                            {editing ? <Input type="number" value={magicSave} onChange={e => updateSavingThrow(save.key, 'magic', e.target.value)} className="h-7 w-full p-1"/> : <span className="text-gray-900">{formatModifier(magicSave)}</span>}
+                            {editing ? <Input type="number" value={miscSave} onChange={e => updateSavingThrow(save.key, 'misc', e.target.value)} className="h-7 w-full p-1"/> : <span className="text-gray-900">{formatModifier(miscSave)}</span>}
                           </div>
                       </div>
                     </div>
@@ -307,8 +308,8 @@ export default function CharacterStats({ character, editing, updateAbility, upda
 
       {/* Column 2: Combat & Wealth */}
       <div className="space-y-4">
-        <Card className="shadow-lg border-stone-200">
-          <CardHeader className="bg-gradient-to-r from-stone-700 to-stone-800 text-white rounded-t-lg py-3">
+        <Card className="shadow-lg border border-cyan-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#23d2ee] to-[#5fa6fa] text-white rounded-t-lg py-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <Shield className="w-4 h-4" />
               קרב
@@ -317,21 +318,21 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           <CardContent className="p-4 space-y-4 text-center">
               <div className="grid grid-cols-2 gap-4">
                   <div>
-                      <Label className="text-sm text-stone-500">יוזמה</Label>
-                      <div className="text-2xl font-bold text-stone-800">
+                      <Label className="text-sm text-gray-600">יוזמה</Label>
+                      <div className="text-2xl font-bold text-gray-900">
                         {formatModifier(character.initiative !== undefined ? character.initiative : getModifier(character.dexterity))}
                       </div>
                   </div>
                    <div>
-                      <Label className="text-sm text-stone-500">מהירות</Label>
-                      <div className="text-2xl font-bold text-stone-800">{character.speed || 0} רגל</div>
+                      <Label className="text-sm text-gray-600">מהירות</Label>
+                      <div className="text-2xl font-bold text-gray-900">{character.speed || 0} רגל</div>
                   </div>
               </div>
               <Separator/>
               <div>
-                <Label className="text-sm text-stone-500">דרג״ש</Label>
-                <div className="text-4xl font-bold text-stone-800 my-2">{totalAC}</div>
-                <div className="text-xs text-stone-600 space-y-1">
+                <Label className="text-sm text-gray-600">דרג״ש</Label>
+                <div className="text-4xl font-bold text-gray-900 my-2">{totalAC}</div>
+                <div className="text-xs text-gray-600 space-y-1">
                   <span>10 + {formatModifier(getModifier(character.dexterity))} (זריזות) + {character.ac_components?.armor || 0} (שריון) + {character.ac_components?.shield || 0} (מגן) + {character.ac_components?.natural || 0} (טבעי)</span>
                 </div>
                 {editing &&
@@ -344,8 +345,8 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg border-rose-200">
-          <CardHeader className="bg-gradient-to-r from-rose-800 to-rose-900 text-white rounded-t-lg py-3">
+        <Card className="shadow-lg border border-rose-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#f472b3] to-[#f87173] text-white rounded-t-lg py-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <Heart className="w-4 h-4" />
               נק׳ חיים
@@ -353,31 +354,69 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           </CardHeader>
           <CardContent className="p-4 space-y-3">
               <div className="text-center">
-                <Label className="text-sm text-rose-600">סה״כ</Label>
-                <div className="text-4xl font-bold text-rose-800">
+                <Label className="text-sm text-gray-600">סה״כ</Label>
+                <div className="text-4xl font-bold text-gray-900">
                   {(character.hit_points_base || 0) - (character.hit_points_wounds || 0)}
                 </div>
-                 <span className="text-xs text-rose-500">לא כולל נזק הכנעה</span>
+                 <span className="text-xs text-gray-600">לא כולל נזק הכנעה</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
                   <div>
-                    <Label className="text-xs">בסיס</Label>
-                    {editing ? <Input type="number" value={character.hit_points_base || 0} onChange={(e) => updateCharacter("hit_points_base", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold">{character.hit_points_base || 0}</div>}
+                    <Label className="text-xs text-gray-600">בסיס</Label>
+                    {editing ? <Input type="number" value={character.hit_points_base || 0} onChange={(e) => updateCharacter("hit_points_base", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold text-gray-900">{character.hit_points_base || 0}</div>}
                   </div>
                   <div>
-                    <Label className="text-xs">פצעים</Label>
-                    {editing ? <Input type="number" value={character.hit_points_wounds || 0} onChange={(e) => updateCharacter("hit_points_wounds", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold">{character.hit_points_wounds || 0}</div>}
+                    <Label className="text-xs text-gray-600">פצעים</Label>
+                    {editing ? <Input type="number" value={character.hit_points_wounds || 0} onChange={(e) => updateCharacter("hit_points_wounds", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold text-gray-900">{character.hit_points_wounds || 0}</div>}
                   </div>
                   <div>
-                    <Label className="text-xs">הכנעה</Label>
-                    {editing ? <Input type="number" value={character.hit_points_subdual || 0} onChange={(e) => updateCharacter("hit_points_subdual", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold">{character.hit_points_subdual || 0}</div>}
+                    <Label className="text-xs text-gray-600">הכנעה</Label>
+                    {editing ? <Input type="number" value={character.hit_points_subdual || 0} onChange={(e) => updateCharacter("hit_points_subdual", parseInt(e.target.value) || 0)} className="h-8"/> : <div className="font-semibold text-gray-900">{character.hit_points_subdual || 0}</div>}
                   </div>
               </div>
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg border-amber-200">
-          <CardHeader className="bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-t-lg py-3">
+        <Card className="shadow-lg border-orange-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#f87270] to-[#fb923d] text-white rounded-t-lg py-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Swords className="w-4 h-4" />
+              התקפות וכישורי קרב
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+                <TableHeader>
+                    <TableRow className="bg-orange-100/50">
+                        <TableHead className="text-right text-xs p-1 text-gray-900">נשק</TableHead>
+                        <TableHead className="text-center text-xs p-1 text-gray-900">התקפה</TableHead>
+                        <TableHead className="text-center text-xs p-1 text-gray-900">נזק</TableHead>
+                        <TableHead className="text-center text-xs p-1 text-gray-900">טווח</TableHead>
+                        <TableHead className="text-center text-xs p-1 text-gray-900">סוג</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow className="hover:bg-orange-50/50">
+                        <TableCell className="font-medium text-gray-900 text-sm p-2">חרב ארוכה</TableCell>
+                        <TableCell className="text-center p-2 font-semibold text-gray-700">+7</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">1d8+3</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">-</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">חיתוך</TableCell>
+                    </TableRow>
+                    <TableRow className="hover:bg-orange-50/50">
+                        <TableCell className="font-medium text-gray-900 text-sm p-2">קשת ארוכה</TableCell>
+                        <TableCell className="text-center p-2 font-semibold text-gray-700">+5</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">1d8</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">100 רגל</TableCell>
+                        <TableCell className="text-center p-2 text-gray-700">דקירה</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-lg border-yellow-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#f59f09] to-[#fabf23] text-white rounded-t-lg py-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <Coins className="w-4 h-4" />
               כסף
@@ -385,9 +424,9 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           </CardHeader>
           <CardContent className="p-4 space-y-3">
               <div className="text-center">
-                <Label className="text-sm text-amber-700">סה"כ (במטבעות זהב)</Label>
-                <div className="text-2xl font-bold text-amber-800 my-1">{totalGoldValue.toFixed(2)}</div>
-                <div className="text-xs text-amber-600">
+                <Label className="text-sm text-gray-600">סה"כ (במטבעות זהב)</Label>
+                <div className="text-2xl font-bold text-gray-900 my-1">{totalGoldValue.toFixed(2)}</div>
+                <div className="text-xs text-gray-600">
                   {character.money?.platinum || 0} פלטינום, {character.money?.gold || 0} זהב, {character.money?.silver || 0} כסף, {character.money?.copper || 0} נחושת
                 </div>
               </div>
@@ -414,32 +453,32 @@ export default function CharacterStats({ character, editing, updateAbility, upda
 
       {/* Column 3: Skills & XP & Notes */}
       <div className="space-y-4">
-        <Card className="shadow-lg border border-teal-200 rounded-lg">
-          <CardHeader className="bg-gradient-to-r from-teal-600 to-cyan-700 text-white rounded-t-lg p-3">
+        <Card className="shadow-lg border border-purple-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#a755f7] to-[#6465f1] text-white rounded-t-lg p-3">
             <CardTitle className="flex items-center gap-2 text-lg">
               <Star className="w-5 h-5" />
               נקודות ניסיון
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center pt-2 pb-6 px-4">
-            <div className="text-6xl font-bold text-teal-800">
+            <div className="text-6xl font-bold text-gray-900">
               {character.experience_points || 0}
             </div>
             
             <Separator className="my-4" />
 
-            <h3 className="text-lg font-semibold text-stone-700 mb-2">היסטוריה</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">היסטוריה</h3>
             <ScrollArea className="h-24">
               {xpHistory.length > 0 ? (
-                <div className="text-sm text-stone-600 space-y-1 text-right pr-2">
+                <div className="text-sm text-gray-600 space-y-1 text-right pr-2">
                   {xpHistory.map(log => (
                     <div key={log.id}>
-                      <span className="font-semibold text-teal-700">+{log.amount}</span> - {format(new Date(log.date), 'dd/MM/yy')}
+                      <span className="font-semibold text-[#a755f7]">+{log.amount}</span> - {format(new Date(log.date), 'dd/MM/yy')}
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-stone-500">אין היסטוריה</p>
+                <p className="text-sm text-gray-600">אין היסטוריה</p>
               )}
             </ScrollArea>
             
@@ -452,14 +491,14 @@ export default function CharacterStats({ character, editing, updateAbility, upda
                   className="w-24 text-center"
                   placeholder="הוסף/הסר"
                 />
-                <Button onClick={handleAddXp} size="sm" className="bg-teal-600 hover:bg-teal-700">הוסף</Button>
+                <Button onClick={handleAddXp} size="sm" className="bg-[#a755f7] hover:bg-[#6465f1]">הוסף</Button>
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg border-green-200">
-          <CardHeader className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-t-lg">
+        <Card className="shadow-lg border border-teal-300 bg-white">
+          <CardHeader className="bg-gradient-to-r from-[#16a085] to-[#22c55e] text-white rounded-t-lg">
             <CardTitle className="flex items-center gap-2 text-lg">
               <TrendingUp className="w-5 h-5" />
               מיומנויות
@@ -468,18 +507,18 @@ export default function CharacterStats({ character, editing, updateAbility, upda
           <CardContent className="p-0">
             <ScrollArea className="h-[45rem]">
               <Table>
-                <TableHeader className="sticky top-0 bg-green-50 z-10">
+                <TableHeader className="sticky top-0 bg-teal-100/50 z-10">
                   <TableRow>
-                    <TableHead className="text-right text-xs p-1">מיומנות</TableHead>
-                    <TableHead className="text-center text-xs p-1">סה״כ</TableHead>
-                    <TableHead className="text-center text-xs p-1">דרגות</TableHead>
+                    <TableHead className="text-right text-xs p-1 text-gray-900">מיומנות</TableHead>
+                    <TableHead className="text-center text-xs p-1 text-gray-900">סה״כ</TableHead>
+                    <TableHead className="text-center text-xs p-1 text-gray-900">דרגות</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {skills.map((skill) => (
-                    <TableRow key={skill.key} className="hover:bg-green-50/50">
-                      <TableCell className="font-medium text-green-800 text-sm p-2">{skill.name}</TableCell>
-                      <TableCell className="text-center font-bold p-2">{getSkillTotal(skill)}</TableCell>
+                    <TableRow key={skill.key} className="hover:bg-teal-50/50">
+                      <TableCell className="font-medium text-gray-900 text-sm p-2">{skill.name}</TableCell>
+                      <TableCell className="text-center font-bold p-2 text-[#16a085]">{getSkillTotal(skill)}</TableCell>
                       <TableCell className="p-1">
                         {editing ? (
                           <Input
@@ -489,7 +528,7 @@ export default function CharacterStats({ character, editing, updateAbility, upda
                             className="w-12 h-7 text-center mx-auto"
                           />
                         ) : (
-                          <div className="text-center">{character.skills?.[skill.key]?.ranks || 0}</div>
+                          <div className="text-center text-gray-900">{character.skills?.[skill.key]?.ranks || 0}</div>
                         )}
                       </TableCell>
                     </TableRow>
