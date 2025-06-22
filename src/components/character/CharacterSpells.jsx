@@ -14,7 +14,7 @@ import { defaultSpells, spellSchools } from "@/data/spells";
 import SpellSummaryCard from "./cards/SpellSummaryCard";
 import SpellLevelCard from "./cards/SpellLevelCard";
 
-export default function CharacterSpells({ character }) {
+export default function CharacterSpells({ character, updateCharacter }) {
   const [expandedSpells, setExpandedSpells] = useState(new Set());
   const [filterLevel, setFilterLevel] = useState('all');
   const [filterSchool, setFilterSchool] = useState('all');
@@ -85,7 +85,7 @@ export default function CharacterSpells({ character }) {
 
   return (
     <div className="space-y-8">
-      <SpellSummaryCard character={character} />
+      <SpellSummaryCard character={character} updateCharacter={updateCharacter} />
 
       <Collapsible className="space-y-2">
         <CollapsibleTrigger asChild>

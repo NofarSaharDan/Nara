@@ -3,14 +3,42 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Star } from "lucide-react";
+import { useCardEditing } from "@/lib/hooks/useCardEditing";
+import { EditButtons } from "../../ui/edit-buttons";
 
-export default function BasicInfoCard({ character, editing, updateCharacter }) {
+export default function BasicInfoCard({ character, updateCharacter }) {
+  const initialData = {
+    name: character.name || "",
+    race: character.race || "",
+    class: character.class || "",
+    level: character.level || 1,
+    background: character.background || "",
+    alignment: character.alignment || ""
+  };
+
+  const {
+    editing,
+    tempData,
+    startEditing,
+    saveChanges,
+    cancelEditing,
+    updateTempData
+  } = useCardEditing(initialData, updateCharacter);
+
   return (
     <Card className="shadow-lg">
       <CardHeader className="card-header-background-basic-info">
-        <CardTitle className="flex items-center gap-2">
-          <Star className="w-5 h-5" />
-          פרטי הדמות
+        <CardTitle className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Star className="w-5 h-5" />
+            פרטי הדמות
+          </div>
+          <EditButtons
+            editing={editing}
+            onEdit={startEditing}
+            onSave={saveChanges}
+            onCancel={cancelEditing}
+          />
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6 space-y-4">
@@ -19,8 +47,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
             <Label className="text-amber-700">שם</Label>
             {editing ? (
               <Input
-                value={character.name}
-                onChange={(e) => updateCharacter("name", e.target.value)}
+                value={tempData.name}
+                onChange={(e) => updateTempData("name", e.target.value)}
                 className="border-amber-300"
               />
             ) : (
@@ -34,8 +62,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
             <Label className="text-amber-700">גזע</Label>
             {editing ? (
               <Input
-                value={character.race}
-                onChange={(e) => updateCharacter("race", e.target.value)}
+                value={tempData.race}
+                onChange={(e) => updateTempData("race", e.target.value)}
                 className="border-amber-300"
               />
             ) : (
@@ -49,8 +77,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
             <Label className="text-amber-700">מחלקה</Label>
             {editing ? (
               <Input
-                value={character.class}
-                onChange={(e) => updateCharacter("class", e.target.value)}
+                value={tempData.class}
+                onChange={(e) => updateTempData("class", e.target.value)}
                 className="border-amber-300"
               />
             ) : (
@@ -67,8 +95,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
                 type="number"
                 min="1"
                 max="20"
-                value={character.level}
-                onChange={(e) => updateCharacter("level", parseInt(e.target.value) || 1)}
+                value={tempData.level}
+                onChange={(e) => updateTempData("level", parseInt(e.target.value) || 1)}
                 className="border-amber-300"
               />
             ) : (
@@ -82,8 +110,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
             <Label className="text-amber-700">רקע</Label>
             {editing ? (
               <Input
-                value={character.background}
-                onChange={(e) => updateCharacter("background", e.target.value)}
+                value={tempData.background}
+                onChange={(e) => updateTempData("background", e.target.value)}
                 className="border-amber-300"
               />
             ) : (
@@ -97,8 +125,8 @@ export default function BasicInfoCard({ character, editing, updateCharacter }) {
             <Label className="text-amber-700">יישור מוסרי</Label>
             {editing ? (
               <Input
-                value={character.alignment}
-                onChange={(e) => updateCharacter("alignment", e.target.value)}
+                value={tempData.alignment}
+                onChange={(e) => updateTempData("alignment", e.target.value)}
                 className="border-amber-300"
               />
             ) : (

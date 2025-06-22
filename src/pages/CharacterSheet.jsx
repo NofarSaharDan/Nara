@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Character } from "@/entities/Character";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Flame, 
   Crown,
   User,
-  Pencil,
   Swords,
   Shield,
   ScrollText,
@@ -24,7 +22,6 @@ import CharacterJournal from "../components/character/CharacterJournal";
 export default function CharacterSheet() {
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("stats");
 
   useEffect(() => {
@@ -152,13 +149,6 @@ export default function CharacterSheet() {
     setLoading(false);
   };
 
-  const saveCharacter = async () => {
-    if (character && character.id) {
-      await Character.update(character.id, character);
-      setEditing(false);
-    }
-  };
-
   const updateCharacter = (field, value) => {
     setCharacter(prev => ({
       ...prev,
@@ -175,6 +165,23 @@ export default function CharacterSheet() {
       }
     }));
   };
+
+  const saveCharacter = async () => {
+    if (character && character.id) {
+      await Character.update(character.id, character);
+    }
+  };
+
+  // Auto-save character changes
+  useEffect(() => {
+    if (character && character.id) {
+      const timeoutId = setTimeout(() => {
+        saveCharacter();
+      }, 1000); // Save after 1 second of no changes
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [character]);
 
   if (loading) {
     return (
@@ -205,9 +212,7 @@ export default function CharacterSheet() {
       <header className="sticky top-0 z-50 w-full border-b border-bordeaux-200/50 bg-gradient-to-r from-bordeaux-200 via-soft-pink-100 to-ivory-100 text-stone-800">
         <div className="container flex h-32 items-center justify-between">
           <div>
-            <Button variant="ghost" size="icon" onClick={() => setEditing(!editing)}>
-              <Pencil className="h-5 w-5" />
-            </Button>
+            {/* Removed global edit button */}
           </div>
           <div className="flex items-center gap-6 text-right">
             <div className="flex flex-col">
@@ -270,7 +275,6 @@ export default function CharacterSheet() {
             <TabsContent value="stats" className="mt-2">
               <CharacterStats 
                 character={character}
-                editing={editing}
                 updateCharacter={updateCharacter}
                 updateAbility={updateAbility}
               />
@@ -278,28 +282,24 @@ export default function CharacterSheet() {
             <TabsContent value="equipment" className="mt-2">
               <CharacterEquipment 
                 character={character}
-                editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>
             <TabsContent value="spells" className="mt-2">
               <CharacterSpells 
                 character={character}
-                editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>
             <TabsContent value="background" className="mt-2">
               <CharacterBackground 
                 character={character}
-                editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>
             <TabsContent value="journal" className="mt-2">
               <CharacterJournal 
                 character={character}
-                editing={editing}
                 updateCharacter={updateCharacter}
               />
             </TabsContent>

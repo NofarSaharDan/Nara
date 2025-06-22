@@ -10,7 +10,7 @@ import BondsCard from "./cards/BondsCard";
 import FlawsCard from "./cards/FlawsCard";
 import BackstoryCard from "./cards/BackstoryCard";
 
-export default function CharacterBackground({ character, editing, updateCharacter }) {
+export default function CharacterBackground({ character, updateCharacter }) {
   const updateLanguages = (languages) => {
     updateCharacter("languages", languages);
   };
@@ -31,21 +31,21 @@ export default function CharacterBackground({ character, editing, updateCharacte
     <div className="grid lg:grid-cols-2 gap-8">
       {/* Main Character Info */}
       <div className="space-y-6">
-        <BasicInfoCard character={character} editing={editing} updateCharacter={updateCharacter} />
-        <LanguagesCard character={character} editing={editing} addLanguage={addLanguage} removeLanguage={removeLanguage} />
+        <BasicInfoCard character={character} updateCharacter={updateCharacter} />
+        <LanguagesCard character={character} addLanguage={addLanguage} removeLanguage={removeLanguage} />
         <SpecialFeaturesCard character={character} />
       </div>
 
       {/* Character Details */}
       <div className="space-y-6">
-        <PersonalityTraitsCard character={character} editing={editing} updateCharacter={updateCharacter} />
-        <IdealsCard character={character} editing={editing} updateCharacter={updateCharacter} />
-        <BondsCard character={character} editing={editing} updateCharacter={updateCharacter} />
-        <FlawsCard character={character} editing={editing} updateCharacter={updateCharacter} />
+        <PersonalityTraitsCard character={character} updateCharacter={updateCharacter} />
+        <IdealsCard character={character} updateCharacter={updateCharacter} />
+        <BondsCard character={character} updateCharacter={updateCharacter} />
+        <FlawsCard character={character} updateCharacter={updateCharacter} />
       </div>
 
       {/* Backstory - Full Width */}
-      <BackstoryCard character={character} editing={editing} updateCharacter={updateCharacter} />
+      <BackstoryCard character={character} updateCharacter={updateCharacter} />
     </div>
   );
 } 

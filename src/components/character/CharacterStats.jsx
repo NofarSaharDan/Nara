@@ -13,7 +13,7 @@ import MoneyCard from "./cards/MoneyCard";
 import ExperienceCard from "./cards/ExperienceCard";
 import SkillsCard from "./cards/SkillsCard";
 
-export default function CharacterStats({ character, editing, updateAbility, updateCharacter }) {
+export default function CharacterStats({ character, updateAbility, updateCharacter }) {
   const [xpToAdd, setXpToAdd] = useState(0);
   const [xpHistory, setXpHistory] = useState([]);
   const [moneyChangeAmount, setMoneyChangeAmount] = useState(0);
@@ -207,7 +207,6 @@ export default function CharacterStats({ character, editing, updateAbility, upda
         <StatsCard 
           abilities={abilities}
           character={character}
-          editing={editing}
           updateAbility={updateAbility}
           calculateTotal={calculateTotal}
           getModifier={getModifier}
@@ -215,7 +214,6 @@ export default function CharacterStats({ character, editing, updateAbility, upda
         />
         <SavingThrowsCard 
           character={character}
-          editing={editing}
           getSavingThrow={getSavingThrow}
           getModifier={getModifier}
           updateSavingThrow={updateSavingThrow}
@@ -227,7 +225,6 @@ export default function CharacterStats({ character, editing, updateAbility, upda
       <div className="space-y-4">
         <CombatCard 
           character={character}
-          editing={editing}
           getModifier={getModifier}
           updateAcComponent={updateAcComponent}
           totalAC={totalAC}
@@ -235,13 +232,11 @@ export default function CharacterStats({ character, editing, updateAbility, upda
         />
         <HitPointsCard 
           character={character}
-          editing={editing}
           updateCharacter={updateCharacter}
         />
         <AttacksCard />
         <MoneyCard 
           character={character}
-          editing={editing}
           totalGoldValue={totalGoldValue}
           moneyChangeAmount={moneyChangeAmount}
           setMoneyChangeAmount={setMoneyChangeAmount}
@@ -253,7 +248,6 @@ export default function CharacterStats({ character, editing, updateAbility, upda
       <div className="space-y-4">
         <ExperienceCard 
           character={character}
-          editing={editing}
           xpHistory={xpHistory}
           xpToAdd={xpToAdd}
           setXpToAdd={setXpToAdd}
@@ -262,7 +256,6 @@ export default function CharacterStats({ character, editing, updateAbility, upda
         <SkillsCard 
           skills={skills}
           character={character}
-          editing={editing}
           getSkillTotal={getSkillTotal}
           updateSkill={updateSkill}
         />
