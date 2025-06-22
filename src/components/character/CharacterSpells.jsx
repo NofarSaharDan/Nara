@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,18 +7,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { 
-  BookOpen, 
-  Star,
-  BrainCircuit,
-  Target,
-  Clock, 
-  Component, 
-  Hourglass, 
-  ChevronDown,
-  Filter
-} from "lucide-react";
-import { defaultSpells, getSchoolColor, spellSchools } from "@/data/spells";
+import { Filter } from "lucide-react";
+import { defaultSpells, spellSchools } from "@/data/spells";
+
+// Import the new card components
+import SpellSummaryCard from "./cards/SpellSummaryCard";
+import SpellLevelCard from "./cards/SpellLevelCard";
 
 export default function CharacterSpells({ character }) {
   const [expandedSpells, setExpandedSpells] = useState(new Set());
@@ -59,7 +50,11 @@ export default function CharacterSpells({ character }) {
     return `card-border-spells-${level}`;
   }
 
-  const SpellLevelCard = ({ level }) => {
+  const levelsToDisplay = filterLevel === 'all'
+    ? Array.from({ length: 10 }, (_, i) => i)
+    : [parseInt(filterLevel)];
+    
+  const filteredCards = levelsToDisplay.map(level => {
     let spells = getSpellsByLevel(level);
 
     if (filterSchool !== 'all') {
@@ -72,91 +67,25 @@ export default function CharacterSpells({ character }) {
     // If filters are active and there are no spells, don't render the card
     if (spells.length === 0 && (filterSchool !== 'all' || filterName !== '')) return null;
 
-    const title = level === 0 ? "קסמי רמה 0" : `לחשים רמה ${level}`;
-
     return (
-      <Card className={`shadow-lg ${getLevelBorderColor(level)} bg-white`}>
-        <CardHeader className={getLevelHeaderColor(level)}>
-          <CardTitle className="flex items-center justify-between">
-            <span className="flex items-center gap-2">
-              <Star className="w-5 h-5" />
-              {title}
-            </span>
-            <Badge variant="secondary" className="bg-white/20 text-white">{`${character?.spell_slots?.[level]?.current || 0} / ${character?.spell_slots?.[level]?.max || 0}`}</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 space-y-2">
-          {spells.length > 0 ? (
-            spells.map((spell) => (
-              <div key={spell.id} className="p-3 bg-white rounded-lg shadow-sm border border-gray-200 transition-shadow hover:shadow-md">
-                <button onClick={() => toggleSpell(spell.id)} className="flex justify-between items-center w-full group text-right">
-                  <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform flex-shrink-0 ${expandedSpells.has(spell.id) ? 'rotate-180' : ''}`} />
-                  <div className="flex-grow mr-2">
-                    <p className="font-bold text-gray-800">{spell.name}</p>
-                  </div>
-                   <Badge className={`${getSchoolColor(spell.school)} ml-2 flex-shrink-0`}>{spell.school}</Badge>
-                </button>
-                {expandedSpells.has(spell.id) && (
-                  <div className="pt-3 mt-3 border-t">
-                     <div className="space-y-3 text-sm text-right">
-                          <div className="flex justify-end gap-x-4 gap-y-1 text-gray-600 flex-wrap">
-                            <span className="flex items-center gap-1.5">{spell.casting_time} <strong>:זמן הטלה</strong> <Clock size={14} /></span>
-                            <span className="flex items-center gap-1.5">{spell.range} <strong>:טווח</strong> <Target size={14} /></span>
-                          </div>
-                          <div className="flex justify-end gap-x-4 gap-y-1 text-gray-600 flex-wrap">
-                             <span className="flex items-center gap-1.5">{spell.components} <strong>:רכיבים</strong> <Component size={14} /></span>
-                            <span className="flex items-center gap-1.5">{spell.duration} <strong>:משך</strong> <Hourglass size={14} /></span>
-                          </div>
-                          <Separator className="my-2"/>
-                          <p className="text-gray-800 leading-relaxed whitespace-pre-line">{spell.description}</p>
-                     </div>
-                  </div>
-                )}
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-gray-500 py-4">אין לחשים ברמה זו.</p>
-          )}
-        </CardContent>
-      </Card>
+      <SpellLevelCard
+        key={level}
+        level={level}
+        character={character}
+        spells={spells}
+        expandedSpells={expandedSpells}
+        toggleSpell={toggleSpell}
+        getLevelHeaderColor={getLevelHeaderColor}
+        getLevelBorderColor={getLevelBorderColor}
+      />
     );
-  };
-
-  const levelsToDisplay = filterLevel === 'all'
-    ? Array.from({ length: 10 }, (_, i) => i)
-    : [parseInt(filterLevel)];
-    
-  const filteredCards = levelsToDisplay.map(level => <SpellLevelCard key={level} level={level} />);
+  });
+  
   const hasVisibleCards = filteredCards.some(card => card !== null);
 
   return (
     <div className="space-y-8">
-      <Card className="shadow-lg border-blue-300 bg-white">
-        <CardHeader className="bg-gradient-to-r from-[#3c82f7] to-[#818cf8] text-white rounded-t-lg">
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5" />
-            סיכום לחשים
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm font-semibold text-blue-800 mb-1">תכונת הטלת לחשים</p>
-            <p className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-              <BrainCircuit className="w-6 h-6 text-blue-500"/> {character?.spell_casting_ability || "-"}
-            </p>
-          </div>
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm font-semibold text-blue-800 mb-1">דירוג קושי להצלה</p>
-            <p className="text-3xl font-bold text-gray-900">{character?.spell_save_dc || "-"}</p>
-          </div>
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm font-semibold text-blue-800 mb-1">בונוס התקפה ללחשים</p>
-             <p className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-2">
-               <Target className="w-6 h-6 text-blue-500"/> +{character?.spell_attack_bonus || "0"}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <SpellSummaryCard character={character} />
 
       <Collapsible className="space-y-2">
         <CollapsibleTrigger asChild>

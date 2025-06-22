@@ -194,8 +194,12 @@
   @apply bg-gradient-to-r from-[#22c55f] to-[#22c55f] text-white rounded-t-lg;
 }
 
+.card-header-background-basic-info {
+  @apply bg-gradient-to-r from-[#f97315] to-[#f59d0b] text-white rounded-t-lg;
+}
+
 .card-header-background-personality {
-  @apply bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white rounded-t-lg;
+  @apply bg-gradient-to-r from-[#f472b4] to-[#fa7186] text-white rounded-t-lg;
 }
 
 .card-header-background-ideals {
@@ -203,19 +207,23 @@
 }
 
 .card-header-background-bonds {
-  @apply bg-gradient-to-r from-[#ec4899] to-[#db2777] text-white rounded-t-lg;
+  @apply bg-gradient-to-r from-[#49dd80] to-[#34d398] text-white rounded-t-lg;
 }
 
 .card-header-background-flaws {
-  @apply bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed] text-white rounded-t-lg;
-}
-
-.card-header-background-features {
-  @apply bg-gradient-to-r from-[#06b6d4] to-[#0891b2] text-white rounded-t-lg;
+  @apply bg-gradient-to-r from-[#34d398] to-[#fa913d] text-white rounded-t-lg;
 }
 
 .card-header-background-languages {
-  @apply bg-gradient-to-r from-[#84cc16] to-[#65a30d] text-white rounded-t-lg;
+  @apply bg-gradient-to-r from-[#a88bfa] to-[#c083fc] text-white rounded-t-lg;
+}
+
+.card-header-background-features {
+  @apply bg-gradient-to-r from-[#22d3ee] to-[#2dd4bf] text-white rounded-t-lg;
+}
+
+.card-header-background-backstory {
+  @apply bg-gradient-to-r from-[#4b5462] to-[#64738a] text-white rounded-t-lg;
 }
 
 .card-header-journal {

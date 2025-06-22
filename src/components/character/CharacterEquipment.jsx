@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,15 +7,17 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Sword, 
-  Shield, 
   Plus, 
   Trash2, 
-  Package,
   Target,
-  Zap,
-  Sparkles
+  Zap
 } from "lucide-react";
+
+// Import the new card components
+import ArmorCard from "./cards/ArmorCard";
+import WeaponsCard from "./cards/WeaponsCard";
+import InventoryCard from "./cards/InventoryCard";
+import TreasuresCard from "./cards/TreasuresCard";
 
 export default function CharacterEquipment({ character, editing, updateCharacter }) {
   const [newWeapon, setNewWeapon] = useState({
@@ -79,124 +80,6 @@ export default function CharacterEquipment({ character, editing, updateCharacter
     };
     return colors[damageType] || "bg-gray-100 text-gray-800 border-gray-300";
   };
-
-  const ArmorCard = () => (
-    <Card className="shadow-lg border-sky-300 bg-white">
-      <CardHeader className="card-header-equipment-armor">
-        <CardTitle className="flex items-center gap-2">
-          <Shield className="w-5 h-5" />
-          שריון
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 space-y-4">
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-sky-200">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-800">שריון עור</p>
-              <p className="text-sm text-gray-500">סוג: שריון קל</p>
-            </div>
-            <Badge variant="outline" className="border-sky-300 text-sky-700">
-              מודיפיקטור זריזות +11
-            </Badge>
-          </div>
-        </div>
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-sky-200">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-800">מגן עץ</p>
-              <p className="text-sm text-gray-500">סוג: מגן</p>
-            </div>
-            <Badge variant="outline" className="border-sky-300 text-sky-700">
-              +2
-            </Badge>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const WeaponsCard = () => (
-    <Card className="shadow-lg border-red-300 bg-white">
-      <CardHeader className="card-header-equipment-weapons">
-        <CardTitle className="flex items-center gap-2">
-          <Sword className="w-5 h-5" />
-          נשקים
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 space-y-4">
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-red-200">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-800">חרב קצרה</p>
-              <p className="text-sm text-gray-500">סוג נזק: חיתוך, תכונות: קל, פיניס</p>
-            </div>
-            <Badge variant="outline" className="border-red-300 text-red-700">
-              1d6
-            </Badge>
-          </div>
-        </div>
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-red-200">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="font-bold text-gray-800">קשת קצרה</p>
-              <p className="text-sm text-gray-500">סוג נזק: חודר, תכונות: תחמושת, טווח</p>
-            </div>
-            <Badge variant="outline" className="border-red-300 text-red-700">
-              1d6
-            </Badge>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const InventoryCard = () => (
-     <Card className="shadow-lg border-green-300 bg-white">
-      <CardHeader className="card-header-equipment-inventory">
-        <CardTitle className="flex items-center gap-2">
-          <Package className="w-5 h-5" />
-          ציוד ומלאי
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-6 grid grid-cols-2 md:grid-cols-3 gap-4">
-        {[
-          {name: 'תרמיל', quantity: 1}, {name: 'ערכת ריפוי', quantity: 1}, {name: 'חבל (15 מטר)', quantity: 1},
-          {name: 'לפיד', quantity: 10}, {name: 'מנות ליום', quantity: 5}, {name: 'כד מים', quantity: 1},
-          {name: 'סכין', quantity: 1}, {name: 'חליפי טיפוס', quantity: 1},
-        ].map(item => (
-            <div key={item.name} className="p-3 bg-white rounded-lg shadow-sm border border-green-200 flex justify-between items-center">
-               <span className="font-semibold text-gray-800">{item.name}</span>
-               <Badge variant="secondary" className="bg-green-100 text-green-800">x {item.quantity}</Badge>
-            </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-
-  const TreasuresCard = () => (
-    <Card className="shadow-lg border-purple-300 bg-white">
-      <CardHeader className="bg-gradient-to-r from-[#a856f8] to-[#a78bfa] text-white rounded-t-lg">
-        <CardTitle className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5" />
-          פריטים מיוחדים ואוצרות
-        </CardTitle>
-      </CardHeader>
-       <CardContent className="p-6 space-y-4">
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-purple-200">
-            <div>
-              <p className="font-bold text-gray-800 flex items-center gap-2">קמע אסגארד <Badge variant="outline" className="border-purple-300 text-purple-700">נדיר</Badge></p>
-              <p className="text-sm text-gray-500 mt-1">קמע עתיק של האל האסגארדי</p>
-            </div>
-        </div>
-        <div className="p-4 bg-white rounded-lg shadow-sm border border-purple-200">
-            <div>
-              <p className="font-bold text-gray-800 flex items-center gap-2">זיכרון דרקוני <Badge variant="outline" className="border-purple-300 text-purple-700">יוצא דופן</Badge></p>
-              <p className="text-sm text-gray-500 mt-1">חרוז מכיל זיכרונות עתיקים</p>
-            </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
 
   return (
     <div className="grid lg:grid-cols-2 gap-8 items-start">
