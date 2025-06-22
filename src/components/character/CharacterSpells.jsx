@@ -52,21 +52,11 @@ export default function CharacterSpells({ character }) {
   };
 
   const getLevelHeaderColor = (level) => {
-    const colors = [
-      "from-slate-500 to-slate-600", "from-sky-500 to-sky-600", "from-cyan-500 to-cyan-600",
-      "from-teal-500 to-teal-600", "from-emerald-500 to-emerald-600", "from-green-500 to-green-600",
-      "from-lime-500 to-lime-600", "from-yellow-500 to-yellow-600", "from-amber-500 to-amber-600",
-      "from-orange-500 to-orange-600",
-    ];
-    return colors[level] || "from-gray-500 to-gray-600";
+    return `card-header-spells-${level}`;
   }
   
   const getLevelBorderColor = (level) => {
-    const colors = [
-      "border-slate-300", "border-sky-300", "border-cyan-300", "border-teal-300", "border-emerald-300",
-      "border-green-300", "border-lime-300", "border-yellow-300", "border-amber-300", "border-orange-300",
-    ];
-    return colors[level] || "border-gray-300";
+    return `card-border-spells-${level}`;
   }
 
   const SpellLevelCard = ({ level }) => {
@@ -86,7 +76,7 @@ export default function CharacterSpells({ character }) {
 
     return (
       <Card className={`shadow-lg ${getLevelBorderColor(level)} bg-white`}>
-        <CardHeader className={`bg-gradient-to-r ${getLevelHeaderColor(level)} text-white rounded-t-lg`}>
+        <CardHeader className={getLevelHeaderColor(level)}>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Star className="w-5 h-5" />

@@ -69,7 +69,7 @@ export default function CharacterJournal({ character, editing, updateCharacter }
     <div className="space-y-6">
       {/* Add New Entry */}
       <Card className="shadow-lg">
-        <CardHeader className="text-white bg-gradient-to-r from-[#8b5cf6] to-[#a855f7] rounded-t-lg">
+        <CardHeader className="card-header-journal">
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="w-5 h-5" />
             הוסף רשומה חדשה

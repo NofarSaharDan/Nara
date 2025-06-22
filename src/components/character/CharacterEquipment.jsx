@@ -82,7 +82,7 @@ export default function CharacterEquipment({ character, editing, updateCharacter
 
   const ArmorCard = () => (
     <Card className="shadow-lg border-sky-300 bg-white">
-      <CardHeader className="bg-gradient-to-r from-[#24d3ee] to-[#5fa6fa] text-white rounded-t-lg">
+      <CardHeader className="card-header-equipment-armor">
         <CardTitle className="flex items-center gap-2">
           <Shield className="w-5 h-5" />
           שריון
@@ -117,7 +117,7 @@ export default function CharacterEquipment({ character, editing, updateCharacter
 
   const WeaponsCard = () => (
     <Card className="shadow-lg border-red-300 bg-white">
-      <CardHeader className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-t-lg">
+      <CardHeader className="card-header-equipment-weapons">
         <CardTitle className="flex items-center gap-2">
           <Sword className="w-5 h-5" />
           נשקים
@@ -152,7 +152,7 @@ export default function CharacterEquipment({ character, editing, updateCharacter
 
   const InventoryCard = () => (
      <Card className="shadow-lg border-green-300 bg-white">
-      <CardHeader className="bg-gradient-to-r from-[#22c55f] to-[#22c55f] text-white rounded-t-lg">
+      <CardHeader className="card-header-equipment-inventory">
         <CardTitle className="flex items-center gap-2">
           <Package className="w-5 h-5" />
           ציוד ומלאי

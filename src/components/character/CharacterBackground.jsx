@@ -14,7 +14,10 @@ import {
   AlertTriangle,
   MessageCircle,
   Globe,
-  Sparkles
+  Sparkles,
+  User,
+  MessageSquare,
+  Zap
 } from "lucide-react";
 
 export default function CharacterBackground({ character, editing, updateCharacter }) {
@@ -146,9 +149,9 @@ export default function CharacterBackground({ character, editing, updateCharacte
 
         {/* Languages */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#a88bfa] to-[#c083fc] rounded-t-lg">
+          <CardHeader className="card-header-background-languages">
             <CardTitle className="flex items-center gap-2">
-              <Globe className="w-5 h-5" />
+              <MessageSquare className="w-5 h-5" />
               שפות
             </CardTitle>
           </CardHeader>
@@ -201,9 +204,9 @@ export default function CharacterBackground({ character, editing, updateCharacte
 
         {/* Special Features */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#22d3ee] to-[#2dd4bf] rounded-t-lg">
+          <CardHeader className="card-header-background-features">
             <CardTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5" />
+              <Zap className="w-5 h-5" />
               תכונות מיוחדות
             </CardTitle>
           </CardHeader>
@@ -237,9 +240,9 @@ export default function CharacterBackground({ character, editing, updateCharacte
       <div className="space-y-6">
         {/* Personality Traits */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#f472b4] to-[#fa7186] rounded-t-lg">
+          <CardHeader className="card-header-background-personality">
             <CardTitle className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5" />
+              <User className="w-5 h-5" />
               תכונות אישיות
             </CardTitle>
           </CardHeader>
@@ -264,7 +267,7 @@ export default function CharacterBackground({ character, editing, updateCharacte
 
         {/* Ideals */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#808bf7] to-[#60a4fa] rounded-t-lg">
+          <CardHeader className="card-header-background-ideals">
             <CardTitle className="flex items-center gap-2">
               <Star className="w-5 h-5" />
               אידיאלים
@@ -291,9 +294,9 @@ export default function CharacterBackground({ character, editing, updateCharacte
 
         {/* Bonds */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#49dd80] to-[#34d398] rounded-t-lg">
+          <CardHeader className="card-header-background-bonds">
             <CardTitle className="flex items-center gap-2">
-              <Link className="w-5 h-5" />
+              <Heart className="w-5 h-5" />
               קשרים
             </CardTitle>
           </CardHeader>
@@ -318,10 +321,10 @@ export default function CharacterBackground({ character, editing, updateCharacte
 
         {/* Flaws */}
         <Card className="shadow-lg">
-          <CardHeader className="text-white bg-gradient-to-r from-[#fa913d] to-[#facc15] rounded-t-lg">
+          <CardHeader className="card-header-background-flaws">
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5" />
-              חולשות
+              פגמים
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">

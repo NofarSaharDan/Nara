@@ -216,7 +216,7 @@ export default function CharacterStats({ character, editing, updateAbility, upda
       {/* Column 1: Core Stats */}
       <div className="space-y-4">
         <Card className="shadow-lg border border-slate-300 bg-white">
-          <CardHeader className="bg-gradient-to-r from-[#485568] to-[#56534f] text-white rounded-t-lg">
+          <CardHeader className="card-header-stats">
             <CardTitle className="flex items-center gap-2 text-lg">
               <GitCommitHorizontal className="w-5 h-5" />
               תכונות

@@ -136,3 +136,145 @@
   box-shadow: none !important;
   ring-width: 0 !important;
 }
+
+/* Card Header Colors - Reusable across all tabs */
+.card-header-stats {
+  @apply bg-gradient-to-r from-[#485568] to-[#56534f] text-white rounded-t-lg;
+}
+
+.card-header-spells-0 {
+  @apply bg-gradient-to-r from-slate-500 to-slate-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-1 {
+  @apply bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-2 {
+  @apply bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-3 {
+  @apply bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-4 {
+  @apply bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-5 {
+  @apply bg-gradient-to-r from-green-500 to-green-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-6 {
+  @apply bg-gradient-to-r from-lime-500 to-lime-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-7 {
+  @apply bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-8 {
+  @apply bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-t-lg;
+}
+
+.card-header-spells-9 {
+  @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-t-lg;
+}
+
+.card-header-equipment-armor {
+  @apply bg-gradient-to-r from-[#24d3ee] to-[#5fa6fa] text-white rounded-t-lg;
+}
+
+.card-header-equipment-weapons {
+  @apply bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-t-lg;
+}
+
+.card-header-equipment-inventory {
+  @apply bg-gradient-to-r from-[#22c55f] to-[#22c55f] text-white rounded-t-lg;
+}
+
+.card-header-background-personality {
+  @apply bg-gradient-to-r from-[#f59e0b] to-[#d97706] text-white rounded-t-lg;
+}
+
+.card-header-background-ideals {
+  @apply bg-gradient-to-r from-[#808bf7] to-[#60a4fa] text-white rounded-t-lg;
+}
+
+.card-header-background-bonds {
+  @apply bg-gradient-to-r from-[#ec4899] to-[#db2777] text-white rounded-t-lg;
+}
+
+.card-header-background-flaws {
+  @apply bg-gradient-to-r from-[#8b5cf6] to-[#7c3aed] text-white rounded-t-lg;
+}
+
+.card-header-background-features {
+  @apply bg-gradient-to-r from-[#06b6d4] to-[#0891b2] text-white rounded-t-lg;
+}
+
+.card-header-background-languages {
+  @apply bg-gradient-to-r from-[#84cc16] to-[#65a30d] text-white rounded-t-lg;
+}
+
+.card-header-journal {
+  @apply bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white rounded-t-lg;
+}
+
+/* Card border colors for consistency */
+.card-border-stats {
+  @apply border-slate-300;
+}
+
+.card-border-spells-0 {
+  @apply border-slate-300;
+}
+
+.card-border-spells-1 {
+  @apply border-sky-300;
+}
+
+.card-border-spells-2 {
+  @apply border-cyan-300;
+}
+
+.card-border-spells-3 {
+  @apply border-teal-300;
+}
+
+.card-border-spells-4 {
+  @apply border-emerald-300;
+}
+
+.card-border-spells-5 {
+  @apply border-green-300;
+}
+
+.card-border-spells-6 {
+  @apply border-lime-300;
+}
+
+.card-border-spells-7 {
+  @apply border-yellow-300;
+}
+
+.card-border-spells-8 {
+  @apply border-amber-300;
+}
+
+.card-border-spells-9 {
+  @apply border-orange-300;
+}
+
+.card-border-equipment-armor {
+  @apply border-sky-300;
+}
+
+.card-border-equipment-weapons {
+  @apply border-red-300;
+}
+
+.card-border-equipment-inventory {
+  @apply border-green-300;
+}
