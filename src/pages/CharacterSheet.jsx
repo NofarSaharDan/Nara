@@ -11,13 +11,15 @@ import {
   Swords,
   Shield,
   ScrollText,
-  BookUser
+  BookUser,
+  BookOpen
 } from "lucide-react";
 
 import CharacterStats from "../components/character/CharacterStats";
 import CharacterSpells from "../components/character/CharacterSpells"; 
 import CharacterEquipment from "../components/character/CharacterEquipment";
 import CharacterBackground from "../components/character/CharacterBackground";
+import CharacterJournal from "../components/character/CharacterJournal";
 
 export default function CharacterSheet() {
   const [character, setCharacter] = useState(null);
@@ -32,10 +34,12 @@ export default function CharacterSheet() {
   const loadCharacter = async () => {
     try {
       const characters = await Character.list();
+      let characterData;
+
       if (characters.length > 0) {
-        setCharacter(characters[0]);
+        characterData = characters[0];
       } else {
-        const naraData = await Character.create({
+        characterData = await Character.create({
           name: "נארה",
           race: "דרקון-בורן",
           class: "כוהנת",
@@ -54,7 +58,56 @@ export default function CharacterSheet() {
           intelligence: { base: 13, racial: 2, items: 0, misc: 0 },
           wisdom: { base: 20, racial: 0, items: 0, misc: 0 },
           charisma: { base: 17, racial: 2, items: 0, misc: 0 },
-          spells: [],
+          spells: [
+            {
+              id: 1,
+              name: "ריפוי קל",
+              level: 1,
+              school: "נקרומנסי",
+              components: "V, S",
+              casting_time: "1 פעולה",
+              range: "מגע",
+              duration: "מיידי",
+              description: "מרפא 1ק8+1/רמה (עד +5)"
+            },
+            {
+              id: 2,
+              name: "ברכה",
+              level: 1,
+              school: "קסם",
+              components: "V, S, M",
+              casting_time: "1 פעולה",
+              range: "50 רגל",
+              duration: "1 דק'/רמה",
+              description: "+1 התקפה ושמירה מפחד לבעלי ברית"
+            },
+            {
+              id: 3,
+              name: "אור",
+              level: 0,
+              school: "הטעיה",
+              components: "V, M",
+              casting_time: "1 פעולה",
+              range: "מגע",
+              duration: "10 דק'/רמה",
+              description: "מאיר כמו לפיד"
+            }
+          ],
+          spell_slots: {
+            0: { current: 4, max: 4 },
+            1: { current: 3, max: 3 },
+            2: { current: 2, max: 2 },
+            3: { current: 1, max: 1 },
+            4: { current: 0, max: 0 },
+            5: { current: 0, max: 0 },
+            6: { current: 0, max: 0 },
+            7: { current: 0, max: 0 },
+            8: { current: 0, max: 0 },
+            9: { current: 0, max: 0 }
+          },
+          spell_casting_ability: "תבונה",
+          spell_save_dc: 15,
+          spell_attack_bonus: 7,
           notes: "",
           backstory: "🌟 נארה — בת הנשימה הראשונה...",
           personality_traits: "עיני אדומות עמוקות עם גחלים בוערות...",
@@ -65,10 +118,34 @@ export default function CharacterSheet() {
           features: [
             { name: "נשימת אש", description: "פעם ביום..." },
             { name: "עמידות לאש", description: "התנגדות לנזק אש." }
-          ]
+          ],
+          journal_entries: []
         });
-        setCharacter(naraData);
       }
+
+      // Ensure spells and spell_slots exist
+      if (!characterData.spells || !characterData.spell_slots) {
+        characterData = {
+          ...characterData,
+          spells: characterData.spells || [
+            { id: 1, name: "ריפוי קל", level: 1, school: "נקרומנסי", components: "V, S", casting_time: "1 פעולה", range: "מגע", duration: "מיידי", description: "מרפא 1ק8+1/רמה (עד +5)" },
+            { id: 2, name: "ברכה", level: 1, school: "קסם", components: "V, S, M", casting_time: "1 פעולה", range: "50 רגל", duration: "1 דק'/רמה", description: "+1 התקפה ושמירה מפחד לבעלי ברית" },
+            { id: 3, name: "אור", level: 0, school: "הטעיה", components: "V, M", casting_time: "1 פעולה", range: "מגע", duration: "10 דק'/רמה", description: "מאיר כמו לפיד" }
+          ],
+          spell_slots: characterData.spell_slots || {
+            0: { current: 4, max: 4 }, 1: { current: 3, max: 3 }, 2: { current: 2, max: 2 }, 3: { current: 1, max: 1 }, 4: { current: 0, max: 0 }, 5: { current: 0, max: 0 }, 6: { current: 0, max: 0 }, 7: { current: 0, max: 0 }, 8: { current: 0, max: 0 }, 9: { current: 0, max: 0 }
+          },
+          spell_casting_ability: characterData.spell_casting_ability || "תבונה",
+          spell_save_dc: characterData.spell_save_dc || 15,
+          spell_attack_bonus: characterData.spell_attack_bonus || 7,
+          journal_entries: characterData.journal_entries || []
+        };
+        // Save the updated character data
+        await Character.update(characterData.id, characterData);
+      }
+
+      setCharacter(characterData);
+
     } catch (error) {
       console.error("שגיאה בטעינת הדמות:", error);
     }
@@ -153,13 +230,20 @@ export default function CharacterSheet() {
       <main className="flex-1">
         <div className="container py-1">
           <Tabs defaultValue="stats" className="w-full" onValueChange={setActiveTab} value={activeTab}>
-            <TabsList className="grid h-12 w-full grid-cols-4 items-center rounded-none border-b border-stone-200 bg-transparent p-0">
+            <TabsList className="grid h-12 w-full grid-cols-5 items-center rounded-none border-b border-stone-200 bg-transparent p-0">
               <TabsTrigger
                 value="background"
                 className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
               >
                 <BookUser className="mr-2 h-4 w-4" />
                 רקע
+              </TabsTrigger>
+              <TabsTrigger
+                value="journal"
+                className="rounded-none border-b-[3px] border-transparent data-[state=active]:-mb-px data-[state=active]:border-b-coral-400 data-[state=active]:bg-ivory-100 data-[state=active]:text-coral-400 data-[state=active]:font-semibold data-[state=active]:shadow-none"
+              >
+                <BookOpen className="mr-2 h-4 w-4" />
+                יומן מסע
               </TabsTrigger>
               <TabsTrigger
                 value="spells"
@@ -207,6 +291,13 @@ export default function CharacterSheet() {
             </TabsContent>
             <TabsContent value="background" className="mt-2">
               <CharacterBackground 
+                character={character}
+                editing={editing}
+                updateCharacter={updateCharacter}
+              />
+            </TabsContent>
+            <TabsContent value="journal" className="mt-2">
+              <CharacterJournal 
                 character={character}
                 editing={editing}
                 updateCharacter={updateCharacter}

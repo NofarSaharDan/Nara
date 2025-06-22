@@ -14,7 +14,8 @@ import {
   Trash2, 
   Package,
   Target,
-  Zap
+  Zap,
+  Sparkles
 } from "lucide-react";
 
 export default function CharacterEquipment({ character, editing, updateCharacter }) {
@@ -79,282 +80,134 @@ export default function CharacterEquipment({ character, editing, updateCharacter
     return colors[damageType] || "bg-gray-100 text-gray-800 border-gray-300";
   };
 
+  const ArmorCard = () => (
+    <Card className="shadow-lg border-sky-300 bg-white">
+      <CardHeader className="bg-gradient-to-r from-[#24d3ee] to-[#5fa6fa] text-white rounded-t-lg">
+        <CardTitle className="flex items-center gap-2">
+          <Shield className="w-5 h-5" />
+          שריון
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-6 space-y-4">
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-sky-200">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-bold text-gray-800">שריון עור</p>
+              <p className="text-sm text-gray-500">סוג: שריון קל</p>
+            </div>
+            <Badge variant="outline" className="border-sky-300 text-sky-700">
+              מודיפיקטור זריזות +11
+            </Badge>
+          </div>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-sky-200">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-bold text-gray-800">מגן עץ</p>
+              <p className="text-sm text-gray-500">סוג: מגן</p>
+            </div>
+            <Badge variant="outline" className="border-sky-300 text-sky-700">
+              +2
+            </Badge>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const WeaponsCard = () => (
+    <Card className="shadow-lg border-red-300 bg-white">
+      <CardHeader className="bg-gradient-to-r from-[#ef4444] to-[#dc2626] text-white rounded-t-lg">
+        <CardTitle className="flex items-center gap-2">
+          <Sword className="w-5 h-5" />
+          נשקים
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-6 space-y-4">
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-red-200">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-bold text-gray-800">חרב קצרה</p>
+              <p className="text-sm text-gray-500">סוג נזק: חיתוך, תכונות: קל, פיניס</p>
+            </div>
+            <Badge variant="outline" className="border-red-300 text-red-700">
+              1d6
+            </Badge>
+          </div>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-red-200">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-bold text-gray-800">קשת קצרה</p>
+              <p className="text-sm text-gray-500">סוג נזק: חודר, תכונות: תחמושת, טווח</p>
+            </div>
+            <Badge variant="outline" className="border-red-300 text-red-700">
+              1d6
+            </Badge>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const InventoryCard = () => (
+     <Card className="shadow-lg border-green-300 bg-white">
+      <CardHeader className="bg-gradient-to-r from-[#22c55f] to-[#22c55f] text-white rounded-t-lg">
+        <CardTitle className="flex items-center gap-2">
+          <Package className="w-5 h-5" />
+          ציוד ומלאי
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+        {[
+          {name: 'תרמיל', quantity: 1}, {name: 'ערכת ריפוי', quantity: 1}, {name: 'חבל (15 מטר)', quantity: 1},
+          {name: 'לפיד', quantity: 10}, {name: 'מנות ליום', quantity: 5}, {name: 'כד מים', quantity: 1},
+          {name: 'סכין', quantity: 1}, {name: 'חליפי טיפוס', quantity: 1},
+        ].map(item => (
+            <div key={item.name} className="p-3 bg-white rounded-lg shadow-sm border border-green-200 flex justify-between items-center">
+               <span className="font-semibold text-gray-800">{item.name}</span>
+               <Badge variant="secondary" className="bg-green-100 text-green-800">x {item.quantity}</Badge>
+            </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+
+  const TreasuresCard = () => (
+    <Card className="shadow-lg border-purple-300 bg-white">
+      <CardHeader className="bg-gradient-to-r from-[#a856f8] to-[#a78bfa] text-white rounded-t-lg">
+        <CardTitle className="flex items-center gap-2">
+          <Sparkles className="w-5 h-5" />
+          פריטים מיוחדים ואוצרות
+        </CardTitle>
+      </CardHeader>
+       <CardContent className="p-6 space-y-4">
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-purple-200">
+            <div>
+              <p className="font-bold text-gray-800 flex items-center gap-2">קמע אסגארד <Badge variant="outline" className="border-purple-300 text-purple-700">נדיר</Badge></p>
+              <p className="text-sm text-gray-500 mt-1">קמע עתיק של האל האסגארדי</p>
+            </div>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow-sm border border-purple-200">
+            <div>
+              <p className="font-bold text-gray-800 flex items-center gap-2">זיכרון דרקוני <Badge variant="outline" className="border-purple-300 text-purple-700">יוצא דופן</Badge></p>
+              <p className="text-sm text-gray-500 mt-1">חרוז מכיל זיכרונות עתיקים</p>
+            </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
-    <div className="grid lg:grid-cols-2 gap-8">
-      {/* Weapons */}
-      <Card className="shadow-lg border-red-200 bg-gradient-to-br from-white to-red-50">
-        <CardHeader className="bg-gradient-to-l from-red-600 to-orange-600 text-white rounded-t-lg">
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Sword className="w-5 h-5" />
-              נשקים
-            </CardTitle>
-            {editing && (
-              <Button
-                onClick={() => setShowAddWeapon(!showAddWeapon)}
-                size="sm"
-                variant="secondary"
-                className="bg-white/20 hover:bg-white/30 text-white border-white/30"
-              >
-                <Plus className="w-4 h-4 ml-1" />
-                הוסף נשק
-              </Button>
-            )}
-          </div>
-        </CardHeader>
-        
-        <CardContent className="p-6">
-          <AnimatePresence>
-            {showAddWeapon && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden mb-6"
-              >
-                <div className="p-4 bg-red-50 rounded-lg border border-red-200 space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>שם הנשק</Label>
-                      <Input
-                        value={newWeapon.name}
-                        onChange={(e) => setNewWeapon({...newWeapon, name: e.target.value})}
-                        placeholder="חרב ארוכה"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label>בונוס התקפה</Label>
-                      <Input
-                        type="number"
-                        value={newWeapon.attack_bonus}
-                        onChange={(e) => setNewWeapon({...newWeapon, attack_bonus: parseInt(e.target.value) || 0})}
-                        placeholder="0"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>נזק</Label>
-                      <Input
-                        value={newWeapon.damage}
-                        onChange={(e) => setNewWeapon({...newWeapon, damage: e.target.value})}
-                        placeholder="1d8+3"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>סוג נזק</Label>
-                      <Input
-                        value={newWeapon.damage_type}
-                        onChange={(e) => setNewWeapon({...newWeapon, damage_type: e.target.value})}
-                        placeholder="חותך"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end gap-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowAddWeapon(false)}
-                      size="sm"
-                    >
-                      ביטול
-                    </Button>
-                    <Button
-                      onClick={addWeapon}
-                      disabled={!newWeapon.name}
-                      size="sm"
-                      className="bg-red-600 hover:bg-red-700"
-                    >
-                      הוסף נשק
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="space-y-4">
-            {character.weapons?.length > 0 ? (
-              character.weapons.map((weapon) => (
-                <motion.div
-                  key={weapon.id}
-                  className="p-4 bg-white rounded-lg shadow-sm border border-red-200 hover:shadow-md transition-all duration-200"
-                  whileHover={{ scale: 1.01 }}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-lg font-bold text-red-800 mb-2">{weapon.name}</h3>
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <Badge variant="outline" className="flex items-center gap-1 border-red-300 text-red-700">
-                          <Target className="w-3 h-3" />
-                          התקפה: {weapon.attack_bonus >= 0 ? '+' : ''}{weapon.attack_bonus}
-                        </Badge>
-                        {weapon.damage && (
-                          <Badge variant="outline" className="flex items-center gap-1 border-red-300 text-red-700">
-                            <Zap className="w-3 h-3" />
-                            נזק: {weapon.damage}
-                          </Badge>
-                        )}
-                        {weapon.damage_type && (
-                          <Badge className={getDamageTypeColor(weapon.damage_type)}>
-                            {weapon.damage_type}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    {editing && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeWeapon(weapon.id)}
-                        className="text-red-600 hover:text-red-800 hover:bg-red-50"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <div className="text-center py-8 text-red-600">
-                <Sword className="w-12 h-12 mx-auto mb-4 text-red-400" />
-                <p>אין נשקים</p>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Equipment */}
-      <Card className="shadow-lg border-blue-200 bg-gradient-to-br from-white to-blue-50">
-        <CardHeader className="bg-gradient-to-l from-blue-600 to-indigo-600 text-white rounded-t-lg">
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Package className="w-5 h-5" />
-              ציוד ומלאי
-            </CardTitle>
-            {editing && (
-              <Button
-                onClick={() => setShowAddEquipment(!showAddEquipment)}
-                size="sm"
-                variant="secondary"
-                className="bg-white/20 hover:bg-white/30 text-white border-white/30"
-              >
-                <Plus className="w-4 h-4 ml-1" />
-                הוסף פריט
-              </Button>
-            )}
-          </div>
-        </CardHeader>
-        
-        <CardContent className="p-6">
-          <AnimatePresence>
-            {showAddEquipment && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden mb-6"
-              >
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>שם הפריט</Label>
-                      <Input
-                        value={newEquipment.name}
-                        onChange={(e) => setNewEquipment({...newEquipment, name: e.target.value})}
-                        placeholder="חבל, פנס, וכו'"
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label>כמות</Label>
-                      <Input
-                        type="number"
-                        min="1"
-                        value={newEquipment.quantity}
-                        onChange={(e) => setNewEquipment({...newEquipment, quantity: parseInt(e.target.value) || 1})}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>תיאור</Label>
-                    <Textarea
-                      value={newEquipment.description}
-                      onChange={(e) => setNewEquipment({...newEquipment, description: e.target.value})}
-                      placeholder="תיאור הפריט ושימושיו..."
-                      rows={2}
-                    />
-                  </div>
-
-                  <div className="flex justify-end gap-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowAddEquipment(false)}
-                      size="sm"
-                    >
-                      ביטול
-                    </Button>
-                    <Button
-                      onClick={addEquipment}
-                      disabled={!newEquipment.name}
-                      size="sm"
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      הוסף פריט
-                    </Button>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="space-y-3">
-            {character.equipment?.length > 0 ? (
-              character.equipment.map((item) => (
-                <motion.div
-                  key={item.id}
-                  className="p-4 bg-white rounded-lg shadow-sm border border-blue-200 hover:shadow-md transition-all duration-200"
-                  whileHover={{ scale: 1.01 }}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-base font-bold text-blue-800">{item.name}</h3>
-                        {item.quantity > 1 && (
-                          <Badge variant="outline" className="border-blue-300 text-blue-700">
-                            x{item.quantity}
-                          </Badge>
-                        )}
-                      </div>
-                      {item.description && (
-                        <p className="text-sm text-blue-600 leading-relaxed">{item.description}</p>
-                      )}
-                    </div>
-                    {editing && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeEquipment(item.id)}
-                        className="text-blue-600 hover:text-blue-800 hover:bg-blue-50"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <div className="text-center py-8 text-blue-600">
-                <Package className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-                <p>אין ציוד</p>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+    <div className="grid lg:grid-cols-2 gap-8 items-start">
+      <div className="space-y-8">
+        <WeaponsCard />
+        <TreasuresCard />
+      </div>
+      <div className="space-y-8">
+        <ArmorCard />
+        <InventoryCard />
+      </div>
     </div>
   );
 } 

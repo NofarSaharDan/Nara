@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 import { 
@@ -34,14 +33,14 @@ export default function CharacterBackground({ character, editing, updateCharacte
     const currentLanguages = character.languages || [];
     updateLanguages(currentLanguages.filter(lang => lang !== language));
   };
-
+  
   return (
     <div className="grid lg:grid-cols-2 gap-8">
       {/* Main Character Info */}
       <div className="space-y-6">
         {/* Basic Info */}
-        <Card className="shadow-lg border-amber-200 bg-gradient-to-br from-white to-amber-50">
-          <CardHeader className="bg-gradient-to-l from-amber-600 to-orange-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#f97315] to-[#f59d0b] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <Star className="w-5 h-5" />
               פרטי הדמות
@@ -146,8 +145,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
         </Card>
 
         {/* Languages */}
-        <Card className="shadow-lg border-blue-200 bg-gradient-to-br from-white to-blue-50">
-          <CardHeader className="bg-gradient-to-l from-blue-600 to-indigo-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#a88bfa] to-[#c083fc] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <Globe className="w-5 h-5" />
               שפות
@@ -201,8 +200,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
         </Card>
 
         {/* Special Features */}
-        <Card className="shadow-lg border-amber-200 bg-gradient-to-br from-white to-amber-50">
-          <CardHeader className="bg-gradient-to-l from-amber-600 to-orange-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#22d3ee] to-[#2dd4bf] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="w-5 h-5" />
               תכונות מיוחדות
@@ -237,8 +236,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
       {/* Character Details */}
       <div className="space-y-6">
         {/* Personality Traits */}
-        <Card className="shadow-lg border-green-200 bg-gradient-to-br from-white to-green-50">
-          <CardHeader className="bg-gradient-to-l from-green-600 to-teal-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#f472b4] to-[#fa7186] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <MessageCircle className="w-5 h-5" />
               תכונות אישיות
@@ -264,8 +263,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
         </Card>
 
         {/* Ideals */}
-        <Card className="shadow-lg border-yellow-200 bg-gradient-to-br from-white to-yellow-50">
-          <CardHeader className="bg-gradient-to-l from-yellow-600 to-orange-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#808bf7] to-[#60a4fa] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <Star className="w-5 h-5" />
               אידיאלים
@@ -291,8 +290,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
         </Card>
 
         {/* Bonds */}
-        <Card className="shadow-lg border-pink-200 bg-gradient-to-br from-white to-pink-50">
-          <CardHeader className="bg-gradient-to-l from-pink-600 to-rose-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#49dd80] to-[#34d398] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <Link className="w-5 h-5" />
               קשרים
@@ -318,8 +317,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
         </Card>
 
         {/* Flaws */}
-        <Card className="shadow-lg border-red-200 bg-gradient-to-br from-white to-red-50">
-          <CardHeader className="bg-gradient-to-l from-red-600 to-pink-600 text-white rounded-t-lg">
+        <Card className="shadow-lg">
+          <CardHeader className="text-white bg-gradient-to-r from-[#fa913d] to-[#facc15] rounded-t-lg">
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5" />
               חולשות
@@ -346,8 +345,8 @@ export default function CharacterBackground({ character, editing, updateCharacte
       </div>
 
       {/* Backstory - Full Width */}
-      <Card className="lg:col-span-2 shadow-lg border-indigo-200 bg-gradient-to-br from-white to-indigo-50">
-        <CardHeader className="bg-gradient-to-l from-indigo-600 to-blue-600 text-white rounded-t-lg">
+      <Card className="lg:col-span-2 shadow-lg">
+        <CardHeader className="text-white bg-gradient-to-r from-[#4b5462] to-[#64738a] rounded-t-lg">
           <CardTitle className="flex items-center gap-2">
             <Book className="w-5 h-5" />
             סיפור הרקע
