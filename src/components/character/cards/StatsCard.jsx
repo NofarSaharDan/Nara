@@ -1,17 +1,26 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { GitCommitHorizontal } from "lucide-react";
+import { Label } from "@/components/ui/label";
 import { useCardEditing } from "@/lib/hooks/useCardEditing";
-import { EditButtons } from "../../ui/edit-buttons";
+import { EditButtons } from "@/components/ui/edit-buttons";
+import {
+  Star,
+  Target,
+  Zap,
+  Heart,
+  BrainCircuit,
+  Shield as WisdomShield,
+} from "lucide-react";
 
 export default function StatsCard({ abilities, character, updateAbility, calculateTotal, getModifier, formatModifier }) {
   const initialData = abilities.reduce((acc, ability) => {
     const abilityData = character[ability.key] || {};
     acc[ability.key] = {
       base: abilityData.base || 0,
-      racial: abilityData.racial || 0
+      racial: abilityData.racial || 0,
+      magic: abilityData.magic || 0,
+      misc: abilityData.misc || 0,
     };
     return acc;
   }, {});
@@ -22,84 +31,95 @@ export default function StatsCard({ abilities, character, updateAbility, calcula
     startEditing,
     saveChanges,
     cancelEditing,
-    updateTempData
+    updateTempData,
   } = useCardEditing(initialData, (updatedData) => {
-    // Update each ability with the new data
-    Object.entries(updatedData).forEach(([abilityKey, abilityData]) => {
-      updateAbility(abilityKey, "base", abilityData.base);
-      updateAbility(abilityKey, "racial", abilityData.racial);
+    Object.entries(updatedData).forEach(([abilityKey, abilityValues]) => {
+      // Pass the whole updated ability object to the parent
+      updateAbility(abilityKey, abilityValues);
     });
   });
 
+  const handleStatChange = (abilityKey, field, value) => {
+    updateTempData(abilityKey, {
+      ...tempData[abilityKey],
+      [field]: parseInt(value, 10) || 0,
+    });
+  };
+  
+  const abilityPresentation = {
+    strength: { icon: <Target />, color: "text-red-500", bgColor: "bg-red-500" },
+    dexterity: { icon: <Zap />, color: "text-amber-500", bgColor: "bg-amber-500" },
+    constitution: { icon: <Heart />, color: "text-green-500", bgColor: "bg-green-500" },
+    intelligence: { icon: <BrainCircuit />, color: "text-blue-500", bgColor: "bg-blue-500" },
+    wisdom: { icon: <WisdomShield />, color: "text-indigo-500", bgColor: "bg-indigo-500" },
+    charisma: { icon: <Star />, color: "text-pink-500", bgColor: "bg-pink-500" },
+  };
+
   return (
-    <Card className="shadow-lg border border-slate-300 bg-white">
-      <CardHeader className="card-header-stats">
-        <CardTitle className="flex items-center justify-between w-full text-lg">
-          <EditButtons
-            editing={editing}
-            onEdit={startEditing}
-            onSave={saveChanges}
-            onCancel={cancelEditing}
-          />
-          <div className="flex items-center gap-2">
-            <GitCommitHorizontal className="w-5 h-5" />
-            תכונות
-          </div>
-        </CardTitle>
+    <Card>
+      <CardHeader className="card-header-stats flex-row items-center justify-between pb-2">
+        <EditButtons
+          isEditing={editing}
+          onEdit={startEditing}
+          onSave={saveChanges}
+          onCancel={cancelEditing}
+        />
+        <CardTitle className="text-lg font-medium w-full text-right">תכונות</CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-slate-100/50">
-              <TableHead className="text-right text-xs p-1 text-gray-900">תכונה</TableHead>
-              <TableHead className="text-center text-xs p-1 text-gray-900">מתאם</TableHead>
-              <TableHead className="text-center text-xs p-1 text-gray-900">סה"כ</TableHead>
-              <TableHead className="text-center text-xs p-1 text-gray-900">בסיס</TableHead>
-              <TableHead className="text-center text-xs p-1 text-gray-900">גזע</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {abilities.map((abilityInfo) => {
-              const abilityData = character[abilityInfo.key] || {};
-              const tempAbilityData = tempData[abilityInfo.key] || {};
+      <CardContent className="p-4 space-y-2">
+        {abilities.map((abilityInfo) => {
+          const abilityData = character[abilityInfo.key] || {};
+          const tempAbilityData = tempData[abilityInfo.key] || {};
+          const presentation = abilityPresentation[abilityInfo.key];
+          const modifier = getModifier(abilityData);
+
+          const detailParts = [
+            `בסיס: ${abilityData.base || 0}`,
+            `גזע: ${abilityData.racial || 0}`,
+          ];
+          if (abilityData.magic) detailParts.push(`קסם: ${abilityData.magic}`);
+          if (abilityData.misc) detailParts.push(`שונות: ${abilityData.misc}`);
+          
+          return (
+            <div key={abilityInfo.key} className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`${presentation.color} w-6 h-6`}>
+                    {React.cloneElement(presentation.icon, { className: "w-full h-full" })}
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-800">{abilityInfo.name}</p>
+                    <p className="text-xs text-slate-500">{detailParts.join(' | ')}</p>
+                  </div>
+                </div>
+                
+                <div className={`w-14 h-14 rounded-full ${presentation.bgColor} flex items-center justify-center`}>
+                  <p className="text-white text-2xl font-bold">{formatModifier(modifier)}</p>
+                </div>
+              </div>
               
-              return (
-                <TableRow key={abilityInfo.key} className="hover:bg-slate-100/50">
-                  <TableCell className="font-medium text-gray-900 p-2">
-                    {abilityInfo.name} <br />
-                    <span className="text-xs text-gray-600">({abilityInfo.short})</span>
-                  </TableCell>
-                  <TableCell className="text-center font-bold text-lg text-[#2c3e50] p-2">{formatModifier(getModifier(abilityData))}</TableCell>
-                  <TableCell className="text-center font-bold text-lg text-gray-900 p-2">{calculateTotal(abilityData)}</TableCell>
-                  <TableCell className="p-1">
-                    {editing ? (
-                      <Input 
-                        type="number" 
-                        value={tempAbilityData.base || 0} 
-                        onChange={(e) => updateTempData(abilityInfo.key, "base", parseInt(e.target.value) || 0)} 
-                        className="w-12 h-8 text-center mx-auto"
-                      />
-                    ) : (
-                      <div className="text-center text-gray-900">{abilityData.base || 0}</div>
-                    )}
-                  </TableCell>
-                  <TableCell className="p-1">
-                    {editing ? (
-                      <Input 
-                        type="number" 
-                        value={tempAbilityData.racial || 0} 
-                        onChange={(e) => updateTempData(abilityInfo.key, "racial", parseInt(e.target.value) || 0)} 
-                        className="w-12 h-8 text-center mx-auto"
-                      />
-                    ) : (
-                      <div className="text-center text-gray-900">{abilityData.racial || 0}</div>
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+              {editing && (
+                <div className="mt-3 pt-3 border-t border-slate-200 grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {[ 'base', 'racial', 'magic', 'misc' ].map(field => {
+                    const fieldLabels = { base: 'בסיס', racial: 'גזע', magic: 'קסם', misc: 'שונות' };
+                    return (
+                      <div className="space-y-1" key={field}>
+                        <Label htmlFor={`${field}-${abilityInfo.key}`} className="text-xs font-medium text-slate-600">{fieldLabels[field]}</Label>
+                        <Input 
+                          id={`${field}-${abilityInfo.key}`} 
+                          type="number" 
+                          value={tempAbilityData[field]} 
+                          onChange={(e) => handleStatChange(abilityInfo.key, field, e.target.value)}
+                          className="h-8 w-full"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </CardContent>
     </Card>
   );

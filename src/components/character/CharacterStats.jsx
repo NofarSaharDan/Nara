@@ -13,7 +13,7 @@ import MoneyCard from "./cards/MoneyCard";
 import ExperienceCard from "./cards/ExperienceCard";
 import SkillsCard from "./cards/SkillsCard";
 
-export default function CharacterStats({ character, updateAbility, updateCharacter }) {
+export default function CharacterStats({ character, updateCharacter }) {
   const [xpToAdd, setXpToAdd] = useState(0);
   const [xpHistory, setXpHistory] = useState([]);
   const [moneyChangeAmount, setMoneyChangeAmount] = useState(0);
@@ -31,7 +31,7 @@ export default function CharacterStats({ character, updateAbility, updateCharact
 
   const calculateTotal = (ability) => {
     if (!ability) return 10;
-    return (ability.base || 0) + (ability.racial || 0) + (ability.items || 0) + (ability.misc || 0);
+    return (ability.base || 0) + (ability.racial || 0) + (ability.items || 0) + (ability.misc || 0) + (ability.magic || 0);
   };
 
   const getModifier = (ability) => {
@@ -51,6 +51,13 @@ export default function CharacterStats({ character, updateAbility, updateCharact
     { name: "חוכמה", key: "wisdom", short: "WIS" },
     { name: "כריזמה", key: "charisma", short: "CHA" }
   ];
+
+  const updateAbility = (abilityName, updatedValues) => {
+    updateCharacter(abilityName, {
+      ...character[abilityName],
+      ...updatedValues
+    });
+  };
 
   const skills = [
     { name: "אקרובטיקה", ability: "dexterity", key: "acrobatics" },
