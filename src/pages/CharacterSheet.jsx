@@ -40,21 +40,83 @@ export default function CharacterSheet() {
           name: "נארה",
           race: "דרקון-בורן",
           class: "כוהנת",
+          level: 2, // ← עודכן לרמה 2
           alignment: "טוב כאוטי",
-          experience_points: 0,
-          hit_points_base: 10,
+          experience_points: 1425, // ← עודכן ל-1425 XP
+          hit_points_base: 19, // ← עודכן ל-19 HP
+          hit_points_current: 19, // ← הוסף HP נוכחיים
+          hit_points_wounds: 0, // ← הוסף נזק
+          hit_points_temporary: 0, // ← הוסף HP זמניים
           hit_dice: "1d8",
+          hp_rolls: [8, 6], // ← הוסף גלגולי HP: רמה 1 = 8, רמה 2 = 6
+          
           ac_components: { armor: 3, shield: 1, natural: 4, magic: 0, misc: 0 },
           initiative: 4,
-          speed: 30,
+          initiative_bonus: 0, // ← הוסף בונוס יוזמה
+          speed: 20, // ← עודכן לפי האקסל שלך (20 רגל = 6 מטר)
           base_attack_bonus: 0,
           proficiency_bonus: 2,
+          
+          // יכולות - עם החלפת INT ו-CHA
           strength: { base: 19, racial: 8, items: 0, misc: 0 },
           dexterity: { base: 18, racial: 0, items: 0, misc: 0 },
           constitution: { base: 18, racial: 2, items: 0, misc: 0 },
-          intelligence: { base: 13, racial: 2, items: 0, misc: 0 },
+          intelligence: { base: 17, racial: 2, items: 0, misc: 0 }, // ← החלפה: 17 base
           wisdom: { base: 20, racial: 0, items: 0, misc: 0 },
-          charisma: { base: 17, racial: 2, items: 0, misc: 0 },
+          charisma: { base: 13, racial: 2, items: 0, misc: 0 }, // ← החלפה: 13 base
+          
+          // גלגולי הצלה - לפי האקסל שלך
+          saving_throws: {
+            fortitude: { base: 2, magic: 0, misc: 0 }, // ← מהאקסל
+            reflex: { base: 0, magic: 0, misc: 0 }, // ← מהאקסל
+            will: { base: 2, magic: 0, misc: 0 } // ← מהאקסל
+          },
+          
+          // מיומנויות - 30 נקודות מחולקות לפי הרשימה שלך
+          skills: {
+            // Class skills (5 ranks each = 15 points)
+            'knowledge_religion': { ranks: 5, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'heal': { ranks: 5, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'concentration': { ranks: 5, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            
+            // Cross-class skills (14 points total)
+            'swim': { ranks: 1, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }, // 2 points
+            'listen': { ranks: 2, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }, // 4 points  
+            'spot': { ranks: 2, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }, // 4 points
+            'search': { ranks: 1, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }, // 2 points
+            'sense_motive': { ranks: 1, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }, // 2 points
+            // Total: 15 + 14 = 29/30 points used
+            
+            // Other class skills (available but unused)
+            'knowledge_arcana': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'knowledge_history': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'knowledge_planes': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'diplomacy': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'spellcraft': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'profession': { ranks: 0, class_skill: true, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            
+            // Cross-class skills (unused but available for untrained use)
+            'balance': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'bluff': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'climb': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'escape_artist': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'hide': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'jump': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'move_silently': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'ride': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'survival': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 },
+            'use_rope': { ranks: 0, class_skill: false, misc: 0, item_bonus: 0, race_bonus: 0, feat_bonus: 0 }
+          },
+          
+          // כסף - התחל עם קצת כסף
+          money: {
+            gold: 0,
+            silver: 0,
+            copper: 0,
+            platinum: 0
+          },
+          money_history: [], // ← הוסף היסטוריית עסקאות
+          
           spells: [
             {
               id: 1,
@@ -90,11 +152,13 @@ export default function CharacterSheet() {
               description: "מאיר כמו לפיד"
             }
           ],
+          
+          // לחשים לרמה 2 Cleric
           spell_slots: {
-            0: { current: 4, max: 4 },
-            1: { current: 3, max: 3 },
-            2: { current: 2, max: 2 },
-            3: { current: 1, max: 1 },
+            0: { current: 4, max: 4 }, // Orisons
+            1: { current: 3, max: 3 }, // 1st level spells
+            2: { current: 0, max: 0 }, // לא זמין עדיין
+            3: { current: 0, max: 0 },
             4: { current: 0, max: 0 },
             5: { current: 0, max: 0 },
             6: { current: 0, max: 0 },
@@ -102,25 +166,53 @@ export default function CharacterSheet() {
             8: { current: 0, max: 0 },
             9: { current: 0, max: 0 }
           },
-          spell_casting_ability: "תבונה",
+          
+          spell_casting_ability: "wisdom", // ← תוקן: Cleric משתמש ב-Wisdom
           spell_save_dc: 15,
           spell_attack_bonus: 7,
+          
           notes: "",
-          backstory: "🌟 נארה — בת הנשימה הראשונה...",
-          personality_traits: "עיני אדומות עמוקות עם גחלים בוערות...",
-          ideals: "איזון בין יצירה והרס...",
-          bonds: "הקמע של אמה...",
-          flaws: "פחד מאובדן...",
+          backstory: `🌟 נארה — בת הנשימה הראשונה
+
+כהנתו של אסגראת | השריד האחרון לשושלת דרקונית אבודה
+
+⸻
+
+אף אחד לא ראה דרקון כבר אלפי שנים.
+הסיפורים עברו לאגדות, האגדות הפכו לשירים, והשירים? — לילדים, לפני השינה.
+
+אבל נארה יודעת.
+היא לא זוכרת מתי הבינה את זה לראשונה, אבל תמיד הרגישה שהעולם סביב משדר לה אמת שונה — אמת בוערת, ישנה, אך חיה...`,
+          
+          personality_traits: "עיני אדומות עמוקות עם גחלים בוערות, תנועות קלות ומדויקות, קול עמוק עם הדהוד דרקוני קל.",
+          ideals: "איזון בין יצירה והרס, בין האש שמחממת לאש ששורפת. החיפוש אחר האמת על מוצאה הדרקוני.",
+          bonds: "הקמע של אמה - תכשיט פשוט שדופק כמו לב. הקשר לאסגראת, אל הדרקונים. חיפוש אחר שרידים נוספים מהשושלת.",
+          flaws: "פחד מאובדן שליטה על כוחותיה. נטייה להתבודדות כשהלחץ עולה. קושי לבטוח באחרים לגמרי.",
+          
           languages: ["משותף", "דרקונית", "שמימית"],
           features: [
-            { name: "נשימת אש", description: "פעם ביום..." },
-            { name: "עמידות לאש", description: "התנגדות לנזק אש." }
+            { 
+              name: "נשימת אש", 
+              description: "פעם ביום יכולה לנשוף חרוטו של אש באורך 30 רגל. DC 13 Reflex save או 2d6 נזק אש." 
+            },
+            { 
+              name: "עמידות לאש", 
+              description: "התנגדות 5 לנזק אש. מקבלת פחות נזק מהתקפות מבוססות אש." 
+            },
+            {
+              name: "ראיית לילה",
+              description: "יכולה לראות בחושך מוחלט עד 60 רגל כאילו היה אור עמום."
+            },
+            {
+              name: "חושים חדים", 
+              description: "+2 בונוס גזעי למיומנויות Listen ו-Spot."
+            }
           ],
           journal_entries: []
         });
       }
 
-      // Ensure spells and spell_slots exist
+      // Ensure all required fields exist
       if (!characterData.spells || !characterData.spell_slots) {
         characterData = {
           ...characterData,
@@ -130,13 +222,27 @@ export default function CharacterSheet() {
             { id: 3, name: "אור", level: 0, school: "הטעיה", components: "V, M", casting_time: "1 פעולה", range: "מגע", duration: "10 דק'/רמה", description: "מאיר כמו לפיד" }
           ],
           spell_slots: characterData.spell_slots || {
-            0: { current: 4, max: 4 }, 1: { current: 3, max: 3 }, 2: { current: 2, max: 2 }, 3: { current: 1, max: 1 }, 4: { current: 0, max: 0 }, 5: { current: 0, max: 0 }, 6: { current: 0, max: 0 }, 7: { current: 0, max: 0 }, 8: { current: 0, max: 0 }, 9: { current: 0, max: 0 }
+            0: { current: 4, max: 4 }, 1: { current: 3, max: 3 }, 2: { current: 0, max: 0 }, 3: { current: 0, max: 0 }, 4: { current: 0, max: 0 }, 5: { current: 0, max: 0 }, 6: { current: 0, max: 0 }, 7: { current: 0, max: 0 }, 8: { current: 0, max: 0 }, 9: { current: 0, max: 0 }
           },
-          spell_casting_ability: characterData.spell_casting_ability || "תבונה",
+          spell_casting_ability: characterData.spell_casting_ability || "wisdom",
           spell_save_dc: characterData.spell_save_dc || 15,
           spell_attack_bonus: characterData.spell_attack_bonus || 7,
-          journal_entries: characterData.journal_entries || []
+          journal_entries: characterData.journal_entries || [],
+          
+          // ודא שיש לך את כל השדות החדשים
+          level: characterData.level || 2,
+          hit_points_current: characterData.hit_points_current ?? characterData.hit_points_base ?? 19,
+          hit_points_wounds: characterData.hit_points_wounds || 0,
+          hit_points_temporary: characterData.hit_points_temporary || 0,
+          skills: characterData.skills || {},
+          saving_throws: characterData.saving_throws || {
+            fortitude: { base: 2, magic: 0, misc: 0 },
+            reflex: { base: 0, magic: 0, misc: 0 },
+            will: { base: 2, magic: 0, misc: 0 }
+          },
+          money_history: characterData.money_history || []
         };
+        
         // Save the updated character data
         await Character.update(characterData.id, characterData);
       }
@@ -218,7 +324,7 @@ export default function CharacterSheet() {
             <div className="flex flex-col">
               <h1 className="text-4xl font-bold">{character.name}</h1>
               <div className="text-lg text-stone-600">
-                {character.race} &bull; {character.class}
+                {character.race} &bull; {character.class} &bull; רמה {character.level}
               </div>
             </div>
             <div className="relative">
@@ -226,7 +332,7 @@ export default function CharacterSheet() {
                 <Crown className="h-8 w-8 text-white" />
               </div>
               <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-bordeaux-300 text-sm font-bold text-white">
-                {character.level}
+                {character.level || 1}
               </div>
             </div>
           </div>

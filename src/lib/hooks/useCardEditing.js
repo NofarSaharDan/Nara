@@ -1,3 +1,4 @@
+// src/lib/hooks/useCardEditing.js
 import { useState } from "react";
 
 export const useCardEditing = (initialData, updateFunction) => {
@@ -5,23 +6,13 @@ export const useCardEditing = (initialData, updateFunction) => {
   const [tempData, setTempData] = useState({});
 
   const startEditing = () => {
-    setTempData(initialData);
+    setTempData({ ...initialData });
     setEditing(true);
   };
 
   const saveChanges = () => {
-    // Only update if there are actual changes
-    const hasChanges = Object.keys(tempData).some(
-      (key) => tempData[key] !== initialData[key]
-    );
-
-    if (hasChanges) {
-      Object.keys(tempData).forEach((key) => {
-        if (tempData[key] !== initialData[key]) {
-          updateFunction(key, tempData[key]);
-        }
-      });
-    }
+    // Call the update function with all temp data
+    updateFunction(tempData);
     setEditing(false);
     setTempData({});
   };

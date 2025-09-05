@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { format } from "date-fns";
 import { XpLog } from "@/entities/XpLog";
 import { Character } from "@/entities/Character";
+import { skills } from "@/data/skills";
 
 // Import the new card components
 import StatsCard from "./cards/StatsCard";
@@ -59,57 +59,8 @@ export default function CharacterStats({ character, updateCharacter }) {
     });
   };
 
-  const skills = [
-    { name: "אקרובטיקה", ability: "dexterity", key: "acrobatics" },
-    { name: "טיפוח בעלי חיים", ability: "charisma", key: "animal_empathy" },
-    { name: "הערכה", ability: "intelligence", key: "appraise" },
-    { name: "איזון", ability: "dexterity", key: "balance" },
-    { name: "הטעיה", ability: "charisma", key: "bluff" },
-    { name: "טיפוס", ability: "strength", key: "climb" },
-    { name: "ריכוז", ability: "constitution", key: "concentration" },
-    { name: "מלאכת יד", ability: "intelligence", key: "craft" },
-    { name: "פענוח כתב", ability: "intelligence", key: "decipher_script" },
-    { name: "דיפלומטיה", ability: "charisma", key: "diplomacy" },
-    { name: "השבתת מכשיר", ability: "intelligence", key: "disable_device" },
-    { name: "התחפשות", ability: "charisma", key: "disguise" },
-    { name: "בריחה מאמנות", ability: "dexterity", key: "escape_artist" },
-    { name: "זיוף", ability: "intelligence", key: "forgery" },
-    { name: "איסוף מידע", ability: "charisma", key: "gather_information" },
-    { name: "טיפול בבעלי חיים", ability: "charisma", key: "handle_animal" },
-    { name: "ריפוי", ability: "wisdom", key: "heal" },
-    { name: "הסתרה", ability: "dexterity", key: "hide" },
-    { name: "הפחדה", ability: "charisma", key: "intimidate" },
-    { name: "קפיצה", ability: "strength", key: "jump" },
-    { name: "ידע (אלוהים)", ability: "intelligence", key: "knowledge_religion" },
-    { name: "ידע (הארכיקה)", ability: "intelligence", key: "knowledge_arcana" },
-    { name: "ידע (היסטוריה)", ability: "intelligence", key: "knowledge_history" },
-    { name: "ידע (מקומי)", ability: "intelligence", key: "knowledge_local" },
-    { name: "ידע (טבע)", ability: "intelligence", key: "knowledge_nature" },
-    { name: "ידע (אציליות)", ability: "intelligence", key: "knowledge_nobility" },
-    { name: "ידע (המישורים)", ability: "intelligence", key: "knowledge_planes" },
-    { name: "הקשבה", ability: "wisdom", key: "listen" },
-    { name: "תנועה שקטה", ability: "dexterity", key: "move_silently" },
-    { name: "ביצוע", ability: "charisma", key: "perform" },
-    { name: "מקצועיות", ability: "wisdom", key: "profession" },
-    { name: "רכיבה", ability: "dexterity", key: "ride" },
-    { name: "חיפוש", ability: "intelligence", key: "search" },
-    { name: "תחושת כוונה", ability: "wisdom", key: "sense_motive" },
-    { name: "זריזות יד", ability: "dexterity", key: "sleight_of_hand" },
-    { name: "כישוף", ability: "intelligence", key: "spellcraft" },
-    { name: "ריצה", ability: "wisdom", key: "spot" },
-    { name: "הישרדות", ability: "wisdom", key: "survival" },
-    { name: "שחייה", ability: "strength", key: "swim" },
-    { name: "נפילה", ability: "dexterity", key: "tumble" },
-    { name: "שימוש במכשיר מגי", ability: "charisma", key: "use_magic_device" },
-    { name: "שימוש בחבל", ability: "dexterity", key: "use_rope" }
-  ];
-
   const getSkillTotal = (skill) => {
-    const abilityMod = getModifier(character[skill.ability]);
-    const ranks = character.skills?.[skill.key]?.ranks || 0;
-    const misc = character.skills?.[skill.key]?.misc || 0;
-    const classSkillBonus = character.skills?.[skill.key]?.class_skill && ranks >= 1 ? 3 : 0;
-    return abilityMod + ranks + misc + classSkillBonus;
+    return Character.getSkillTotal(character, skill);
   };
 
   const updateSkill = (skillKey, field, value) => {
@@ -197,12 +148,23 @@ export default function CharacterStats({ character, updateCharacter }) {
     (character.ac_components?.magic || 0) +
     (character.ac_components?.misc || 0);
 
-  const updateAcComponent = (component, value) => {
-    const updatedComponents = {
-      ...(character.ac_components || {}),
-      [component]: parseInt(value) || 0
+    const updateAcComponent = (component, value) => {
+      console.log('🛡️ updateAcComponent called:', component, '=', value);
+      const updatedComponents = {
+        ...(character.ac_components || {}),
+        [component]: parseInt(value) || 0
+      };
+      console.log('🛡️ Updated AC components:', updatedComponents);
+      updateCharacter("ac_components", updatedComponents);
     };
-    updateCharacter("ac_components", updatedComponents);
+
+  // NEW: Add functions for speed and initiative
+  const updateSpeed = (speedInFeet) => {
+    updateCharacter("speed", parseInt(speedInFeet) || 20);
+  };
+
+  const updateInitiativeBonus = (bonus) => {
+    updateCharacter("initiative_bonus", parseInt(bonus) || 0);
   };
 
   const totalGoldValue = (character.money?.gold || 0) + (character.money?.silver || 0) / 10 + (character.money?.copper || 0) / 100 + (character.money?.platinum || 0) * 10;
@@ -220,35 +182,38 @@ export default function CharacterStats({ character, updateCharacter }) {
           formatModifier={formatModifier}
         />
         <SavingThrowsCard 
-          character={character}
-          getSavingThrow={getSavingThrow}
-          getModifier={getModifier}
-          updateSavingThrow={updateSavingThrow}
-          formatModifier={formatModifier}
-        />
+  character={character}
+  getSavingThrow={getSavingThrow}
+  getModifier={getModifier}
+  updateSavingThrow={updateSavingThrow}
+  updateCharacter={updateCharacter} // Add this
+  formatModifier={formatModifier}
+/>
       </div>
 
       {/* Column 2: Combat & Wealth */}
       <div className="space-y-4">
-        <CombatCard 
-          character={character}
-          getModifier={getModifier}
-          updateAcComponent={updateAcComponent}
-          totalAC={totalAC}
-          formatModifier={formatModifier}
-        />
-        <HitPointsCard 
-          character={character}
-          updateCharacter={updateCharacter}
-        />
+      <CombatCard 
+  character={character}
+  getModifier={getModifier}
+  updateAcComponent={updateAcComponent}
+  updateSpeed={updateSpeed}
+  updateInitiativeBonus={updateInitiativeBonus}
+  updateCharacter={updateCharacter} // Add this
+  totalAC={totalAC}
+  formatModifier={formatModifier}
+/>
+<HitPointsCard 
+  character={character}
+  updateCharacter={updateCharacter}
+  getModifier={getModifier} // Add this
+/>
         <AttacksCard />
         <MoneyCard 
-          character={character}
-          totalGoldValue={totalGoldValue}
-          moneyChangeAmount={moneyChangeAmount}
-          setMoneyChangeAmount={setMoneyChangeAmount}
-          handleMoneyChange={handleMoneyChange}
-        />
+  character={character}
+  totalGoldValue={totalGoldValue}
+  updateCharacter={updateCharacter} // Add this - remove the old money props
+/>
       </div>
 
       {/* Column 3: Skills & XP & Notes */}
@@ -269,4 +234,4 @@ export default function CharacterStats({ character, updateCharacter }) {
       </div>
     </div>
   );
-} 
+}

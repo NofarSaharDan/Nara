@@ -1,3 +1,4 @@
+//src/App.jsx
 import CharacterSheet from "./pages/CharacterSheet";
 
 function App() {

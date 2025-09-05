@@ -1,3 +1,4 @@
+// src/components/character/cards/SavingThrowsCard.jsx
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,21 +7,31 @@ import { Dice6 } from "lucide-react";
 import { useCardEditing } from "@/lib/hooks/useCardEditing";
 import { EditButtons } from "../../ui/edit-buttons";
 
-export default function SavingThrowsCard({ character, getSavingThrow, getModifier, updateSavingThrow, formatModifier }) {
+export default function SavingThrowsCard({ character, getSavingThrow, getModifier, updateSavingThrow, formatModifier, updateCharacter }) {
   const savingThrows = [
     { name: "חוסן", key: "fortitude", ability: "constitution" },
     { name: "רפלקס", key: "reflex", ability: "dexterity" },
     { name: "רצון", key: "will", ability: "wisdom" }
   ];
 
-  const initialData = savingThrows.reduce((acc, save) => {
-    acc[save.key] = {
-      base: character.saving_throws?.[save.key]?.base || 0,
-      magic: character.saving_throws?.[save.key]?.magic || 0,
-      misc: character.saving_throws?.[save.key]?.misc || 0
-    };
-    return acc;
-  }, {});
+  // Set correct values from your Excel
+  const initialData = {
+    fortitude: {
+      base: character.saving_throws?.fortitude?.base || 2, // From Excel
+      magic: character.saving_throws?.fortitude?.magic || 0,
+      misc: character.saving_throws?.fortitude?.misc || 0
+    },
+    reflex: {
+      base: character.saving_throws?.reflex?.base || 0, // From Excel
+      magic: character.saving_throws?.reflex?.magic || 0,
+      misc: character.saving_throws?.reflex?.misc || 0
+    },
+    will: {
+      base: character.saving_throws?.will?.base || 2, // From Excel
+      magic: character.saving_throws?.will?.magic || 0,
+      misc: character.saving_throws?.will?.misc || 0
+    }
+  };
 
   const {
     editing,
@@ -30,13 +41,23 @@ export default function SavingThrowsCard({ character, getSavingThrow, getModifie
     cancelEditing,
     updateTempData
   } = useCardEditing(initialData, (updatedData) => {
-    // Update each saving throw with the new data
-    Object.entries(updatedData).forEach(([saveKey, saveData]) => {
-      updateSavingThrow(saveKey, "base", saveData.base);
-      updateSavingThrow(saveKey, "magic", saveData.magic);
-      updateSavingThrow(saveKey, "misc", saveData.misc);
-    });
+    console.log('💾 Saving saving throws:', updatedData);
+    
+    // Update saving throws directly through updateCharacter
+    updateCharacter("saving_throws", updatedData);
   });
+
+  const calculateSavingThrow = (saveKey) => {
+    const saveData = editing ? tempData[saveKey] : (character.saving_throws?.[saveKey] || initialData[saveKey]);
+    const save = savingThrows.find(s => s.key === saveKey);
+    
+    let abilityMod = 0;
+    if (save.ability === "constitution") abilityMod = getModifier(character.constitution);
+    if (save.ability === "dexterity") abilityMod = getModifier(character.dexterity);
+    if (save.ability === "wisdom") abilityMod = getModifier(character.wisdom);
+
+    return (saveData.base || 0) + abilityMod + (saveData.magic || 0) + (saveData.misc || 0);
+  };
 
   return (
     <Card className="shadow-lg border-green-300 bg-white">
@@ -55,10 +76,9 @@ export default function SavingThrowsCard({ character, getSavingThrow, getModifie
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 space-y-4">
-        {savingThrows.map((save) => {
-          const saveData = character.saving_throws?.[save.key] || {};
-          const tempSaveData = tempData[save.key] || {};
-          const total = getSavingThrow(save.key);
+        {savingThrows.map((save, index) => {
+          const saveData = editing ? tempData[save.key] : (character.saving_throws?.[save.key] || initialData[save.key]);
+          const total = calculateSavingThrow(save.key);
           
           return (
             <div key={save.key} className="space-y-2">
@@ -66,46 +86,63 @@ export default function SavingThrowsCard({ character, getSavingThrow, getModifie
                 <span className="font-medium text-gray-900">{save.name}</span>
                 <span className="text-lg font-bold text-[#05b6d3]">{formatModifier(total)}</span>
               </div>
-              <div className="grid grid-cols-3 gap-2 text-xs text-gray-600">
-                <div className="text-center">
-                  <span>בסיס: {saveData.base || 0}</span>
-                  {editing && (
+              
+              {editing ? (
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  <div className="space-y-1">
+                    <span className="text-gray-500">בסיס</span>
                     <Input
                       type="number"
-                      value={tempSaveData.base || 0}
-                      onChange={(e) => updateTempData(save.key, "base", parseInt(e.target.value) || 0)}
-                      className="w-full h-6 text-center mt-1"
+                      value={tempData[save.key]?.base || 0}
+                      onChange={(e) => updateTempData(save.key, { ...tempData[save.key], base: parseInt(e.target.value) || 0 })}
+                      className="w-full h-8 text-center"
                     />
-                  )}
-                </div>
-                <div className="text-center">
-                  <span>קסם: {saveData.magic || 0}</span>
-                  {editing && (
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-gray-500">קסם</span>
                     <Input
                       type="number"
-                      value={tempSaveData.magic || 0}
-                      onChange={(e) => updateTempData(save.key, "magic", parseInt(e.target.value) || 0)}
-                      className="w-full h-6 text-center mt-1"
+                      value={tempData[save.key]?.magic || 0}
+                      onChange={(e) => updateTempData(save.key, { ...tempData[save.key], magic: parseInt(e.target.value) || 0 })}
+                      className="w-full h-8 text-center"
                     />
-                  )}
-                </div>
-                <div className="text-center">
-                  <span>שונות: {saveData.misc || 0}</span>
-                  {editing && (
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-gray-500">שונות</span>
                     <Input
                       type="number"
-                      value={tempSaveData.misc || 0}
-                      onChange={(e) => updateTempData(save.key, "misc", parseInt(e.target.value) || 0)}
-                      className="w-full h-6 text-center mt-1"
+                      value={tempData[save.key]?.misc || 0}
+                      onChange={(e) => updateTempData(save.key, { ...tempData[save.key], misc: parseInt(e.target.value) || 0 })}
+                      className="w-full h-8 text-center"
                     />
-                  )}
+                  </div>
                 </div>
-              </div>
-              {save.key !== "will" && <Separator />}
+              ) : (
+                <div className="grid grid-cols-4 gap-2 text-xs text-gray-600">
+                  <div className="text-center">
+                    <span>בסיס</span>
+                    <div className="font-medium">{saveData.base || 0}</div>
+                  </div>
+                  <div className="text-center">
+                    <span>{save.ability.slice(0, 3).toUpperCase()}</span>
+                    <div className="font-medium">{formatModifier(getModifier(character[save.ability]))}</div>
+                  </div>
+                  <div className="text-center">
+                    <span>קסם</span>
+                    <div className="font-medium">{saveData.magic || 0}</div>
+                  </div>
+                  <div className="text-center">
+                    <span>שונות</span>
+                    <div className="font-medium">{saveData.misc || 0}</div>
+                  </div>
+                </div>
+              )}
+              
+              {index < savingThrows.length - 1 && <Separator />}
             </div>
           );
         })}
       </CardContent>
     </Card>
   );
-} 
+}

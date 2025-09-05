@@ -1,3 +1,4 @@
+//src/entities/Character.js
 import { v4 as uuidv4 } from "uuid";
 
 const a = localStorage.getItem("characters");
@@ -99,12 +100,169 @@ export class Character {
   }
 
   static getSkillTotal(character, skill) {
+    const skillData = character.skills?.[skill.key] || {};
     const abilityMod = this.getAbilityModifier(character[skill.ability]);
-    const ranks = character.skills?.[skill.key]?.ranks || 0;
-    const misc = character.skills?.[skill.key]?.misc || 0;
-    const classSkillBonus =
-      character.skills?.[skill.key]?.class_skill && ranks >= 1 ? 3 : 0;
-    return abilityMod + ranks + misc + classSkillBonus;
+    const ranks = skillData.ranks || 0;
+    const misc = skillData.misc || 0;
+
+    // Class skill bonus: +3 if it's a class skill AND has at least 1 rank
+    const isClassSkill =
+      skill.classes?.cleric || skillData.class_skill || false;
+    const classSkillBonus = isClassSkill && ranks >= 1 ? 3 : 0;
+
+    const itemBonus = skillData.item_bonus || 0;
+    const raceBonus = skillData.race_bonus || 0;
+    const featBonus = skillData.feat_bonus || 0;
+    const synergyBonus = this.calculateSynergyBonus(character, skill.key);
+    const armorCheckPenalty = skill.armorCheckPenalty
+      ? this.getArmorCheckPenalty(character)
+      : 0;
+
+    return (
+      abilityMod +
+      ranks +
+      misc +
+      classSkillBonus +
+      itemBonus +
+      raceBonus +
+      featBonus +
+      synergyBonus -
+      armorCheckPenalty
+    );
+  }
+
+  static calculateSynergyBonus(character, skillKey) {
+    // Define skill synergies inline for now to avoid import issues
+    const skillSynergies = {
+      bluff: [
+        { skill: "diplomacy", bonus: 2, condition: "5+ ranks" },
+        {
+          skill: "disguise",
+          bonus: 2,
+          condition: "5+ ranks when acting in character",
+        },
+        { skill: "sleight_of_hand", bonus: 2, condition: "5+ ranks" },
+      ],
+      climb: [{ skill: "jump", bonus: 2, condition: "5+ ranks" }],
+      jump: [{ skill: "tumble", bonus: 2, condition: "5+ ranks" }],
+      knowledge_arcana: [
+        { skill: "spellcraft", bonus: 2, condition: "5+ ranks" },
+      ],
+      knowledge_local: [
+        { skill: "gather_information", bonus: 2, condition: "5+ ranks" },
+      ],
+      knowledge_nobility: [
+        { skill: "diplomacy", bonus: 2, condition: "5+ ranks" },
+      ],
+      sense_motive: [{ skill: "diplomacy", bonus: 2, condition: "5+ ranks" }],
+      spellcraft: [
+        { skill: "use_magic_device", bonus: 2, condition: "5+ ranks" },
+      ],
+      tumble: [
+        { skill: "balance", bonus: 2, condition: "5+ ranks" },
+        { skill: "jump", bonus: 2, condition: "5+ ranks" },
+      ],
+      use_rope: [
+        {
+          skill: "climb",
+          bonus: 2,
+          condition: "5+ ranks when climbing with rope",
+        },
+        {
+          skill: "escape_artist",
+          bonus: 2,
+          condition: "5+ ranks when binding someone",
+        },
+      ],
+    };
+
+    let synergyBonus = 0;
+
+    // Check if any skills provide synergy bonus to this skill
+    Object.entries(skillSynergies).forEach(([sourceSkillKey, synergies]) => {
+      const sourceSkillRanks = character.skills?.[sourceSkillKey]?.ranks || 0;
+      if (sourceSkillRanks >= 5) {
+        synergies.forEach((synergy) => {
+          if (synergy.skill === skillKey) {
+            synergyBonus += synergy.bonus;
+          }
+        });
+      }
+    });
+
+    return synergyBonus;
+  }
+
+  static getArmorCheckPenalty(character) {
+    // Calculate armor check penalty from equipped armor and shield
+    const armorPenalty = character.ac_components?.armor_check_penalty || 0;
+    const shieldPenalty = character.ac_components?.shield_check_penalty || 0;
+    return Math.abs(armorPenalty) + Math.abs(shieldPenalty);
+  }
+
+  static getMaxSkillRanks(character, skill) {
+    const characterLevel = character.level || 1;
+    const skillData = character.skills?.[skill.key] || {};
+    const isClassSkill =
+      skill.classes?.cleric || skillData.class_skill || false;
+
+    if (isClassSkill) {
+      return characterLevel + 3; // Class skills: character level + 3
+    } else {
+      return Math.floor((characterLevel + 3) / 2); // Cross-class skills: (character level + 3) / 2
+    }
+  }
+
+  static canUseSkillUntrained(skill, ranks) {
+    if (skill.trainedOnly && ranks === 0) {
+      return false;
+    }
+    return true;
+  }
+
+  static getSkillPointsPerLevel(character) {
+    const intMod = this.getAbilityModifier(character.intelligence);
+    const baseSkillPoints = character.class_skill_points || 2; // Default to 2 if not specified
+    const raceBonus = character.race_skill_points || 0;
+
+    return Math.max(1, baseSkillPoints + intMod + raceBonus);
+  }
+
+  static getTotalSkillPointsSpent(character, allSkillsData = []) {
+    if (!character.skills) return 0;
+
+    return Object.entries(character.skills).reduce(
+      (total, [skillKey, skillData]) => {
+        const ranks = skillData.ranks || 0;
+        if (ranks === 0) return total;
+
+        // Find skill definition to check if it's a class skill
+        const skillDefinition = allSkillsData.find(
+          (skill) => skill.key === skillKey
+        );
+        const isClassSkill =
+          skillDefinition?.classes?.cleric || skillData.class_skill || false;
+
+        if (isClassSkill) {
+          return total + ranks; // Class skills cost 1 point per rank
+        } else {
+          return total + ranks * 2; // Cross-class skills cost 2 points per rank
+        }
+      },
+      0
+    );
+  }
+
+  static getAvailableSkillPoints(character, allSkillsData = []) {
+    const characterLevel = character.level || 1;
+    const skillPointsPerLevel = this.getSkillPointsPerLevel(character);
+    const totalSkillPoints = skillPointsPerLevel * characterLevel;
+    const spentSkillPoints = this.getTotalSkillPointsSpent(
+      character,
+      allSkillsData
+    );
+
+    return totalSkillPoints - spentSkillPoints;
   }
 
   static calculateTotalGoldValue(character) {
